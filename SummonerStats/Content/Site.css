@@ -1,4 +1,8 @@
-﻿body {
+﻿#profile-header {
+    background: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg") center top no-repeat linear-gradient(transparent, black);
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -21,4 +25,8 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.centered {
+    text-align: center;
 }

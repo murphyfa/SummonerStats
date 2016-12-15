@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Profile";
+}
+@model SummonerStats.Models.PlayerProfile
+<h2>Profile</h2>
+<div class="jumbotron" id="profile-header">
+    @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + @Model.profileIconId + ".png";}
+    <h1><img src="@profileIcon" style="max-height:100px;max-width:auto" /> @Model.name <small>@Model.summonerLevel</small></h1>
+</div>
