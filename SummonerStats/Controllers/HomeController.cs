@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SummonerStats.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +9,18 @@ namespace SummonerStats.Controllers
 {
     public class HomeController : Controller
     {
+        PlayerProfile profile = new PlayerProfile();
+
         public ActionResult Index()
         {
-            return View();
+            profile.name = profile.pullPlayer("Mount Swolemore");
+            ViewBag.Message = profile.name;
+            return View(profile);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = profile.pullPlayer("Mount Swolemore");
 
             return View();
         }
