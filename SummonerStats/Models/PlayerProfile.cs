@@ -21,7 +21,7 @@ namespace SummonerStats.Models
                 using (var client = new WebClient())
                 {
                     string data = client.DownloadString(profileURL);
-                    dynamic dyn = JsonConvert.DeserializeObject(data);
+                    dynamic dyn = JsonConvert.DeserializeObject<PlayerProfile>(data);
                     name = dyn.name;
                 }
             } catch
