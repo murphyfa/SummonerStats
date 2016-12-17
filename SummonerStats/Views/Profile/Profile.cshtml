@@ -5,5 +5,29 @@
 <h2>Profile</h2>
 <div class="jumbotron" id="profile-header">
     @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + @Model.profileIconId + ".png";}
-    <h1><img src="@profileIcon" style="max-height:100px;max-width:auto" /> @Model.name <small>@Model.summonerLevel</small></h1>
+    <div>
+        <div class="s-icon">
+            <div>Level @Model.summonerLevel</div>
+            <img id="sum-icon" src="@profileIcon" />
+        </div>
+        <div>
+            <h1 id="player-name">@Model.name </h1>
+            <h2 style="color: white">@Model.league @Model.division: @Model.leaguePoints</h2>
+            <h2 style="color:white">Wins: @Model.wins / Losses: @Model.losses</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Top 5 Champions</h3>
+            <ol>
+                <li>@Model.topChampOne / Games: @Model.topGamesOne</li>
+                <li>@Model.topChampTwo / Games: @Model.topGamesTwo</li>
+                <li>@Model.topChampThree / Games: @Model.topGamesThree</li>
+                <li>@Model.topChampFour / Games: @Model.topGamesFour</li>
+                <li>@Model.topChampFive / Games: @Model.topGamesFive</li>
+            </ol>
+        </div>
+    </div>
 </div>
