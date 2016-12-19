@@ -1,0 +1,90 @@
+﻿@model SummonerStats.Models.MatchHistoryModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MatchHistoryModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.timestamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timestamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.champion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.champion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.queue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.queue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.season)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.season)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.matchId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.matchId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.platformId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.platformId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lane)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lane)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

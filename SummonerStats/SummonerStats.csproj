@@ -203,16 +203,23 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MatchHistoryController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612190318598_initial.cs" />
+    <Compile Include="Migrations\201612190318598_initial.Designer.cs">
+      <DependentUpon>201612190318598_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MatchHistoryModel.cs" />
     <Compile Include="Models\PlayerProfile.cs" />
     <Compile Include="Models\PlayerSearch.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\RankedStatsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -255,6 +262,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\MatchHistory\Create.cshtml" />
+    <Content Include="Views\MatchHistory\Delete.cshtml" />
+    <Content Include="Views\MatchHistory\Details.cshtml" />
+    <Content Include="Views\MatchHistory\Edit.cshtml" />
+    <Content Include="Views\MatchHistory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -266,6 +278,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612190318598_initial.resx">
+      <DependentUpon>201612190318598_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

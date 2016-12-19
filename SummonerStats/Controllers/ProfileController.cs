@@ -9,7 +9,7 @@ namespace SummonerStats.Controllers
 {
     public class ProfileController : Controller
     {
-        PlayerProfile profile = new PlayerProfile();
+        ProfileViewModel profile = new ProfileViewModel();
 
         public ActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace SummonerStats.Controllers
         [HttpGet]
         public ActionResult Search(string searchName)
         {
-            profile.pullPlayer(searchName);
+            profile.playerProfile.pullPlayer(searchName);
 
             return View("Profile", profile);
         }
