@@ -88,6 +88,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -208,17 +210,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612190318598_initial.cs" />
-    <Compile Include="Migrations\201612190318598_initial.Designer.cs">
-      <DependentUpon>201612190318598_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201612191312020_InitialCreate.cs" />
+    <Compile Include="Migrations\201612191312020_InitialCreate.Designer.cs">
+      <DependentUpon>201612191312020_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MatchHistoryModel.cs" />
-    <Compile Include="Models\PlayerProfile.cs" />
-    <Compile Include="Models\PlayerSearch.cs" />
+    <Compile Include="Models\PlayerProfileModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\RankedStatsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,8 +281,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612190318598_initial.resx">
-      <DependentUpon>201612190318598_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612191312020_InitialCreate.resx">
+      <DependentUpon>201612191312020_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

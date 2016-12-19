@@ -59,10 +59,14 @@
             <h2>Recent Matches</h2>
             <div>
                 @{ 
-                    foreach (var name in Model.playerProfile.name)
+                    foreach (var match in Model.matchHistory)
                     {
                         <div>
-                            <h1>@Model.playerProfile.name</h1>
+                            <h1>@Html.DisplayFor(modelItem => match.matchIndex)</h1>
+                            <h2>@match.timestamp</h2>
+                            <p>@Model.matchHistory[0].matchIndex</p>
+                            <p>@Model.matchHistory[1].matchIndex</p>
+                            <p>@Model.matchHistory[2].matchIndex</p>
                         </div>
                     }
                 }

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Data.Entity;
 
 namespace SummonerStats.Models
 {
-    public class PlayerProfile
+    public class PlayerProfileModel
     {
         //profile stats
         public int id { get; set; }
@@ -43,31 +44,31 @@ namespace SummonerStats.Models
         public string topChampBG { get; set; }
 
 
-        public string pullPlayer(string searchName)
+        public int pullPlayer(string searchName)
         {
             string playerToFind = searchName.Replace(" ", "").ToLower();
             string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
 
             string profileURL = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerToFind + "?api_key=" + apiKey;
 
-            //try
-            //{
+            try
+            {
                 using (var client = new WebClient())
                 {
                     //basic profile info
-                    string profileData = client.DownloadString(profileURL);
+                    //string profileData = client.DownloadString(profileURL);
 
-                    //dummy data for testing
-                    //string data = @"{ ""mountswolemore"": {
-                    //               ""id"": 20895054,
-                    //               ""name"": ""Mount Swolemore"",
-                    //               ""profileIconId"": 582,
-                    //               ""revisionDate"": 1481777583000,
-                    //               ""summonerLevel"": 30
-                    //             }
-                    //}";
+                //dummy data for testing
+                string profileData = @"{ ""mountswolemore"": {
+                               ""id"": 20895054,
+                               ""name"": ""Mount Swolemore"",
+                               ""profileIconId"": 582,
+                               ""revisionDate"": 1481777583000,
+                               ""summonerLevel"": 30
+                             }
+                }";
 
-                    var profileStats = JsonConvert.DeserializeObject<Dictionary<string, PlayerProfile>>(profileData);
+                var profileStats = JsonConvert.DeserializeObject<Dictionary<string, PlayerProfileModel>>(profileData);
 
                     id = profileStats.First().Value.id;
                     name = profileStats.First().Value.name;
@@ -87,13 +88,13 @@ namespace SummonerStats.Models
 
                     Top5Champs(id, apiKey);
                 }
-            //}
-            //catch
-            //{
-            //    name = "Player Not Found";
-            //}
+        }
+            catch
+            {
+                name = "Player Not Found";
+            }
 
-            return name;
+            return id;
         }
 
         public void Top5Champs(int sumID, string key)
@@ -143,5 +144,10 @@ namespace SummonerStats.Models
                 topGamesFive = champsPlayed[4].Item2;
             }
         }
+    }
+
+    public class PlayerProfileDBContext : DbContext
+    {
+        public DbSet<PlayerProfileModel> PlayerProfile { get; set; }
     }
 }
