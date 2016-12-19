@@ -40,6 +40,7 @@ namespace SummonerStats.Models
         public int topGamesFour { get; set; }
         public string topChampFive { get; set; }
         public int topGamesFive { get; set; }
+        public string topChampBG { get; set; }
 
 
         public string pullPlayer(string searchName)
@@ -127,6 +128,8 @@ namespace SummonerStats.Models
                     JObject champInfo = JObject.Parse(champData);
                     topFiveNames[i] = (string)champInfo["name"];
                 }
+
+                topChampBG = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + topFiveNames[0] + "_0.jpg";
 
                 topChampOne = topFiveNames[0];
                 topGamesOne = champsPlayed[0].Item2;

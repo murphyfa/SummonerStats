@@ -1,13 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = @Model.name;
 }
 @model SummonerStats.Models.PlayerProfile
-<h2>Profile</h2>
-<div class="jumbotron" id="profile-header">
+<div class="jumbotron" id="profile-header" style="background:linear-gradient(rgba(0,0,0,0.5), rgba(255,255,255,0.2)), url(@Model.topChampBG) top center no-repeat">
     @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + @Model.profileIconId + ".png";}
     <div>
-        <div class="s-icon">
-            <div>Level @Model.summonerLevel</div>
+        <div class="s-icon-div">
+            <div class="s-lvl">Level @Model.summonerLevel</div>
             <img id="sum-icon" src="@profileIcon" />
         </div>
         <div>
@@ -19,15 +18,55 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
-            <h3>Top 5 Champions</h3>
-            <ol>
-                <li>@Model.topChampOne / Games: @Model.topGamesOne</li>
-                <li>@Model.topChampTwo / Games: @Model.topGamesTwo</li>
-                <li>@Model.topChampThree / Games: @Model.topGamesThree</li>
-                <li>@Model.topChampFour / Games: @Model.topGamesFour</li>
-                <li>@Model.topChampFive / Games: @Model.topGamesFive</li>
-            </ol>
+        <div class="col-sm-4" style="background-color: blanchedalmond">
+            <div>
+                <h4 class="centered">Most Played Champions <small>(Season 7)</small></h4>
+                <table class="centered tc-table">
+                    <tr class="tc-tr">
+                        <td><img class="top-champ-icon" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Teemo.png" height="50" width="50" /></td>
+                        <td><p>@Model.topChampOne</p></td>
+                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
+                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                    </tr>
+                    <tr class="tc-tr">
+                        <td><img class="top-champ-icon" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Teemo.png" height="50" width="50" /></td>
+                        <td><p>@Model.topChampOne</p></td>
+                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
+                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                    </tr>
+                    <tr class="tc-tr">
+                        <td><img class="top-champ-icon" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Teemo.png" height="50" width="50" /></td>
+                        <td><p>@Model.topChampOne</p></td>
+                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
+                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                    </tr>
+                    <tr class="tc-tr">
+                        <td><img class="top-champ-icon" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Teemo.png" height="50" width="50" /></td>
+                        <td><p>@Model.topChampOne</p></td>
+                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
+                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                    </tr>
+                    <tr class="tc-tr">
+                        <td><img class="top-champ-icon" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Teemo.png" height="50" width="50" /></td>
+                        <td><p>@Model.topChampOne</p></td>
+                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
+                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-8" style="background-color: blanchedalmond">
+            <h2>Recent Matches</h2>
+            <div>
+                @{ 
+                    foreach (var name in Model.name)
+                    {
+                        <div>
+                            <h1>@Model.name</h1>
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>
