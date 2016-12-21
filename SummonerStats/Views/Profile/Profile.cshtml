@@ -55,18 +55,50 @@
                 </table>
             </div>
         </div>
-        <div class="col-sm-8" style="background-color: blanchedalmond">
+        <div class="col-sm-8 matches">
             <h2>Recent Matches</h2>
             <div>
-                @{ 
+                @{
                     foreach (var match in Model.matchHistory)
                     {
-                        <div>
-                            <h1>@Html.DisplayFor(modelItem => match.matchIndex)</h1>
-                            <h2>@match.timestamp</h2>
-                            <p>@Model.matchHistory[0].matchIndex</p>
-                            <p>@Model.matchHistory[1].matchIndex</p>
-                            <p>@Model.matchHistory[2].matchIndex</p>
+                        SummonerStats.Models.MatchDetailsModel mdm = new SummonerStats.Models.MatchDetailsModel();
+                        SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+
+                        Model.matchDetails = mdm.PullMatch(match.matchId);
+
+                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, @Model.playerProfile.name);
+                        string playerChamp = pc.ChampById(playerStats[1]);
+                        string pIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/" + @playerChamp + ".png";
+                        float kda = ((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5];
+
+                        <div class="defeat">
+                            <span>Defeat</span>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-expand"></div>
+                            <div class="mc1">
+                                <img class="img-circle pl-icon" src="@pIcon" height="80" width="80" />
+                                <img class="img-rounded s1" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png" height="35" width="35" />
+                                <img class="img-rounded s2" src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png" height="35" width="35" />
+                                <p class="c-name">@playerChamp</p>
+                            </div>
+                            <div class="mc2">
+                                <span class="kda-txt">@playerStats[4].ToString()/@playerStats[5].ToString()/@playerStats[6]</span>
+                                <span class="kda-avg">@kda KDA</span>
+                            </div>
+                            <div class="mc3">
+                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[7])" height="35" width="35" />
+                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[8])" height="35" width="35" />
+                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[9])" height="35" width="35" />
+                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[10])" height="35" width="35" />
+                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[11])" height="35" width="35" />
+                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[12])" height="35" width="35" />
+                            </div>
+                            <div class="mc4">
+                                <span>Level @playerStats[13]</span>
+                                <span>@playerStats[0] Gold</span>
+                                <span>@playerStats[14] CS</span>
+                            </div>
                         </div>
                     }
                 }

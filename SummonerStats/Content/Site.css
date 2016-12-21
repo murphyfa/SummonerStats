@@ -7,8 +7,97 @@
     text-shadow: 2px 2px 2px #000000;
 }
 
-sum-icon {
-    border-radius: 5px;
+#sum-icon {
+    border-radius: 10px;
+}
+
+.matches {
+    padding-right: 0;
+}
+
+.mc1 {
+    float: left;
+    height: 80px;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.mc2 {
+    width: 100px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    float: left;
+    justify-content: center;
+    text-align: center;
+}
+
+.mc3 {
+    padding-top: 10px;
+    height: 80px;
+    width: 150px;
+    float: left;
+    position: relative;
+}
+
+.mc4 {
+    float: left;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 80px;
+}
+
+.i-img1 {
+    margin-bottom: 4px;
+}
+
+.i-img2 {
+}
+
+.kda-txt {
+    font-size: 20px;
+}
+
+.kda-avg {
+    font-size: 16px;
+}
+
+.pl-icon {
+    float: left;
+    margin-right: 5px;
+}
+
+.c-name {
+    text-align: center;
+}
+
+.s1 {
+    float: right;
+}
+
+.s2 {
+    float: right;
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+    margin-top: 4px;
+}
+
+.defeat {
+    background-color: #e1a4a4;
+    margin-bottom: 0;
+    margin-top: 10px;
+    height: 25px;
+}
+
+.match-row {
+    background-color: #edb5b5;
+    padding: 10px;
+    height: 120px;
 }
 
 .tc-table {
@@ -34,6 +123,7 @@ sum-icon {
     position: absolute;
     bottom: 0;
     text-align: center;
+    text-shadow: 2px 2px 2px #000000;
 }
 
 body {

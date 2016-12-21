@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SummonerStats.Models;
+using static SummonerStats.Models.MatchHistoryModel;
 
 namespace SummonerStats.Controllers
 {

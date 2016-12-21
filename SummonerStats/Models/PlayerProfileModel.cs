@@ -56,19 +56,19 @@ namespace SummonerStats.Models
                 using (var client = new WebClient())
                 {
                     //basic profile info
-                    //string profileData = client.DownloadString(profileURL);
+                    string profileData = client.DownloadString(profileURL);
 
-                //dummy data for testing
-                string profileData = @"{ ""mountswolemore"": {
-                               ""id"": 20895054,
-                               ""name"": ""Mount Swolemore"",
-                               ""profileIconId"": 582,
-                               ""revisionDate"": 1481777583000,
-                               ""summonerLevel"": 30
-                             }
-                }";
+                    //dummy data for testing
+                    //string profileData = @"{ ""mountswolemore"": {
+                    //               ""id"": 20895054,
+                    //               ""name"": ""Mount Swolemore"",
+                    //               ""profileIconId"": 582,
+                    //               ""revisionDate"": 1481777583000,
+                    //               ""summonerLevel"": 30
+                    //             }
+                    //}";
 
-                var profileStats = JsonConvert.DeserializeObject<Dictionary<string, PlayerProfileModel>>(profileData);
+                    var profileStats = JsonConvert.DeserializeObject<Dictionary<string, PlayerProfileModel>>(profileData);
 
                     id = profileStats.First().Value.id;
                     name = profileStats.First().Value.name;
@@ -112,7 +112,6 @@ namespace SummonerStats.Models
                 for (int i = 0; i < statsStats["champions"].ToList().Count; i++)
                 {
                     champsPlayed.Add(Tuple.Create((Int32)statsStats["champions"][i]["id"], (Int32)statsStats["champions"][i]["stats"]["totalSessionsPlayed"]));
-                    System.Diagnostics.Debug.WriteLine(statsStats["champions"][i]["id"] + ", " + statsStats["champions"][i]["stats"]["totalSessionsPlayed"]);
                 }
 
                 champsPlayed.RemoveAll(item => item.Item1 == 0);
@@ -130,7 +129,7 @@ namespace SummonerStats.Models
                     topFiveNames[i] = (string)champInfo["name"];
                 }
 
-                topChampBG = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + topFiveNames[0] + "_0.jpg";
+                topChampBG = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + topFiveNames[0].Replace(" ","") + "_0.jpg";
 
                 topChampOne = topFiveNames[0];
                 topGamesOne = champsPlayed[0].Item2;
