@@ -36,7 +36,7 @@
 .mc3 {
     padding-top: 10px;
     height: 80px;
-    width: 150px;
+    width: 120px;
     float: left;
     position: relative;
 }
@@ -51,8 +51,38 @@
     width: 80px;
 }
 
+.mc5 {
+    float: left;
+    height: 88px;
+    line-height: 16px;
+    width: 270px;
+    margin-left: 5px;
+}
+
+.sm-pl-link {
+    color: black;
+    width: 100px;
+    font-size: 16px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
 .i-img1 {
     margin-bottom: 4px;
+}
+
+.team1-players {
+    float: right;
+    display: block;
+    width: 130px;
+}
+
+.team2-players {
+    float: right;
+    display: block;
+    width: 130px;
 }
 
 .kda-txt {
@@ -150,4 +180,8 @@ textarea {
 
 .centered {
     text-align: center;
+}
+
+navbar-brand {
+    line-height: 35px;
 }
