@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SummonerStatsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblMatchDetails">
+    <Key>
+      <PropertyRef Name="matchIndex" />
+    </Key>
+    <Property Name="matchIndex" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="region" Type="nvarchar(max)" />
+    <Property Name="matchType" Type="nvarchar(max)" />
+    <Property Name="matchCreation" Type="bigint" Nullable="false" />
+    <Property Name="platformId" Type="nvarchar(max)" />
+    <Property Name="matchMode" Type="nvarchar(max)" />
+    <Property Name="mapId" Type="int" Nullable="false" />
+    <Property Name="season" Type="nvarchar(max)" />
+    <Property Name="queueType" Type="nvarchar(max)" />
+    <Property Name="matchId" Type="bigint" Nullable="false" />
+    <Property Name="matchDuration" Type="int" Nullable="false" />
+    <Property Name="winner" Type="nvarchar(max)" />
+    <Property Name="p1Name" Type="nvarchar(max)" />
+    <Property Name="p2Name" Type="nvarchar(max)" />
+    <Property Name="p3Name" Type="nvarchar(max)" />
+    <Property Name="p4Name" Type="nvarchar(max)" />
+    <Property Name="p5Name" Type="nvarchar(max)" />
+    <Property Name="p6Name" Type="nvarchar(max)" />
+    <Property Name="p7Name" Type="nvarchar(max)" />
+    <Property Name="p8Name" Type="nvarchar(max)" />
+    <Property Name="p9Name" Type="nvarchar(max)" />
+    <Property Name="p10Name" Type="nvarchar(max)" />
+    <Property Name="p1Spell1" Type="int" Nullable="false" />
+    <Property Name="p1Spell2" Type="int" Nullable="false" />
+    <Property Name="p2Spell1" Type="int" Nullable="false" />
+    <Property Name="p2Spell2" Type="int" Nullable="false" />
+    <Property Name="p3Spell1" Type="int" Nullable="false" />
+    <Property Name="p3Spell2" Type="int" Nullable="false" />
+    <Property Name="p4Spell1" Type="int" Nullable="false" />
+    <Property Name="p4Spell2" Type="int" Nullable="false" />
+    <Property Name="p5Spell1" Type="int" Nullable="false" />
+    <Property Name="p5Spell2" Type="int" Nullable="false" />
+    <Property Name="p6Spell1" Type="int" Nullable="false" />
+    <Property Name="p6Spell2" Type="int" Nullable="false" />
+    <Property Name="p7Spell1" Type="int" Nullable="false" />
+    <Property Name="p7Spell2" Type="int" Nullable="false" />
+    <Property Name="p8Spell1" Type="int" Nullable="false" />
+    <Property Name="p8Spell2" Type="int" Nullable="false" />
+    <Property Name="p9Spell1" Type="int" Nullable="false" />
+    <Property Name="p9Spell2" Type="int" Nullable="false" />
+    <Property Name="p10Spell1" Type="int" Nullable="false" />
+    <Property Name="p10Spell2" Type="int" Nullable="false" />
+    <Property Name="p1Champ" Type="int" Nullable="false" />
+    <Property Name="p2Champ" Type="int" Nullable="false" />
+    <Property Name="p3Champ" Type="int" Nullable="false" />
+    <Property Name="p4Champ" Type="int" Nullable="false" />
+    <Property Name="p5Champ" Type="int" Nullable="false" />
+    <Property Name="p6Champ" Type="int" Nullable="false" />
+    <Property Name="p7Champ" Type="int" Nullable="false" />
+    <Property Name="p8Champ" Type="int" Nullable="false" />
+    <Property Name="p9Champ" Type="int" Nullable="false" />
+    <Property Name="p10Champ" Type="int" Nullable="false" />
+    <Property Name="p1Tier" Type="nvarchar(max)" />
+    <Property Name="p2Tier" Type="nvarchar(max)" />
+    <Property Name="p3Tier" Type="nvarchar(max)" />
+    <Property Name="p4Tier" Type="nvarchar(max)" />
+    <Property Name="p5Tier" Type="nvarchar(max)" />
+    <Property Name="p6Tier" Type="nvarchar(max)" />
+    <Property Name="p7Tier" Type="nvarchar(max)" />
+    <Property Name="p8Tier" Type="nvarchar(max)" />
+    <Property Name="p9Tier" Type="nvarchar(max)" />
+    <Property Name="p10Tier" Type="nvarchar(max)" />
+    <Property Name="p1Item1" Type="int" Nullable="false" />
+    <Property Name="p1Item2" Type="int" Nullable="false" />
+    <Property Name="p1Item3" Type="int" Nullable="false" />
+    <Property Name="p1Item4" Type="int" Nullable="false" />
+    <Property Name="p1Item5" Type="int" Nullable="false" />
+    <Property Name="p1Item6" Type="int" Nullable="false" />
+    <Property Name="p2Item1" Type="int" Nullable="false" />
+    <Property Name="p2Item2" Type="int" Nullable="false" />
+    <Property Name="p2Item3" Type="int" Nullable="false" />
+    <Property Name="p2Item4" Type="int" Nullable="false" />
+    <Property Name="p2Item5" Type="int" Nullable="false" />
+    <Property Name="p2Item6" Type="int" Nullable="false" />
+    <Property Name="p3Item1" Type="int" Nullable="false" />
+    <Property Name="p3Item2" Type="int" Nullable="false" />
+    <Property Name="p3Item3" Type="int" Nullable="false" />
+    <Property Name="p3Item4" Type="int" Nullable="false" />
+    <Property Name="p3Item5" Type="int" Nullable="false" />
+    <Property Name="p3Item6" Type="int" Nullable="false" />
+    <Property Name="p4Item1" Type="int" Nullable="false" />
+    <Property Name="p4Item2" Type="int" Nullable="false" />
+    <Property Name="p4Item3" Type="int" Nullable="false" />
+    <Property Name="p4Item4" Type="int" Nullable="false" />
+    <Property Name="p4Item5" Type="int" Nullable="false" />
+    <Property Name="p4Item6" Type="int" Nullable="false" />
+    <Property Name="p5Item1" Type="int" Nullable="false" />
+    <Property Name="p5Item2" Type="int" Nullable="false" />
+    <Property Name="p5Item3" Type="int" Nullable="false" />
+    <Property Name="p5Item4" Type="int" Nullable="false" />
+    <Property Name="p5Item5" Type="int" Nullable="false" />
+    <Property Name="p5Item6" Type="int" Nullable="false" />
+    <Property Name="p6Item1" Type="int" Nullable="false" />
+    <Property Name="p6Item2" Type="int" Nullable="false" />
+    <Property Name="p6Item3" Type="int" Nullable="false" />
+    <Property Name="p6Item4" Type="int" Nullable="false" />
+    <Property Name="p6Item5" Type="int" Nullable="false" />
+    <Property Name="p6Item6" Type="int" Nullable="false" />
+    <Property Name="p7Item1" Type="int" Nullable="false" />
+    <Property Name="p7Item2" Type="int" Nullable="false" />
+    <Property Name="p7Item3" Type="int" Nullable="false" />
+    <Property Name="p7Item4" Type="int" Nullable="false" />
+    <Property Name="p7Item5" Type="int" Nullable="false" />
+    <Property Name="p7Item6" Type="int" Nullable="false" />
+    <Property Name="p8Item1" Type="int" Nullable="false" />
+    <Property Name="p8Item2" Type="int" Nullable="false" />
+    <Property Name="p8Item3" Type="int" Nullable="false" />
+    <Property Name="p8Item4" Type="int" Nullable="false" />
+    <Property Name="p8Item5" Type="int" Nullable="false" />
+    <Property Name="p8Item6" Type="int" Nullable="false" />
+    <Property Name="p9Item1" Type="int" Nullable="false" />
+    <Property Name="p9Item2" Type="int" Nullable="false" />
+    <Property Name="p9Item3" Type="int" Nullable="false" />
+    <Property Name="p9Item4" Type="int" Nullable="false" />
+    <Property Name="p9Item5" Type="int" Nullable="false" />
+    <Property Name="p9Item6" Type="int" Nullable="false" />
+    <Property Name="p10Item1" Type="int" Nullable="false" />
+    <Property Name="p10Item2" Type="int" Nullable="false" />
+    <Property Name="p10Item3" Type="int" Nullable="false" />
+    <Property Name="p10Item4" Type="int" Nullable="false" />
+    <Property Name="p10Item5" Type="int" Nullable="false" />
+    <Property Name="p10Item6" Type="int" Nullable="false" />
+    <Property Name="p1Kills" Type="int" Nullable="false" />
+    <Property Name="p1Deaths" Type="int" Nullable="false" />
+    <Property Name="p1Assists" Type="int" Nullable="false" />
+    <Property Name="p2Kills" Type="int" Nullable="false" />
+    <Property Name="p2Deaths" Type="int" Nullable="false" />
+    <Property Name="p2Assists" Type="int" Nullable="false" />
+    <Property Name="p3Kills" Type="int" Nullable="false" />
+    <Property Name="p3Deaths" Type="int" Nullable="false" />
+    <Property Name="p3Assists" Type="int" Nullable="false" />
+    <Property Name="p4Kills" Type="int" Nullable="false" />
+    <Property Name="p4Deaths" Type="int" Nullable="false" />
+    <Property Name="p4Assists" Type="int" Nullable="false" />
+    <Property Name="p5Kills" Type="int" Nullable="false" />
+    <Property Name="p5Deaths" Type="int" Nullable="false" />
+    <Property Name="p5Assists" Type="int" Nullable="false" />
+    <Property Name="p6Kills" Type="int" Nullable="false" />
+    <Property Name="p6Deaths" Type="int" Nullable="false" />
+    <Property Name="p6Assists" Type="int" Nullable="false" />
+    <Property Name="p7Kills" Type="int" Nullable="false" />
+    <Property Name="p7Deaths" Type="int" Nullable="false" />
+    <Property Name="p7Assists" Type="int" Nullable="false" />
+    <Property Name="p8Kills" Type="int" Nullable="false" />
+    <Property Name="p8Deaths" Type="int" Nullable="false" />
+    <Property Name="p8Assists" Type="int" Nullable="false" />
+    <Property Name="p9Kills" Type="int" Nullable="false" />
+    <Property Name="p9Deaths" Type="int" Nullable="false" />
+    <Property Name="p9Assists" Type="int" Nullable="false" />
+    <Property Name="p10Kills" Type="int" Nullable="false" />
+    <Property Name="p10Deaths" Type="int" Nullable="false" />
+    <Property Name="p10Assists" Type="int" Nullable="false" />
+    <Property Name="p1Level" Type="int" Nullable="false" />
+    <Property Name="p2Level" Type="int" Nullable="false" />
+    <Property Name="p3Level" Type="int" Nullable="false" />
+    <Property Name="p4Level" Type="int" Nullable="false" />
+    <Property Name="p5Level" Type="int" Nullable="false" />
+    <Property Name="p6Level" Type="int" Nullable="false" />
+    <Property Name="p7Level" Type="int" Nullable="false" />
+    <Property Name="p8Level" Type="int" Nullable="false" />
+    <Property Name="p9Level" Type="int" Nullable="false" />
+    <Property Name="p10Level" Type="int" Nullable="false" />
+    <Property Name="p1CS" Type="int" Nullable="false" />
+    <Property Name="p2CS" Type="int" Nullable="false" />
+    <Property Name="p3CS" Type="int" Nullable="false" />
+    <Property Name="p4CS" Type="int" Nullable="false" />
+    <Property Name="p5CS" Type="int" Nullable="false" />
+    <Property Name="p6CS" Type="int" Nullable="false" />
+    <Property Name="p7CS" Type="int" Nullable="false" />
+    <Property Name="p8CS" Type="int" Nullable="false" />
+    <Property Name="p9CS" Type="int" Nullable="false" />
+    <Property Name="p10CS" Type="int" Nullable="false" />
+    <Property Name="p1Damage" Type="int" Nullable="false" />
+    <Property Name="p2Damage" Type="int" Nullable="false" />
+    <Property Name="p3Damage" Type="int" Nullable="false" />
+    <Property Name="p4Damage" Type="int" Nullable="false" />
+    <Property Name="p5Damage" Type="int" Nullable="false" />
+    <Property Name="p6Damage" Type="int" Nullable="false" />
+    <Property Name="p7Damage" Type="int" Nullable="false" />
+    <Property Name="p8Damage" Type="int" Nullable="false" />
+    <Property Name="p9Damage" Type="int" Nullable="false" />
+    <Property Name="p10Damage" Type="int" Nullable="false" />
+    <Property Name="p1Gold" Type="int" Nullable="false" />
+    <Property Name="p2Gold" Type="int" Nullable="false" />
+    <Property Name="p3Gold" Type="int" Nullable="false" />
+    <Property Name="p4Gold" Type="int" Nullable="false" />
+    <Property Name="p5Gold" Type="int" Nullable="false" />
+    <Property Name="p6Gold" Type="int" Nullable="false" />
+    <Property Name="p7Gold" Type="int" Nullable="false" />
+    <Property Name="p8Gold" Type="int" Nullable="false" />
+    <Property Name="p9Gold" Type="int" Nullable="false" />
+    <Property Name="p10Gold" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblMatchHistory">
+    <Key>
+      <PropertyRef Name="matchIndex" />
+    </Key>
+    <Property Name="matchIndex" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="timestamp" Type="bigint" Nullable="false" />
+    <Property Name="champion" Type="int" Nullable="false" />
+    <Property Name="region" Type="nvarchar(max)" />
+    <Property Name="queue" Type="nvarchar(max)" />
+    <Property Name="season" Type="nvarchar(max)" />
+    <Property Name="matchId" Type="bigint" Nullable="false" />
+    <Property Name="role" Type="nvarchar(max)" />
+    <Property Name="platformId" Type="nvarchar(max)" />
+    <Property Name="lane" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityContainer Name="SummonerStatsDBModelStoreContainer">
+    <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMatchHistory" EntityType="Self.tblMatchHistory" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
