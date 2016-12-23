@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SummonerStats.Models;
-using static SummonerStats.Models.MatchHistoryModel;
 
 namespace SummonerStats.Controllers
 {
@@ -28,7 +27,7 @@ namespace SummonerStats.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MatchHistoryModel matchHistoryModel = db.MatchHistory.Find(id);
+            tblMatchHistory matchHistoryModel = db.MatchHistory.Find(id);
             if (matchHistoryModel == null)
             {
                 return HttpNotFound();
@@ -47,7 +46,7 @@ namespace SummonerStats.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,timestamp,champion,region,queue,season,matchId,role,platformId,lane")] MatchHistoryModel matchHistoryModel)
+        public ActionResult Create([Bind(Include = "id,timestamp,champion,region,queue,season,matchId,role,platformId,lane")] tblMatchHistory matchHistoryModel)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +65,7 @@ namespace SummonerStats.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MatchHistoryModel matchHistoryModel = db.MatchHistory.Find(id);
+            tblMatchHistory matchHistoryModel = db.MatchHistory.Find(id);
             if (matchHistoryModel == null)
             {
                 return HttpNotFound();
@@ -79,7 +78,7 @@ namespace SummonerStats.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,timestamp,champion,region,queue,season,matchId,role,platformId,lane")] MatchHistoryModel matchHistoryModel)
+        public ActionResult Edit([Bind(Include = "id,timestamp,champion,region,queue,season,matchId,role,platformId,lane")] tblMatchHistory matchHistoryModel)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +96,7 @@ namespace SummonerStats.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MatchHistoryModel matchHistoryModel = db.MatchHistory.Find(id);
+            tblMatchHistory matchHistoryModel = db.MatchHistory.Find(id);
             if (matchHistoryModel == null)
             {
                 return HttpNotFound();
@@ -110,7 +109,7 @@ namespace SummonerStats.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MatchHistoryModel matchHistoryModel = db.MatchHistory.Find(id);
+            tblMatchHistory matchHistoryModel = db.MatchHistory.Find(id);
             db.MatchHistory.Remove(matchHistoryModel);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -7,24 +7,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace SummonerStats.Models
 {
-    public class MatchHistoryModel
+    public partial class tblMatchHistory
     {
-        [Key]
-        public long matchIndex { get; set; }
-        public int id { get; set; }
-        public long timestamp { get; set; }
-        public int champion { get; set; }
-        public string region { get; set; }
-        public string queue { get; set; }
-        public string season { get; set; }
-        public long matchId { get; set; }
-        public string role { get; set; }
-        public string platformId { get; set; }
-        public string lane { get; set; }
-
         public void UpdateMatchHistory(int sumID)
         {
             MatchHistoryDBContext db = new MatchHistoryDBContext();
@@ -33,7 +21,8 @@ namespace SummonerStats.Models
             string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
 
             //if we have no matches stored, start at beginning of season 7, otherwise only since most recent
-            if (db.MatchHistory.SqlQuery("SELECT * FROM dbo.MatchHistoryModels WHERE id = '" + sumID + "'").ToList().Count() == 0)
+            //if (db.MatchHistory.SqlQuery("SELECT * FROM [dbo].[tblMatchHistory] WHERE id = '" + sumID + "'").ToList().Count() == 0)
+            if (db.MatchHistory.Where(u => u.id == sumID).ToList().Count() == 0)
             {
                 mhURL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + sumID + "?beginTime=1481108400000&api_key=" + apiKey;
             } else
@@ -48,11 +37,13 @@ namespace SummonerStats.Models
                 string mhData = client.DownloadString(mhURL);
                 JObject mhRecords = JObject.Parse(mhData);
 
-                MatchHistoryModel mhm = new MatchHistoryModel();
-
                 for (int i = 0; i < mhRecords["matches"].Count(); i++)
                 {
-                    if (db.MatchHistory.SqlQuery("SELECT * FROM dbo.MatchHistoryModels WHERE id = '" + sumID + "' AND timestamp = '" + (Int64)mhRecords["matches"][i]["timestamp"] + "'").ToList().Count() == 0)
+                    tblMatchHistory mhm = new tblMatchHistory();
+
+                    //if (db.MatchHistory.SqlQuery("SELECT * FROM tblMatchHistory WHERE id = '" + sumID + "' AND timestamp = '" + (Int64)mhRecords["matches"][i]["timestamp"] + "'").ToList().Count() == 0)
+                    long lastTimestamp = (Int64)mhRecords["matches"][i]["timestamp"];
+                    if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
                     {
                         mhm.id = sumID;
                         mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
@@ -75,6 +66,18 @@ namespace SummonerStats.Models
 
     public class MatchHistoryDBContext : DbContext
     {
-        public DbSet<MatchHistoryModel> MatchHistory { get; set; }
+        public MatchHistoryDBContext()
+            : base("SummonerStatsDBEntities")
+        {
+
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public DbSet<tblMatchHistory> MatchHistory { get; set; }
     }
 }

@@ -9,227 +9,13 @@ using System.Web;
 
 namespace SummonerStats.Models
 {
-    public class MatchDetailsModel
+    public partial class tblMatchDetail
     {
-        //general info
-        [Key]
-        public int matchIndex { get; set; }
-        public string region { get; set; }
-        public string matchType { get; set; }
-        public long matchCreation { get; set; }
-        public string platformId { get; set; }
-        public string matchMode { get; set; }
-        public int mapId { get; set; }
-        public string season { get; set; }
-        public string queueType { get; set; }
-        public long matchId { get; set; }
-        public int matchDuration { get; set; }
-        public string winner { get; set; }
 
-        //player names
-        public string p1Name { get; set; }
-        public string p2Name { get; set; }
-        public string p3Name { get; set; }
-        public string p4Name { get; set; }
-        public string p5Name { get; set; }
-        public string p6Name { get; set; }
-        public string p7Name { get; set; }
-        public string p8Name { get; set; }
-        public string p9Name { get; set; }
-        public string p10Name { get; set; }
-
-        //player summoner skills
-        public int p1Spell1 { get; set; }
-        public int p1Spell2 { get; set; }
-        public int p2Spell1 { get; set; }
-        public int p2Spell2 { get; set; }
-        public int p3Spell1 { get; set; }
-        public int p3Spell2 { get; set; }
-        public int p4Spell1 { get; set; }
-        public int p4Spell2 { get; set; }
-        public int p5Spell1 { get; set; }
-        public int p5Spell2 { get; set; }
-        public int p6Spell1 { get; set; }
-        public int p6Spell2 { get; set; }
-        public int p7Spell1 { get; set; }
-        public int p7Spell2 { get; set; }
-        public int p8Spell1 { get; set; }
-        public int p8Spell2 { get; set; }
-        public int p9Spell1 { get; set; }
-        public int p9Spell2 { get; set; }
-        public int p10Spell1 { get; set; }
-        public int p10Spell2 { get; set; }
-
-        //player champions
-        public int p1Champ { get; set; }
-        public int p2Champ { get; set; }
-        public int p3Champ { get; set; }
-        public int p4Champ { get; set; }
-        public int p5Champ { get; set; }
-        public int p6Champ { get; set; }
-        public int p7Champ { get; set; }
-        public int p8Champ { get; set; }
-        public int p9Champ { get; set; }
-        public int p10Champ { get; set; }
-
-        //player ranks
-        public string p1Tier { get; set; }
-        public string p2Tier { get; set; }
-        public string p3Tier { get; set; }
-        public string p4Tier { get; set; }
-        public string p5Tier { get; set; }
-        public string p6Tier { get; set; }
-        public string p7Tier { get; set; }
-        public string p8Tier { get; set; }
-        public string p9Tier { get; set; }
-        public string p10Tier { get; set; }
-
-        //player items - item0-5
-        public int p1Item1 { get; set; }
-        public int p1Item2 { get; set; }
-        public int p1Item3 { get; set; }
-        public int p1Item4 { get; set; }
-        public int p1Item5 { get; set; }
-        public int p1Item6 { get; set; }
-        public int p2Item1 { get; set; }
-        public int p2Item2 { get; set; }
-        public int p2Item3 { get; set; }
-        public int p2Item4 { get; set; }
-        public int p2Item5 { get; set; }
-        public int p2Item6 { get; set; }
-        public int p3Item1 { get; set; }
-        public int p3Item2 { get; set; }
-        public int p3Item3 { get; set; }
-        public int p3Item4 { get; set; }
-        public int p3Item5 { get; set; }
-        public int p3Item6 { get; set; }
-        public int p4Item1 { get; set; }
-        public int p4Item2 { get; set; }
-        public int p4Item3 { get; set; }
-        public int p4Item4 { get; set; }
-        public int p4Item5 { get; set; }
-        public int p4Item6 { get; set; }
-        public int p5Item1 { get; set; }
-        public int p5Item2 { get; set; }
-        public int p5Item3 { get; set; }
-        public int p5Item4 { get; set; }
-        public int p5Item5 { get; set; }
-        public int p5Item6 { get; set; }
-        public int p6Item1 { get; set; }
-        public int p6Item2 { get; set; }
-        public int p6Item3 { get; set; }
-        public int p6Item4 { get; set; }
-        public int p6Item5 { get; set; }
-        public int p6Item6 { get; set; }
-        public int p7Item1 { get; set; }
-        public int p7Item2 { get; set; }
-        public int p7Item3 { get; set; }
-        public int p7Item4 { get; set; }
-        public int p7Item5 { get; set; }
-        public int p7Item6 { get; set; }
-        public int p8Item1 { get; set; }
-        public int p8Item2 { get; set; }
-        public int p8Item3 { get; set; }
-        public int p8Item4 { get; set; }
-        public int p8Item5 { get; set; }
-        public int p8Item6 { get; set; }
-        public int p9Item1 { get; set; }
-        public int p9Item2 { get; set; }
-        public int p9Item3 { get; set; }
-        public int p9Item4 { get; set; }
-        public int p9Item5 { get; set; }
-        public int p9Item6 { get; set; }
-        public int p10Item1 { get; set; }
-        public int p10Item2 { get; set; }
-        public int p10Item3 { get; set; }
-        public int p10Item4 { get; set; }
-        public int p10Item5 { get; set; }
-        public int p10Item6 { get; set; }
-
-        //player kills/deaths/assists
-        public int p1Kills { get; set; }
-        public int p1Deaths { get; set; }
-        public int p1Assists { get; set; }
-        public int p2Kills { get; set; }
-        public int p2Deaths { get; set; }
-        public int p2Assists { get; set; }
-        public int p3Kills { get; set; }
-        public int p3Deaths { get; set; }
-        public int p3Assists { get; set; }
-        public int p4Kills { get; set; }
-        public int p4Deaths { get; set; }
-        public int p4Assists { get; set; }
-        public int p5Kills { get; set; }
-        public int p5Deaths { get; set; }
-        public int p5Assists { get; set; }
-        public int p6Kills { get; set; }
-        public int p6Deaths { get; set; }
-        public int p6Assists { get; set; }
-        public int p7Kills { get; set; }
-        public int p7Deaths { get; set; }
-        public int p7Assists { get; set; }
-        public int p8Kills { get; set; }
-        public int p8Deaths { get; set; }
-        public int p8Assists { get; set; }
-        public int p9Kills { get; set; }
-        public int p9Deaths { get; set; }
-        public int p9Assists { get; set; }
-        public int p10Kills { get; set; }
-        public int p10Deaths { get; set; }
-        public int p10Assists { get; set; }
-
-        //player levels - champLevel
-        public int p1Level { get; set; }
-        public int p2Level { get; set; }
-        public int p3Level { get; set; }
-        public int p4Level { get; set; }
-        public int p5Level { get; set; }
-        public int p6Level { get; set; }
-        public int p7Level { get; set; }
-        public int p8Level { get; set; }
-        public int p9Level { get; set; }
-        public int p10Level { get; set; }
-
-        //creeps kills - minionsKilled
-        public int p1CS { get; set; }
-        public int p2CS { get; set; }
-        public int p3CS { get; set; }
-        public int p4CS { get; set; }
-        public int p5CS { get; set; }
-        public int p6CS { get; set; }
-        public int p7CS { get; set; }
-        public int p8CS { get; set; }
-        public int p9CS { get; set; }
-        public int p10CS { get; set; }
-
-        //player damage - totalDamageDealt
-        public int p1Damage { get; set; }
-        public int p2Damage { get; set; }
-        public int p3Damage { get; set; }
-        public int p4Damage { get; set; }
-        public int p5Damage { get; set; }
-        public int p6Damage { get; set; }
-        public int p7Damage { get; set; }
-        public int p8Damage { get; set; }
-        public int p9Damage { get; set; }
-        public int p10Damage { get; set; }
-
-        //player gold
-        public int p1Gold { get; set; }
-        public int p2Gold { get; set; }
-        public int p3Gold { get; set; }
-        public int p4Gold { get; set; }
-        public int p5Gold { get; set; }
-        public int p6Gold { get; set; }
-        public int p7Gold { get; set; }
-        public int p8Gold { get; set; }
-        public int p9Gold { get; set; }
-        public int p10Gold { get; set; }
-
-        public List<MatchDetailsModel> PullMatch(long matchID)
+        public List<tblMatchDetail> PullMatch(long matchID)
         {
             MatchDetailsDBContext db = new MatchDetailsDBContext();
-            List<MatchDetailsModel> matchDetails = null;
+            List<tblMatchDetail> matchDetails = null;
 
             if (db.MatchDetails.Where(u => u.matchId == matchID).ToList().Count() > 0)
             {
@@ -256,7 +42,7 @@ namespace SummonerStats.Models
                 string mdData = client.DownloadString(mdURL);
                 JObject mdRecords = JObject.Parse(mdData);
 
-                MatchDetailsModel mdm = new MatchDetailsModel();
+                tblMatchDetail mdm = new tblMatchDetail();
 
                 mdm.region = (string)mdRecords["region"];
                 mdm.matchType = (string)mdRecords["matchType"];
@@ -479,6 +265,12 @@ namespace SummonerStats.Models
 
     public class MatchDetailsDBContext : DbContext
     {
-        public DbSet<MatchDetailsModel> MatchDetails { get; set; }
+        public MatchDetailsDBContext()
+            : base("SummonerStatsDBEntities")
+        {
+
+        }
+
+        public DbSet<tblMatchDetail> MatchDetails { get; set; }
     }
 }

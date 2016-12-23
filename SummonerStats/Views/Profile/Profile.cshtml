@@ -61,7 +61,7 @@
                 @{
                     foreach (var match in Model.matchHistory)
                     {
-                        SummonerStats.Models.MatchDetailsModel mdm = new SummonerStats.Models.MatchDetailsModel();
+                        SummonerStats.Models.tblMatchDetail mdm = new SummonerStats.Models.tblMatchDetail();
                         SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
 
                         Model.matchDetails = mdm.PullMatch(match.matchId);
