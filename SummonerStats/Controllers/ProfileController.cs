@@ -37,7 +37,8 @@ namespace SummonerStats.Controllers
 
         public int[] FindViewPlayer(IEnumerable<tblMatchDetail> details, string summonerName)
         {
-            int[] playerDetails = new int[15];
+            int[] playerDetails = new int[16];
+            playerDetails[15] = 0;
 
             if (details.First().p1Name == summonerName)
             {
@@ -56,6 +57,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p1Item6;
                 playerDetails[13] = details.First().p1Level;
                 playerDetails[14] = details.First().p1CS;
+                
+                if (details.First().winner == "Team1")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p2Name == summonerName)
             {
@@ -74,6 +80,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p2Item6;
                 playerDetails[13] = details.First().p2Level;
                 playerDetails[14] = details.First().p2CS;
+
+                if (details.First().winner == "Team1")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p3Name == summonerName)
             {
@@ -92,6 +103,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p3Item6;
                 playerDetails[13] = details.First().p3Level;
                 playerDetails[14] = details.First().p3CS;
+
+                if (details.First().winner == "Team1")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p4Name == summonerName)
             {
@@ -110,6 +126,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p4Item6;
                 playerDetails[13] = details.First().p4Level;
                 playerDetails[14] = details.First().p4CS;
+
+                if (details.First().winner == "Team1")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p5Name == summonerName)
             {
@@ -128,6 +149,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p5Item6;
                 playerDetails[13] = details.First().p5Level;
                 playerDetails[14] = details.First().p5CS;
+
+                if (details.First().winner == "Team1")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p6Name == summonerName)
             {
@@ -146,6 +172,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p6Item6;
                 playerDetails[13] = details.First().p6Level;
                 playerDetails[14] = details.First().p6CS;
+
+                if (details.First().winner == "Team2")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p7Name == summonerName)
             {
@@ -164,6 +195,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p7Item6;
                 playerDetails[13] = details.First().p7Level;
                 playerDetails[14] = details.First().p7CS;
+
+                if (details.First().winner == "Team2")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p8Name == summonerName)
             {
@@ -182,6 +218,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p8Item6;
                 playerDetails[13] = details.First().p8Level;
                 playerDetails[14] = details.First().p8CS;
+
+                if (details.First().winner == "Team2")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p9Name == summonerName)
             {
@@ -200,6 +241,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p9Item6;
                 playerDetails[13] = details.First().p9Level;
                 playerDetails[14] = details.First().p9CS;
+
+                if (details.First().winner == "Team2")
+                {
+                    playerDetails[15] = 1;
+                }
             }
             else if (details.First().p10Name == summonerName)
             {
@@ -218,6 +264,11 @@ namespace SummonerStats.Controllers
                 playerDetails[12] = details.First().p10Item6;
                 playerDetails[13] = details.First().p10Level;
                 playerDetails[14] = details.First().p10CS;
+
+                if (details.First().winner == "Team2")
+                {
+                    playerDetails[15] = 1;
+                }
             }
 
             return playerDetails;

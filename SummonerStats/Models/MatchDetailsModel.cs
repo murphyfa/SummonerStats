@@ -54,7 +54,7 @@ namespace SummonerStats.Models
                 mdm.queueType = (string)mdRecords["queueType"];
                 mdm.matchId = (Int64)mdRecords["matchId"];
                 mdm.matchDuration = (Int32)mdRecords["matchDuration"];
-                mdm.winner = (string)((string)mdRecords["teams"][0]["winner"] == "true" ? "Team1" : "Team2");
+                mdm.winner = (string)((bool)mdRecords["teams"][0]["winner"] == true ? "Team1" : "Team2");
 
                 //player names
                 mdm.p1Name = (string)mdRecords["participantIdentities"][0]["player"]["summonerName"];
