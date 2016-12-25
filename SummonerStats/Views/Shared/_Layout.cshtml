@@ -41,5 +41,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+    $(document).ready(function () {
+        $('.xpnd-a').on('click', function (event) {
+            var target = "#" + $(this).attr('data-toggle');
+            event.preventDefault();
+            $(target).toggle();
+        })
+    })
+    </script>
 </body>
 </html>

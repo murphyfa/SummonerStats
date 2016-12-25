@@ -83,8 +83,8 @@
 
                         int[] playerStats = pc.FindViewPlayer(Model.matchDetails, @Model.playerProfile.name);
                         string playerChamp = pc.ChampById(playerStats[1]);
-                        string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5],2);
+                        string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);
 
                         string p1Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p1Name.Replace(" ", "+");
                         string p2Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p2Name.Replace(" ", "+");
@@ -97,16 +97,16 @@
                         string p9Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p9Name.Replace(" ", "+");
                         string p10Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p10Name.Replace(" ", "+");
 
-                        string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p4Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p4Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p5Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p5Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p6Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p6Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p7Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p7Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p8Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p8Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p9Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p9Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                        string p10Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p10Champ).Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
+                        string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p4Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p4Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p5Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p5Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p6Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p6Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p7Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p7Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p8Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p8Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p9Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p9Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                        string p10Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p10Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
 
                         string playerS1 = "~/img/summoner/" + playerStats[2] + ".png";
                         string playerS2 = "~/img/summoner/" + playerStats[3] + ".png";
@@ -132,149 +132,229 @@
                         string p10s1 = "~/img/summoner/" + Model.matchDetails.First().p10Spell1 + ".png";
                         string p10s2 = "~/img/summoner/" + Model.matchDetails.First().p10Spell2 + ".png";
 
+                        string p1i1 = "~/img/item/" + Model.matchDetails.First().p1Item1 + ".png";
+                        string p1i2 = "~/img/item/" + Model.matchDetails.First().p1Item2 + ".png";
+                        string p1i3 = "~/img/item/" + Model.matchDetails.First().p1Item3 + ".png";
+                        string p1i4 = "~/img/item/" + Model.matchDetails.First().p1Item4 + ".png";
+                        string p1i5 = "~/img/item/" + Model.matchDetails.First().p1Item5 + ".png";
+                        string p1i6 = "~/img/item/" + Model.matchDetails.First().p1Item6 + ".png";
+
                         string winLose = "0";
-                        string winLoseCL = "0";
                         string winLoseHD = "0";
+                        string winLoseBG = "0";
 
 
                         if (playerStats[15] == 1)
                         {
                             winLose = "Victory";
-                            winLoseCL = "victory";
                             winLoseHD = "victory-hd";
-                        } else
+                            winLoseBG = "victory-bg";
+                        }
+                        else
                         {
                             winLose = "Defeat";
-                            winLoseCL = "defeat";
                             winLoseHD = "defeat-hd";
+                            winLoseBG = "defeat-bg";
                         }
 
-                        <div class="win-lose @winLoseCL">
-                            <span class="w-l-span">@winLose</span>
-                        </div>
+                        //variables for match details
 
-                        <div class="match-row @winLoseHD">
-                            <div class="match-expand"></div>
-                            <div class="mc1">
-                                <img class="img-rounded pl-icon" src="@Url.Content(pIcon)" height="80" width="80" />
-                                <img class="img-rounded s1" src="@Url.Content(playerS1)" height="35" width="35" />
-                                <img class="img-rounded s2" src="@Url.Content(playerS2)" height="35" width="35" />
+                        string detT1HD = "0";
+                        string detT2HD = "0";
+                        string detT1Title = "0";
+                        string detT2Title = "0";
+                        string detT1BG = "0";
+                        string detT2BG = "0";
+
+                        if (Model.matchDetails.First().winner == "Team1")
+                        {
+                            detT1HD = "victory-hd";
+                            detT2HD = "defeat-hd";
+                            detT1Title = "Victory";
+                            detT2Title = "Defeat";
+                            detT1BG = "victory-bg";
+                            detT2BG = "defeat-bg";
+                        }
+                        else
+                        {
+                            detT1HD = "defeat-hd";
+                            detT2HD = "victory-hd";
+                            detT1Title = "Defeat";
+                            detT2Title = "Victory";
+                            detT1BG = "defeat-bg";
+                            detT2BG = "victory-bg";
+                        }
+                        <div>
+                            <div class="win-lose @winLoseHD">
+                                <span class="w-l-span">@winLose</span>
                             </div>
-                            <div class="mc2">
-                                <span class="kda-txt">@playerStats[4].ToString()  /@playerStats[5].ToString() / @playerStats[6]</span>
-                                <span class="kda-avg">@kda KDA</span>
-                            </div>
-                            <div class="mc3">
-                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[7])" height="35" width="35" />
-                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[8])" height="35" width="35" />
-                                <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[9])" height="35" width="35" />
-                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[10])" height="35" width="35" />
-                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[11])" height="35" width="35" />
-                                <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[12])" height="35" width="35" />
-                            </div>
-                            <div class="mc4">
-                                <span>Level @playerStats[13]</span>
-                                <span>@playerStats[0] Gold</span>
-                                <span>@playerStats[14] CS</span>
-                            </div>
-                            <div class="mc5">
-                                <div>
-                                    <table class="team1-players">
-                                        <tbody>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p1Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p1Link">@Model.matchDetails.First().p1Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p2Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p2Link">@Model.matchDetails.First().p2Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p3Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p3Link">@Model.matchDetails.First().p3Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p4Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p4Link">@Model.matchDetails.First().p4Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p5Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p5Link">@Model.matchDetails.First().p5Name</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                            <div class="match-row @winLoseBG">
+                                <div class="match-expand"></div>
+                                <div class="mc1">
+                                    <img class="img-rounded pl-icon" src="@Url.Content(pIcon)" height="80" width="80" />
+                                    <img class="img-rounded s1" src="@Url.Content(playerS1)" height="35" width="35" />
+                                    <img class="img-rounded s2" src="@Url.Content(playerS2)" height="35" width="35" />
                                 </div>
-                                <div>
-                                    <table class="team2-players">
-                                        <tbody>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p6Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p6Link">@Model.matchDetails.First().p6Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p7Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p7Link">@Model.matchDetails.First().p7Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p8Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p8Link">@Model.matchDetails.First().p8Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p9Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p9Link">@Model.matchDetails.First().p9Name</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="sm-pl-icon">
-                                                    <img src="@Url.Content(@p10Img)" height="16" width="16" />
-                                                </td>
-                                                <td>
-                                                    <a class="sm-pl-link" href="@p10Link">@Model.matchDetails.First().p10Name</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="mc2">
+                                    <span class="kda-txt">@playerStats[4].ToString()  /@playerStats[5].ToString() / @playerStats[6]</span>
+                                    <span class="kda-avg">@kda KDA</span>
+                                </div>
+                                <div class="mc3">
+                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[7])" height="35" width="35" />
+                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[8])" height="35" width="35" />
+                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[9])" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[10])" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[11])" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[12])" height="35" width="35" />
+                                </div>
+                                <div class="mc4">
+                                    <span>Level @playerStats[13]</span>
+                                    <span>@playerStats[0] Gold</span>
+                                    <span>@playerStats[14] CS</span>
+                                </div>
+                                <div class="mc5">
+                                    <div>
+                                        <table class="team1-players">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p1Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p1Link">@Model.matchDetails.First().p1Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p2Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p2Link">@Model.matchDetails.First().p2Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p3Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p3Link">@Model.matchDetails.First().p3Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p4Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p4Link">@Model.matchDetails.First().p4Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p5Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p5Link">@Model.matchDetails.First().p5Name</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <table class="team2-players">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p6Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p6Link">@Model.matchDetails.First().p6Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p7Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p7Link">@Model.matchDetails.First().p7Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p8Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p8Link">@Model.matchDetails.First().p8Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p9Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p9Link">@Model.matchDetails.First().p9Name</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sm-pl-icon">
+                                                        <img src="@Url.Content(p10Img)" height="16" width="16" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="sm-pl-link" href="@p10Link">@Model.matchDetails.First().p10Name</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="mc6">
+                                    <a href="#" class="xpnd-a" id="details-btn" data-toggle="@Model.matchDetails.First().matchId">
+                                        <div style="width:100%; height:auto">
+                                            <span class="glyphicon glyphicon-chevron-down"></span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="mc6">
-                                <a href="#" class="xpnd-a">
-                                    <span>X</span>
-                                </a>
+
+                            <div class="match-details" id="@Model.matchDetails.First().matchId">
+                                <div class="w-l-details-hd @detT1HD">
+                                    <span class="w-l-span">Team 1 - @detT1Title</span>
+                                </div>
+                                <div class="team1-details @detT1BG">
+                                    <div class="details-header">
+                                        <span class="md-c1">Summoner</span>
+                                        <span class="md-c2">Items</span>
+                                        <span class="md-c3">KDA</span>
+                                        <span class="md-c4">CS</span>
+                                        <span class="md-c5">Damage</span>
+                                        <span class="md-c6">Tier</span>
+                                    </div>
+                                    <div class="details-player">
+                                        <div class="md-c1">
+                                            <span>@Model.matchDetails.First().p1Level</span>
+                                            <img src="@Url.Content(p1Img)" width="40" height="40" />
+                                            <img class="md-s1" src="@Url.Content(p1s1)" width="18" height="18" />
+                                            <img class="md-s2" src="@Url.Content(p1s2)" width="18" height="18" />
+                                            <span>@Model.matchDetails.First().p1Name</span>
+                                        </div>
+                                        <div class="md-c2">
+                                            <img src="@Url.Content(p1i1)" width="24" height="24" />
+                                            <img src="@Url.Content(p1i2)" width="24" height="24" />
+                                            <img src="@Url.Content(p1i3)" width="24" height="24" />
+                                            <img src="@Url.Content(p1i4)" width="24" height="24" />
+                                            <img src="@Url.Content(p1i5)" width="24" height="24" />
+                                            <img src="@Url.Content(p1i6)" width="24" height="24" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-l-details-hd @detT2HD">
+                                    <span class="w-l-span">Teams 2 - @detT2Title</span>
+                                </div>
+                                <div class="team2-details @detT2BG">
+                                    <div class="details-header">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     }
@@ -283,3 +363,4 @@
         </div>
     </div>
 </div>
+

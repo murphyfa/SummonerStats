@@ -91,6 +91,85 @@
     width: 40px;
 }
 
+
+/*Match details*/
+.match-details {
+    background-color: gray;
+    display: none;
+    width: 100%;
+    margin: 0;
+    height: 500px;
+}
+
+.w-l-details-hd {
+    margin: 0;
+    height: 25px;
+    border-top: 1px solid rgba(128, 128, 128, 0.50);
+    height: 25px;
+}
+
+.team1-details {
+    margin: 0;
+    height: 225px;
+}
+
+.team2-details {
+    margin-bottom: 10px;
+    height: 225px;
+}
+
+.details-header {
+    height: 25px;
+}
+
+.md-c1 {
+    width: 180px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-c2 {
+    width: 175px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-c3 {
+    width: 75px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-c4 {
+    width: 75px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-c5 {
+    width: 75px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-c6 {
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.md-s1 {
+    position: absolute;
+}
+
+.md-s2 {
+    position: relative;
+    top: 10px;
+}
+
+
+
+
 .sm-pl-link {
     color: black;
     width: 100px;
@@ -106,7 +185,7 @@
 }
 
 .team1-players {
-    float: right;
+    float: left;
     display: block;
     width: 120px;
 }
@@ -156,19 +235,19 @@
     height: 25px;
 }
 
-.defeat {
+.defeat-hd {
     background-color: #e1a4a4;
 }
 
-.defeat-hd {
+.defeat-bg {
     background-color: #edc1c1;
 }
 
-.victory {
+.victory-hd {
     background-color: #7695d4;
 }
 
-.victory-hd {
+.victory-bg {
     background-color: #9eb4e2;
 }
 
