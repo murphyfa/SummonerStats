@@ -411,7 +411,6 @@
     <Content Include="img\champion\Maokai.png" />
     <Content Include="img\champion\MasterYi.png" />
     <Content Include="img\champion\MissFortune.png" />
-    <Content Include="img\champion\MonkeyKing.png" />
     <Content Include="img\champion\Mordekaiser.png" />
     <Content Include="img\champion\Morgana.png" />
     <Content Include="img\champion\Nami.png" />
@@ -466,6 +465,7 @@
     <Content Include="img\champion\Vladimir.png" />
     <Content Include="img\champion\Volibear.png" />
     <Content Include="img\champion\Warwick.png" />
+    <Content Include="img\champion\Wukong.png" />
     <Content Include="img\champion\Xerath.png" />
     <Content Include="img\champion\XinZhao.png" />
     <Content Include="img\champion\Yasuo.png" />
@@ -2584,6 +2584,30 @@
     <Content Include="img\sprite\tiny_spell7.png" />
     <Content Include="img\sprite\tiny_spell8.png" />
     <Content Include="img\sprite\tiny_spell9.png" />
+    <Content Include="img\summoner\11.png" />
+    <Content Include="img\summoner\12.png" />
+    <Content Include="img\summoner\13.png" />
+    <Content Include="img\summoner\14.png" />
+    <Content Include="img\summoner\21.png" />
+    <Content Include="img\summoner\3.png" />
+    <Content Include="img\summoner\30.png" />
+    <Content Include="img\summoner\31.png" />
+    <Content Include="img\summoner\32.png" />
+    <Content Include="img\summoner\4.png" />
+    <Content Include="img\summoner\6.png" />
+    <Content Include="img\summoner\7.png" />
+    <Content Include="img\summoner\Clairvoyance.png" />
+    <Content Include="img\summoner\Cleanse.png" />
+    <Content Include="img\summoner\Dash.png" />
+    <Content Include="img\summoner\Enhanced_Recall.png" />
+    <Content Include="img\summoner\Fortify.png" />
+    <Content Include="img\summoner\Garrison.png" />
+    <Content Include="img\summoner\Observer.png" />
+    <Content Include="img\summoner\Promote.png" />
+    <Content Include="img\summoner\Rally.png" />
+    <Content Include="img\summoner\Revive.png" />
+    <Content Include="img\summoner\Stifle.png" />
+    <Content Include="img\summoner\Surge.png" />
     <Content Include="Models\SummonerStatsDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SummonerStatsDB.edmx</DependentUpon>
@@ -2616,6 +2640,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\summonerstats - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2628,7 +2653,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

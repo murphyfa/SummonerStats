@@ -86,17 +86,6 @@
                         string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                         double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);
 
-                        string p1Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p1Name.Replace(" ", "+");
-                        string p2Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p2Name.Replace(" ", "+");
-                        string p3Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p3Name.Replace(" ", "+");
-                        string p4Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p4Name.Replace(" ", "+");
-                        string p5Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p5Name.Replace(" ", "+");
-                        string p6Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p6Name.Replace(" ", "+");
-                        string p7Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p7Name.Replace(" ", "+");
-                        string p8Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p8Name.Replace(" ", "+");
-                        string p9Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p9Name.Replace(" ", "+");
-                        string p10Link = "http://localhost:53564/Profile/Search/search-fld?searchName=" + Model.matchDetails.First().p10Name.Replace(" ", "+");
-
                         string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                         string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                         string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
@@ -276,7 +265,7 @@
                                                         <img src="@Url.Content(p1Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p1Link">@Model.matchDetails.First().p1Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p1Name })">@Model.matchDetails.First().p1Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -284,7 +273,7 @@
                                                         <img src="@Url.Content(p2Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p2Link">@Model.matchDetails.First().p2Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p2Name })">@Model.matchDetails.First().p2Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -292,7 +281,7 @@
                                                         <img src="@Url.Content(p3Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p3Link">@Model.matchDetails.First().p3Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p3Name })">@Model.matchDetails.First().p3Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -300,7 +289,7 @@
                                                         <img src="@Url.Content(p4Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p4Link">@Model.matchDetails.First().p4Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p4Name })">@Model.matchDetails.First().p4Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -308,7 +297,7 @@
                                                         <img src="@Url.Content(p5Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p5Link">@Model.matchDetails.First().p5Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p5Name })">@Model.matchDetails.First().p5Name</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -322,7 +311,7 @@
                                                         <img src="@Url.Content(p6Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p6Link">@Model.matchDetails.First().p6Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p6Name })">@Model.matchDetails.First().p6Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -330,7 +319,7 @@
                                                         <img src="@Url.Content(p7Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p7Link">@Model.matchDetails.First().p7Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p7Name })">@Model.matchDetails.First().p7Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -338,7 +327,7 @@
                                                         <img src="@Url.Content(p8Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p8Link">@Model.matchDetails.First().p8Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p8Name })">@Model.matchDetails.First().p8Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -346,7 +335,7 @@
                                                         <img src="@Url.Content(p9Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p9Link">@Model.matchDetails.First().p9Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p9Name })">@Model.matchDetails.First().p9Name</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -354,7 +343,7 @@
                                                         <img src="@Url.Content(p10Img)" height="16" width="16" />
                                                     </td>
                                                     <td>
-                                                        <a class="sm-pl-link" href="@p10Link">@Model.matchDetails.First().p10Name</a>
+                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p10Name })">@Model.matchDetails.First().p10Name</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
