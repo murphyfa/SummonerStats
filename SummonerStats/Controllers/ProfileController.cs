@@ -13,7 +13,7 @@ namespace SummonerStats.Controllers
     {
         ProfileViewModel profile = new ProfileViewModel();
         tblMatchHistory mhm = new tblMatchHistory();
-        tblMatchDetail mdm = new tblMatchDetail();
+        tblMatchDetails mdm = new tblMatchDetails();
         private MatchHistoryDBContext db = new MatchHistoryDBContext();
 
         public ActionResult Index()
@@ -27,7 +27,7 @@ namespace SummonerStats.Controllers
 
             int summonerID = profile.playerProfile.pullPlayer(searchName);
 
-            mhm.UpdateMatchHistory(summonerID);
+            profile.mh.UpdateMatchHistory(summonerID, searchName);
 
             profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(3) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
 
@@ -35,7 +35,9 @@ namespace SummonerStats.Controllers
         }
 
 
-        public int[] FindViewPlayer(IEnumerable<tblMatchDetail> details, string summonerName)
+
+
+        public int[] FindViewPlayer(IEnumerable<tblMatchDetails> details, string summonerName)
         {
             int[] playerDetails = new int[16];
             playerDetails[15] = 0;
@@ -62,6 +64,8 @@ namespace SummonerStats.Controllers
                 {
                     playerDetails[15] = 1;
                 }
+
+                
             }
             else if (details.First().p2Name == summonerName)
             {

@@ -1,10 +1,10 @@
 ﻿@model SummonerStats.Models.ProfileViewModel
 @{
-    ViewBag.Title = @Model.playerProfile.name;
+    ViewBag.Title = Model.playerProfile.name;
 }
 <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-<div class="jumbotron" id="profile-header" style="background:linear-gradient(rgba(0,0,0,0.5), rgba(255,255,255,0.2)), url(@Model.playerProfile.topChampBG) top center no-repeat">
-    @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + @Model.playerProfile.profileIconId + ".png";}
+<div class="jumbotron" id="profile-header" style="background:linear-gradient(rgba(0,0,0,0.5), rgba(255,255,255,0.2)), url(@Model.mh.topChampBG) top center no-repeat">
+    @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + Model.playerProfile.profileIconId + ".png";}
     <div>
         <div class="s-icon-div">
             <div class="s-lvl">Level @Model.playerProfile.summonerLevel</div>
@@ -19,69 +19,111 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-4" style="background-color: blanchedalmond">
+        <div class="col-sm-4 top-champs">
             <div>
-
-            </div>
-
-
-            <div>
-                <h4 class="centered">Most Played Champions <small>(Season 7)</small></h4>
+                <div class="top-champs-hd">
+                    <span class="top-champs-title">Most Played Champions </span>
+                </div>
 
                 @{ 
-                    string champOneImg = "~/img/champion/" + Model.playerProfile.topChampOne.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                    string champTwoImg = "~/img/champion/" + Model.playerProfile.topChampTwo.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                    string champThreeImg = "~/img/champion/" + Model.playerProfile.topChampThree.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                    string champFourImg = "~/img/champion/" + Model.playerProfile.topChampFour.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
-                    string champFiveImg = "~/img/champion/" + Model.playerProfile.topChampFive.Replace(" ", "").Replace("'", "").Replace(".","") + ".png";
+                    string champOneImg = "~/img/champion/" + Model.mh.topChampOne.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                    string champTwoImg = "~/img/champion/" + Model.mh.topChampTwo.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                    string champThreeImg = "~/img/champion/" + Model.mh.topChampThree.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                    string champFourImg = "~/img/champion/" + Model.mh.topChampFour.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                    string champFiveImg = "~/img/champion/" + Model.mh.topChampFive.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                 }
 
                 <table class="centered tc-table">
                     <tr class="tc-tr">
                         <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
-                        <td><p>@Model.playerProfile.topChampOne</p></td>
-                        <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
-                        <td class="tc-td"><p>80%<br />WIN RATE</p></td>
+                        <td><span class="tc-name">@Model.mh.topChampOne</span></td>
+                        <td class="tc-td"><p>@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA<br />W:@Model.mh.winsOne L:@Model.mh.lossesOne</p></td>
+                        <td class="tc-td"><span>@Model.mh.winrateOne<br />WIN RATE</span></td>
                     </tr>
                     <tr class="tc-tr">
                         <td><img class="top-champ-icon" src="@Url.Content(champTwoImg)" height="50" width="50" /></td>
-                        <td><p>@Model.playerProfile.topChampTwo</p></td>
+                        <td><span class="tc-name">@Model.mh.topChampTwo</span></td>
                         <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
                         <td class="tc-td"><p>80%<br />WIN RATE</p></td>
                     </tr>
                     <tr class="tc-tr">
                         <td><img class="top-champ-icon" src="@Url.Content(champThreeImg)" height="50" width="50" /></td>
-                        <td><p>@Model.playerProfile.topChampThree</p></td>
+                        <td><span class="tc-name">@Model.mh.topChampThree</span></td>
                         <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
                         <td class="tc-td"><p>80%<br />WIN RATE</p></td>
                     </tr>
                     <tr class="tc-tr">
                         <td><img class="top-champ-icon" src="@Url.Content(champFourImg)" height="50" width="50" /></td>
-                        <td><p>@Model.playerProfile.topChampFour</p></td>
+                        <td><span class="tc-name">@Model.mh.topChampFour</span></td>
                         <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
                         <td class="tc-td"><p>80%<br />WIN RATE</p></td>
                     </tr>
                     <tr class="tc-tr">
                         <td><img class="top-champ-icon" src="@Url.Content(champFiveImg)" height="50" width="50" /></td>
-                        <td><p>@Model.playerProfile.topChampFive</p></td>
+                        <td><span class="tc-name">@Model.mh.topChampFive</span></td>
                         <td class="tc-td"><p>10 / 5 / 8 KDA<br />50W 20L</p></td>
                         <td class="tc-td"><p>80%<br />WIN RATE</p></td>
                     </tr>
                 </table>
             </div>
         </div>
+
+        @{ 
+            //recent matches header
+            string gameCount = Model.matchHistory.Count.ToString() + "G";
+            int winCount = 0;
+            int lossCount = 0;
+            int kills = 0;
+            int deaths = 0;
+            int assists = 0;
+
+            foreach (var match in Model.matchHistory)
+            {
+                SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+                Model.matchDetails = mdm.PullMatch(match.matchId);
+                int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+
+                if (playerStats[15] == 1)
+                {
+                    winCount++;
+                }
+                else
+                {
+                    lossCount++;
+                }
+
+                kills += playerStats[4];
+                deaths += playerStats[5];
+                assists += playerStats[6];
+            }
+
+            string winString = winCount.ToString() + "W";
+            string lossString = lossCount.ToString() + "L";
+            string killAvg = (kills / Model.matchHistory.Count()).ToString();
+            string deathsAvg = (deaths / Model.matchHistory.Count()).ToString();
+            string assistsAvg = (assists / Model.matchHistory.Count()).ToString();
+        }
+
         <div class="col-sm-8 matches">
-            <h2>Recent Matches</h2>
+            <div class="recent-match-hd">
+                <span class="rct-title">Recent Matches</span>
+                <span class="rct-wl">@gameCount @winString @lossString</span>
+                <div class="rct-kda-div">
+                    <span class="rct-kda-lbl">Avg KDA: </span>
+                    <span class="rct-kda">@killAvg / @deathsAvg / @assistsAvg</span>
+                </div>
+            </div>
             <div>
                 @{
                     foreach (var match in Model.matchHistory)
                     {
-                        SummonerStats.Models.tblMatchDetail mdm = new SummonerStats.Models.tblMatchDetail();
+                        SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
                         SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
 
                         Model.matchDetails = mdm.PullMatch(match.matchId);
 
-                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, @Model.playerProfile.name);
+                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
                         string playerChamp = pc.ChampById(playerStats[1]);
                         string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                         double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);

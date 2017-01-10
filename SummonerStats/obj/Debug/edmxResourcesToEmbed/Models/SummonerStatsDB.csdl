@@ -212,6 +212,10 @@
     <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="platformId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="lane" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="kills" Type="Int32" Nullable="false" />
+    <Property Name="deaths" Type="Int32" Nullable="false" />
+    <Property Name="assists" Type="Int32" Nullable="false" />
+    <Property Name="winner" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityContainer Name="SummonerStatsDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetail" />

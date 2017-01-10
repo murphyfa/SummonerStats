@@ -9,21 +9,21 @@ using System.Web;
 
 namespace SummonerStats.Models
 {
-    public partial class tblMatchDetail
+    public partial class tblMatchDetails
     {
 
-        public List<tblMatchDetail> PullMatch(long matchID)
+        public List<tblMatchDetails> PullMatch(long matchID)
         {
             MatchDetailsDBContext db = new MatchDetailsDBContext();
-            List<tblMatchDetail> matchDetails = null;
+            List<tblMatchDetails> matchDetails = null;
 
             if (db.MatchDetails.Where(u => u.matchId == matchID).ToList().Count() > 0)
             {
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
-                System.Diagnostics.Debug.WriteLine("Match found in database!");
+                System.Diagnostics.Debug.WriteLine("Match " + matchID + " found in database!");
             } else
             {
-                System.Diagnostics.Debug.WriteLine("No match found, retrieving data!");
+                System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
                 UpdateMatch(matchID);
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
             }
@@ -42,7 +42,7 @@ namespace SummonerStats.Models
                 string mdData = client.DownloadString(mdURL);
                 JObject mdRecords = JObject.Parse(mdData);
 
-                tblMatchDetail mdm = new tblMatchDetail();
+                tblMatchDetails mdm = new tblMatchDetails();
 
                 mdm.region = (string)mdRecords["region"];
                 mdm.matchType = (string)mdRecords["matchType"];
@@ -271,6 +271,6 @@ namespace SummonerStats.Models
 
         }
 
-        public DbSet<tblMatchDetail> MatchDetails { get; set; }
+        public DbSet<tblMatchDetails> MatchDetails { get; set; }
     }
 }

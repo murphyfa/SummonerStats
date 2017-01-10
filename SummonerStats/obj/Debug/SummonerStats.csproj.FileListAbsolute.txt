@@ -47,11 +47,3 @@ C:\Users\Me\Documents\Visual Studio 2015\Projects\SummonerStats\SummonerStats\ob
 C:\Users\Me\Documents\Visual Studio 2015\Projects\SummonerStats\SummonerStats\obj\Debug\SummonerStats.dll
 C:\Users\Me\Documents\Visual Studio 2015\Projects\SummonerStats\SummonerStats\obj\Debug\SummonerStats.pdb
 C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\RiotApi.Net.RestClient.xml
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.Context.tt
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.tt
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.edmx.diagram
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.Context.cs
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.cs
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\SummonerStatsDB.Designer.cs
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\tblMatchDetail.cs
-C:\Users\Me\documents\visual studio 2015\Projects\SummonerStats\SummonerStats\bin\Models\tblMatchHistory.cs

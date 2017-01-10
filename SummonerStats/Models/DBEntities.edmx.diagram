@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e481b79ee9d64ac6a273c635b80249c7" Name="Diagram1" ZoomLevel="16">
-        <EntityTypeShape EntityType="SummonerStatsDBModel.tblMatchDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SummonerStatsDBModel.tblMatchHistory" Width="2.375" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="3239aec2b826469f923b0ed6ca5ed249" Name="Diagram1">
+        <EntityTypeShape EntityType="SummonerStatsDBModel.tblMatchDetails" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SummonerStatsDBModel.tblMatchHistory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

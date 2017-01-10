@@ -11,15 +11,14 @@ namespace SummonerStats.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class tblMatchHistory
     {
-        [Key]
         public long matchIndex { get; set; }
         public int id { get; set; }
         public long timestamp { get; set; }
         public int champion { get; set; }
+        public string champName { get; set; }
         public string region { get; set; }
         public string queue { get; set; }
         public string season { get; set; }
@@ -27,5 +26,9 @@ namespace SummonerStats.Models
         public string role { get; set; }
         public string platformId { get; set; }
         public string lane { get; set; }
+        public Nullable<int> kills { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> assists { get; set; }
+        public Nullable<int> winner { get; set; }
     }
 }

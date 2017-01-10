@@ -11,11 +11,9 @@ namespace SummonerStats.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class tblMatchDetail
+    
+    public partial class tblMatchDetails
     {
-        [Key]
         public int matchIndex { get; set; }
         public string region { get; set; }
         public string matchType { get; set; }

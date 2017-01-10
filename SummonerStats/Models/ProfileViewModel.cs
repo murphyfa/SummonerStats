@@ -8,7 +8,8 @@ namespace SummonerStats.Models
     public class ProfileViewModel
     {
         public PlayerProfileModel playerProfile = new PlayerProfileModel();
+        public tblMatchHistory mh = new tblMatchHistory();
         public List<tblMatchHistory> matchHistory { get; set; }
-        public IEnumerable<tblMatchDetail> matchDetails { get; set; }
+        public IEnumerable<tblMatchDetails> matchDetails { get; set; }
     }
 }

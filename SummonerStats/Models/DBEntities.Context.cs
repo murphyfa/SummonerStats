@@ -25,7 +25,7 @@ namespace SummonerStats.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblMatchDetail> tblMatchDetails { get; set; }
-        public virtual DbSet<tblMatchHistory> tblMatchHistories { get; set; }
+        public virtual DbSet<tblMatchDetails> tblMatchDetails { get; set; }
+        public virtual DbSet<tblMatchHistory> tblMatchHistory { get; set; }
     }
 }

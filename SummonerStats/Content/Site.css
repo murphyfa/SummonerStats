@@ -24,6 +24,75 @@
     bottom: 0px;
 }
 
+/* Top Champs */
+.top-champs {
+    background-color: #bfbfbf;
+    padding: 0;
+    padding-bottom: 5px;
+}
+
+.top-champs-hd {
+    background-color: #222222;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.top-champs-title {
+    font-size: 24px;
+    color: white;
+}
+
+.tc-table {
+    width: 100%;
+}
+
+.tc-tr {
+    height: 60px;
+}
+
+.tc-name {
+    color: black;
+    font-size: 18px;
+}
+
+/*Recent Matches*/
+.recent-match-hd {
+    background-color: #222222;
+    height: 46px;
+    padding: 5px;
+    text-align: center;
+}
+
+.rct-title {
+    color: white;
+    font-size: 25px;
+    float: left;
+    padding-left: 10px;
+}
+
+.rct-wl {
+    color: white;
+    font-size: 25px;
+}
+
+.rct-kda-div {
+    float: right;
+    margin-right: 10px;
+}
+
+.rct-kda-lbl {
+    color: white;
+    font-size: 18px;
+    margin-right: 3px;
+}
+
+.rct-kda {
+    color: white;
+    font-size: 25px;
+}
+
+/*Match History*/
 .mc1 {
     float: left;
     height: 80px;
@@ -142,25 +211,25 @@
 }
 
 .md-c3 {
-    width: 75px;
+    width: 85px;
     text-align: center;
     display: inline-block;
 }
 
 .md-c4 {
-    width: 75px;
+    width: 65px;
     text-align: center;
     display: inline-block;
 }
 
 .md-c5 {
-    width: 75px;
+    width: 80px;
     text-align: center;
     display: inline-block;
 }
 
 .md-c6 {
-    width: 75px;
+    width: 95px;
     text-align: center;
     display: inline-block;
 }
@@ -261,14 +330,6 @@
 .match-row {
     padding: 10px;
     height: 120px;
-}
-
-.tc-table {
-    width: 100% !important;
-}
-
-.tc-tr {
-    height: 60px;
 }
 
 .s-icon-div {

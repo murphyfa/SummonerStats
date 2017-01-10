@@ -210,6 +210,7 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="timestamp" Type="bigint" Nullable="false" />
           <Property Name="champion" Type="int" Nullable="false" />
+          <Property Name="champName" Type="nvarchar(max)" />
           <Property Name="region" Type="nvarchar(max)" />
           <Property Name="queue" Type="nvarchar(max)" />
           <Property Name="season" Type="nvarchar(max)" />
@@ -217,6 +218,10 @@
           <Property Name="role" Type="nvarchar(max)" />
           <Property Name="platformId" Type="nvarchar(max)" />
           <Property Name="lane" Type="nvarchar(max)" />
+          <Property Name="kills" Type="int" />
+          <Property Name="deaths" Type="int" />
+          <Property Name="assists" Type="int" />
+          <Property Name="winner" Type="int" />
         </EntityType>
         <EntityContainer Name="SummonerStatsDBModelStoreContainer">
           <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetails" Schema="dbo" store:Type="Tables" />
@@ -227,7 +232,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SummonerStatsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tblMatchDetail">
+        <EntityType Name="tblMatchDetails">
           <Key>
             <PropertyRef Name="matchIndex" />
           </Key>
@@ -432,6 +437,7 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="timestamp" Type="Int64" Nullable="false" />
           <Property Name="champion" Type="Int32" Nullable="false" />
+          <Property Name="champName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="queue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="season" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -439,10 +445,14 @@
           <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="platformId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="lane" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kills" Type="Int32" />
+          <Property Name="deaths" Type="Int32" />
+          <Property Name="assists" Type="Int32" />
+          <Property Name="winner" Type="Int32" />
         </EntityType>
         <EntityContainer Name="SummonerStatsDBEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetail" />
-          <EntitySet Name="tblMatchHistories" EntityType="Self.tblMatchHistory" />
+          <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetails" />
+          <EntitySet Name="tblMatchHistory" EntityType="Self.tblMatchHistory" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -451,7 +461,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SummonerStatsDBModelStoreContainer" CdmEntityContainer="SummonerStatsDBEntities1">
           <EntitySetMapping Name="tblMatchDetails">
-            <EntityTypeMapping TypeName="SummonerStatsDBModel.tblMatchDetail">
+            <EntityTypeMapping TypeName="SummonerStatsDBModel.tblMatchDetails">
               <MappingFragment StoreEntitySet="tblMatchDetails">
                 <ScalarProperty Name="matchIndex" ColumnName="matchIndex" />
                 <ScalarProperty Name="region" ColumnName="region" />
@@ -648,13 +658,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblMatchHistories">
+          <EntitySetMapping Name="tblMatchHistory">
             <EntityTypeMapping TypeName="SummonerStatsDBModel.tblMatchHistory">
               <MappingFragment StoreEntitySet="tblMatchHistory">
                 <ScalarProperty Name="matchIndex" ColumnName="matchIndex" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
                 <ScalarProperty Name="champion" ColumnName="champion" />
+                <ScalarProperty Name="champName" ColumnName="champName" />
                 <ScalarProperty Name="region" ColumnName="region" />
                 <ScalarProperty Name="queue" ColumnName="queue" />
                 <ScalarProperty Name="season" ColumnName="season" />
@@ -662,6 +673,10 @@
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="platformId" ColumnName="platformId" />
                 <ScalarProperty Name="lane" ColumnName="lane" />
+                <ScalarProperty Name="kills" ColumnName="kills" />
+                <ScalarProperty Name="deaths" ColumnName="deaths" />
+                <ScalarProperty Name="assists" ColumnName="assists" />
+                <ScalarProperty Name="winner" ColumnName="winner" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -679,7 +694,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
