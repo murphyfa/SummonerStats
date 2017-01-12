@@ -52,23 +52,35 @@ namespace SummonerStats.Models
                     profileIconId = profileStats.First().Value.profileIconId;
                     summonerLevel = profileStats.First().Value.summonerLevel;
 
-                    //info from leagues request
-                    string leagueURL = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + id + "/entry?api_key=" + apiKey;
-                    string leagueData = client.DownloadString(leagueURL);
-                    JObject leagueStats = JObject.Parse(leagueData);
+                    try
+                    {
+                        //info from leagues request
+                        string leagueURL = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + id + "/entry?api_key=" + apiKey;
+                        string leagueData = client.DownloadString(leagueURL);
+                        JObject leagueStats = JObject.Parse(leagueData);
 
-                    group = (string)leagueStats[id.ToString()][0]["name"];
-                    leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
-                    league = (string)leagueStats[id.ToString()][0]["tier"];
-                    division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];
-                    wins = (Int32)leagueStats[id.ToString()][0]["entries"][0]["wins"];
-                    losses = (Int32)leagueStats[id.ToString()][0]["entries"][0]["losses"];
+                        group = (string)leagueStats[id.ToString()][0]["name"];
+                        leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
+                        league = (string)leagueStats[id.ToString()][0]["tier"];
+                        division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];
+                        wins = (Int32)leagueStats[id.ToString()][0]["entries"][0]["wins"];
+                        losses = (Int32)leagueStats[id.ToString()][0]["entries"][0]["losses"];
+                    }
+                    catch
+                    {
+                        group = "";
+                        leaguePoints = 0;
+                        league = "UNRANKED";
+                        division = "";
+                        wins = 0;
+                        losses = 0;
+                    }
 
                 }
         }
             catch
             {
-                name = "Player Not Found";
+                name = "The player was not found";
             }
 
             return id;

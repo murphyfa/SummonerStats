@@ -20,9 +20,16 @@
             <div class="rank-stats">
                 <div class="rank-stats-bd">
                     @{
-                        string rankImg = "~/img/rank/" + Model.playerProfile.league.ToLower() + ".png";
+                        string rankImg;
+                        if (Model.playerProfile.league != null)
+                        {
+                            rankImg = "~/img/rank/" + Model.playerProfile.league.ToLower() + ".png";
+                        } else
+                        {
+                            rankImg = "~/img/rank/unranked.png";
+                        }
                         string LPString = Model.playerProfile.leaguePoints + "LP";
-                     }
+                    }
                     <img class="rank-icon" src="@Url.Content(rankImg)" height="128" width="128" />
                     <div class="league-div">
                         <span class="league-span">@Model.playerProfile.league @Model.playerProfile.division</span>
@@ -37,84 +44,124 @@
                     <span> (Season 7)</span>
                 </div>
 
-                @{ 
-                    string champOneImg = "~/img/champion/" + Model.mh.topChampOne.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                    string champTwoImg = "~/img/champion/" + Model.mh.topChampTwo.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                    string champThreeImg = "~/img/champion/" + Model.mh.topChampThree.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                    string champFourImg = "~/img/champion/" + Model.mh.topChampFour.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                    string champFiveImg = "~/img/champion/" + Model.mh.topChampFive.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                }
-
                 <table class="centered tc-table">
-                    <tr class="tc-tr">
-                        <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
-                        <td><span class="tc-name">@Model.mh.topChampOne</span></td>
-                        <td class="tc-td"><p>@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA<br />W: @Model.mh.winsOne L: @Model.mh.lossesOne</p></td>
-                        <td class="tc-td"><span>@Model.mh.winrateOne<br />WIN RATE</span></td>
-                    </tr>
-                    <tr class="tc-tr">
-                        <td><img class="top-champ-icon" src="@Url.Content(champTwoImg)" height="50" width="50" /></td>
-                        <td><span class="tc-name">@Model.mh.topChampTwo</span></td>
-                        <td class="tc-td"><p>@Model.mh.killsTwo / @Model.mh.deathsTwo / @Model.mh.assistsTwo KDA<br />W:@Model.mh.winsTwo L:@Model.mh.lossesTwo</p></td>
-                        <td class="tc-td"><p>@Model.mh.winrateTwo<br />WIN RATE</p></td>
-                    </tr>
-                    <tr class="tc-tr">
-                        <td><img class="top-champ-icon" src="@Url.Content(champThreeImg)" height="50" width="50" /></td>
-                        <td><span class="tc-name">@Model.mh.topChampThree</span></td>
-                        <td class="tc-td"><p>@Model.mh.killsThree / @Model.mh.deathsThree / @Model.mh.assistsThree KDA<br />W:@Model.mh.winsThree L:@Model.mh.lossesThree</p></td>
-                        <td class="tc-td"><p>@Model.mh.winrateThree<br />WIN RATE</p></td>
-                    </tr>
-                    <tr class="tc-tr">
-                        <td><img class="top-champ-icon" src="@Url.Content(champFourImg)" height="50" width="50" /></td>
-                        <td><span class="tc-name">@Model.mh.topChampFour</span></td>
-                        <td class="tc-td"><p>@Model.mh.killsFour / @Model.mh.deathsFour / @Model.mh.assistsFour KDA<br />W:@Model.mh.winsFour L:@Model.mh.lossesFour</p></td>
-                        <td class="tc-td"><p>@Model.mh.winrateFour<br />WIN RATE</p></td>
-                    </tr>
-                    <tr class="tc-tr">
-                        <td><img class="top-champ-icon" src="@Url.Content(champFiveImg)" height="50" width="50" /></td>
-                        <td><span class="tc-name">@Model.mh.topChampFive</span></td>
-                        <td class="tc-td"><p>@Model.mh.killsFive / @Model.mh.deathsFive / @Model.mh.assistsFive KDA<br />W:@Model.mh.winsFive L:@Model.mh.lossesFive</p></td>
-                        <td class="tc-td"><p>@Model.mh.winrateFive<br />WIN RATE</p></td>
-                    </tr>
+                    @{ if (Model.mh.topChampOne != null)
+                        {
+                            string champOneImg = "~/img/champion/" + Model.mh.topChampOne.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            <tr class="tc-tr">
+                                <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
+                                <td><span class="tc-name">@Model.mh.topChampOne</span></td>
+                                <td class="tc-td"><p>@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA<br />W: @Model.mh.winsOne L: @Model.mh.lossesOne</p></td>
+                                <td class="tc-td"><span>@Model.mh.winrateOne<br />WIN RATE</span></td>
+                            </tr>
+                        }
+                        }
+                    @{ if (Model.mh.topChampTwo != null)
+                        {
+                            string champTwoImg = "~/img/champion/" + Model.mh.topChampTwo.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            <tr class="tc-tr">
+                                <td><img class="top-champ-icon" src="@Url.Content(champTwoImg)" height="50" width="50" /></td>
+                                <td><span class="tc-name">@Model.mh.topChampTwo</span></td>
+                                <td class="tc-td"><p>@Model.mh.killsTwo / @Model.mh.deathsTwo / @Model.mh.assistsTwo KDA<br />W:@Model.mh.winsTwo L:@Model.mh.lossesTwo</p></td>
+                                <td class="tc-td"><p>@Model.mh.winrateTwo<br />WIN RATE</p></td>
+                            </tr>
+                        }
+                        }
+                    @{ if (Model.mh.topChampThree != null)
+                        {
+                            string champThreeImg = "~/img/champion/" + Model.mh.topChampThree.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            <tr class="tc-tr">
+                                <td><img class="top-champ-icon" src="@Url.Content(champThreeImg)" height="50" width="50" /></td>
+                                <td><span class="tc-name">@Model.mh.topChampThree</span></td>
+                                <td class="tc-td"><p>@Model.mh.killsThree / @Model.mh.deathsThree / @Model.mh.assistsThree KDA<br />W:@Model.mh.winsThree L:@Model.mh.lossesThree</p></td>
+                                <td class="tc-td"><p>@Model.mh.winrateThree<br />WIN RATE</p></td>
+                            </tr>
+                        }
+                        }
+                    @{ if (Model.mh.topChampFour != null)
+                        {
+                            string champFourImg = "~/img/champion/" + Model.mh.topChampFour.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            <tr class="tc-tr">
+                                <td><img class="top-champ-icon" src="@Url.Content(champFourImg)" height="50" width="50" /></td>
+                                <td><span class="tc-name">@Model.mh.topChampFour</span></td>
+                                <td class="tc-td"><p>@Model.mh.killsFour / @Model.mh.deathsFour / @Model.mh.assistsFour KDA<br />W:@Model.mh.winsFour L:@Model.mh.lossesFour</p></td>
+                                <td class="tc-td"><p>@Model.mh.winrateFour<br />WIN RATE</p></td>
+                            </tr>
+                        }
+                        }
+                    @{ if (Model.mh.topChampFive != null)
+                        {
+                            string champFiveImg = "~/img/champion/" + Model.mh.topChampFive.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            <tr class="tc-tr">
+                                <td><img class="top-champ-icon" src="@Url.Content(champFiveImg)" height="50" width="50" /></td>
+                                <td><span class="tc-name">@Model.mh.topChampFive</span></td>
+                                <td class="tc-td"><p>@Model.mh.killsFive / @Model.mh.deathsFive / @Model.mh.assistsFive KDA<br />W:@Model.mh.winsFive L:@Model.mh.lossesFive</p></td>
+                                <td class="tc-td"><p>@Model.mh.winrateFive<br />WIN RATE</p></td>
+                            </tr>
+                        }
+                        }
                 </table>
             </div>
         </div>
 
         @{ 
             //recent matches header
-            string gameCount = Model.matchHistory.Count.ToString() + "G";
+
+            string gameCount = "0G";
             int winCount = 0;
             int lossCount = 0;
             int kills = 0;
             int deaths = 0;
             int assists = 0;
+            string winString = "0W";
+            string lossString = "0L";
+            string killAvg = "0";
+            string deathsAvg = "0";
+            string assistsAvg = "0";
 
-            foreach (var match in Model.matchHistory)
+            if (Model.matchHistory != null)
             {
-                SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
-                SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
-                Model.matchDetails = mdm.PullMatch(match.matchId);
-                int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+                gameCount = Model.matchHistory.Count.ToString() + "G";
 
-                if (playerStats[15] == 1)
+                foreach (var match in Model.matchHistory)
                 {
-                    winCount++;
+                    SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                    SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+                    Model.matchDetails = mdm.PullMatch(match.matchId);
+                    int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+
+                    if (playerStats[15] == 1)
+                    {
+                        winCount++;
+                    }
+                    else
+                    {
+                        lossCount++;
+                    }
+
+                    kills += playerStats[4];
+                    deaths += playerStats[5];
+                    assists += playerStats[6];
+                }
+
+                winString = winCount.ToString() + "W";
+                lossString = lossCount.ToString() + "L";
+
+
+                if (Model.matchHistory.Count() == 0)
+                {
+                    killAvg = "0";
+                    deathsAvg = "0";
+                    assistsAvg = "0";
                 }
                 else
                 {
-                    lossCount++;
+                    killAvg = (kills / Model.matchHistory.Count()).ToString();
+                    deathsAvg = (deaths / Model.matchHistory.Count()).ToString();
+                    assistsAvg = (assists / Model.matchHistory.Count()).ToString();
                 }
-
-                kills += playerStats[4];
-                deaths += playerStats[5];
-                assists += playerStats[6];
             }
 
-            string winString = winCount.ToString() + "W";
-            string lossString = lossCount.ToString() + "L";
-            string killAvg = (kills / Model.matchHistory.Count()).ToString();
-            string deathsAvg = (deaths / Model.matchHistory.Count()).ToString();
-            string assistsAvg = (assists / Model.matchHistory.Count()).ToString();
         }
 
         <div class="col-sm-8 matches">
@@ -128,159 +175,161 @@
             </div>
             <div>
                 @{
-                    foreach (var match in Model.matchHistory)
+                    if (Model.matchHistory != null)
                     {
-                        SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
-                        SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
-
-                        Model.matchDetails = mdm.PullMatch(match.matchId);
-
-                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
-                        string playerChamp = pc.ChampById(playerStats[1]);
-                        string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);
-
-                        string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p4Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p4Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p5Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p5Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p6Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p6Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p7Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p7Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p8Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p8Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p9Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p9Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                        string p10Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p10Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-
-                        string playerS1 = "~/img/summoner/" + playerStats[2] + ".png";
-                        string playerS2 = "~/img/summoner/" + playerStats[3] + ".png";
-
-                        string p1s1 = "~/img/summoner/" + Model.matchDetails.First().p1Spell1 + ".png";
-                        string p1s2 = "~/img/summoner/" + Model.matchDetails.First().p1Spell2 + ".png";
-                        string p2s1 = "~/img/summoner/" + Model.matchDetails.First().p2Spell1 + ".png";
-                        string p2s2 = "~/img/summoner/" + Model.matchDetails.First().p2Spell2 + ".png";
-                        string p3s1 = "~/img/summoner/" + Model.matchDetails.First().p3Spell1 + ".png";
-                        string p3s2 = "~/img/summoner/" + Model.matchDetails.First().p3Spell2 + ".png";
-                        string p4s1 = "~/img/summoner/" + Model.matchDetails.First().p4Spell1 + ".png";
-                        string p4s2 = "~/img/summoner/" + Model.matchDetails.First().p4Spell2 + ".png";
-                        string p5s1 = "~/img/summoner/" + Model.matchDetails.First().p5Spell1 + ".png";
-                        string p5s2 = "~/img/summoner/" + Model.matchDetails.First().p5Spell2 + ".png";
-                        string p6s1 = "~/img/summoner/" + Model.matchDetails.First().p6Spell1 + ".png";
-                        string p6s2 = "~/img/summoner/" + Model.matchDetails.First().p6Spell2 + ".png";
-                        string p7s1 = "~/img/summoner/" + Model.matchDetails.First().p7Spell1 + ".png";
-                        string p7s2 = "~/img/summoner/" + Model.matchDetails.First().p7Spell2 + ".png";
-                        string p8s1 = "~/img/summoner/" + Model.matchDetails.First().p8Spell1 + ".png";
-                        string p8s2 = "~/img/summoner/" + Model.matchDetails.First().p8Spell2 + ".png";
-                        string p9s1 = "~/img/summoner/" + Model.matchDetails.First().p9Spell1 + ".png";
-                        string p9s2 = "~/img/summoner/" + Model.matchDetails.First().p9Spell2 + ".png";
-                        string p10s1 = "~/img/summoner/" + Model.matchDetails.First().p10Spell1 + ".png";
-                        string p10s2 = "~/img/summoner/" + Model.matchDetails.First().p10Spell2 + ".png";
-
-                        string p1i1 = "~/img/item/" + Model.matchDetails.First().p1Item1 + ".png";
-                        string p1i2 = "~/img/item/" + Model.matchDetails.First().p1Item2 + ".png";
-                        string p1i3 = "~/img/item/" + Model.matchDetails.First().p1Item3 + ".png";
-                        string p1i4 = "~/img/item/" + Model.matchDetails.First().p1Item4 + ".png";
-                        string p1i5 = "~/img/item/" + Model.matchDetails.First().p1Item5 + ".png";
-                        string p1i6 = "~/img/item/" + Model.matchDetails.First().p1Item6 + ".png";
-                        string p2i1 = "~/img/item/" + Model.matchDetails.First().p2Item1 + ".png";
-                        string p2i2 = "~/img/item/" + Model.matchDetails.First().p2Item2 + ".png";
-                        string p2i3 = "~/img/item/" + Model.matchDetails.First().p2Item3 + ".png";
-                        string p2i4 = "~/img/item/" + Model.matchDetails.First().p2Item4 + ".png";
-                        string p2i5 = "~/img/item/" + Model.matchDetails.First().p2Item5 + ".png";
-                        string p2i6 = "~/img/item/" + Model.matchDetails.First().p2Item6 + ".png";
-                        string p3i1 = "~/img/item/" + Model.matchDetails.First().p3Item1 + ".png";
-                        string p3i2 = "~/img/item/" + Model.matchDetails.First().p3Item2 + ".png";
-                        string p3i3 = "~/img/item/" + Model.matchDetails.First().p3Item3 + ".png";
-                        string p3i4 = "~/img/item/" + Model.matchDetails.First().p3Item4 + ".png";
-                        string p3i5 = "~/img/item/" + Model.matchDetails.First().p3Item5 + ".png";
-                        string p3i6 = "~/img/item/" + Model.matchDetails.First().p3Item6 + ".png";
-                        string p4i1 = "~/img/item/" + Model.matchDetails.First().p4Item1 + ".png";
-                        string p4i2 = "~/img/item/" + Model.matchDetails.First().p4Item2 + ".png";
-                        string p4i3 = "~/img/item/" + Model.matchDetails.First().p4Item3 + ".png";
-                        string p4i4 = "~/img/item/" + Model.matchDetails.First().p4Item4 + ".png";
-                        string p4i5 = "~/img/item/" + Model.matchDetails.First().p4Item5 + ".png";
-                        string p4i6 = "~/img/item/" + Model.matchDetails.First().p4Item6 + ".png";
-                        string p5i1 = "~/img/item/" + Model.matchDetails.First().p5Item1 + ".png";
-                        string p5i2 = "~/img/item/" + Model.matchDetails.First().p5Item2 + ".png";
-                        string p5i3 = "~/img/item/" + Model.matchDetails.First().p5Item3 + ".png";
-                        string p5i4 = "~/img/item/" + Model.matchDetails.First().p5Item4 + ".png";
-                        string p5i5 = "~/img/item/" + Model.matchDetails.First().p5Item5 + ".png";
-                        string p5i6 = "~/img/item/" + Model.matchDetails.First().p5Item6 + ".png";
-                        string p6i1 = "~/img/item/" + Model.matchDetails.First().p6Item1 + ".png";
-                        string p6i2 = "~/img/item/" + Model.matchDetails.First().p6Item2 + ".png";
-                        string p6i3 = "~/img/item/" + Model.matchDetails.First().p6Item3 + ".png";
-                        string p6i4 = "~/img/item/" + Model.matchDetails.First().p6Item4 + ".png";
-                        string p6i5 = "~/img/item/" + Model.matchDetails.First().p6Item5 + ".png";
-                        string p6i6 = "~/img/item/" + Model.matchDetails.First().p6Item6 + ".png";
-                        string p7i1 = "~/img/item/" + Model.matchDetails.First().p7Item1 + ".png";
-                        string p7i2 = "~/img/item/" + Model.matchDetails.First().p7Item2 + ".png";
-                        string p7i3 = "~/img/item/" + Model.matchDetails.First().p7Item3 + ".png";
-                        string p7i4 = "~/img/item/" + Model.matchDetails.First().p7Item4 + ".png";
-                        string p7i5 = "~/img/item/" + Model.matchDetails.First().p7Item5 + ".png";
-                        string p7i6 = "~/img/item/" + Model.matchDetails.First().p7Item6 + ".png";
-                        string p8i1 = "~/img/item/" + Model.matchDetails.First().p8Item1 + ".png";
-                        string p8i2 = "~/img/item/" + Model.matchDetails.First().p8Item2 + ".png";
-                        string p8i3 = "~/img/item/" + Model.matchDetails.First().p8Item3 + ".png";
-                        string p8i4 = "~/img/item/" + Model.matchDetails.First().p8Item4 + ".png";
-                        string p8i5 = "~/img/item/" + Model.matchDetails.First().p8Item5 + ".png";
-                        string p8i6 = "~/img/item/" + Model.matchDetails.First().p8Item6 + ".png";
-                        string p9i1 = "~/img/item/" + Model.matchDetails.First().p9Item1 + ".png";
-                        string p9i2 = "~/img/item/" + Model.matchDetails.First().p9Item2 + ".png";
-                        string p9i3 = "~/img/item/" + Model.matchDetails.First().p9Item3 + ".png";
-                        string p9i4 = "~/img/item/" + Model.matchDetails.First().p9Item4 + ".png";
-                        string p9i5 = "~/img/item/" + Model.matchDetails.First().p9Item5 + ".png";
-                        string p9i6 = "~/img/item/" + Model.matchDetails.First().p9Item6 + ".png";
-                        string p10i1 = "~/img/item/" + Model.matchDetails.First().p10Item1 + ".png";
-                        string p10i2 = "~/img/item/" + Model.matchDetails.First().p10Item2 + ".png";
-                        string p10i3 = "~/img/item/" + Model.matchDetails.First().p10Item3 + ".png";
-                        string p10i4 = "~/img/item/" + Model.matchDetails.First().p10Item4 + ".png";
-                        string p10i5 = "~/img/item/" + Model.matchDetails.First().p10Item5 + ".png";
-                        string p10i6 = "~/img/item/" + Model.matchDetails.First().p10Item6 + ".png";
-
-                        string winLose = "0";
-                        string winLoseHD = "0";
-                        string winLoseBG = "0";
-
-
-                        if (playerStats[15] == 1)
+                        foreach (var match in Model.matchHistory)
                         {
-                            winLose = "Victory";
-                            winLoseHD = "victory-hd";
-                            winLoseBG = "victory-bg";
-                        }
-                        else
-                        {
-                            winLose = "Defeat";
-                            winLoseHD = "defeat-hd";
-                            winLoseBG = "defeat-bg";
-                        }
+                            SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                            SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
 
-                        //variables for match details
+                            Model.matchDetails = mdm.PullMatch(match.matchId);
 
-                        string detT1HD = "0";
-                        string detT2HD = "0";
-                        string detT1Title = "0";
-                        string detT2Title = "0";
-                        string detT1BG = "0";
-                        string detT2BG = "0";
+                            int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+                            string playerChamp = pc.ChampById(playerStats[1]);
+                            string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);
 
-                        if (Model.matchDetails.First().winner == "Team1")
-                        {
-                            detT1HD = "victory-hd";
-                            detT2HD = "defeat-hd";
-                            detT1Title = "Victory";
-                            detT2Title = "Defeat";
-                            detT1BG = "victory-bg";
-                            detT2BG = "defeat-bg";
-                        }
-                        else
-                        {
-                            detT1HD = "defeat-hd";
-                            detT2HD = "victory-hd";
-                            detT1Title = "Defeat";
-                            detT2Title = "Victory";
-                            detT1BG = "defeat-bg";
-                            detT2BG = "victory-bg";
-                        }
+                            string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p4Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p4Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p5Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p5Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p6Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p6Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p7Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p7Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p8Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p8Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p9Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p9Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+                            string p10Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p10Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
+
+                            string playerS1 = "~/img/summoner/" + playerStats[2] + ".png";
+                            string playerS2 = "~/img/summoner/" + playerStats[3] + ".png";
+
+                            string p1s1 = "~/img/summoner/" + Model.matchDetails.First().p1Spell1 + ".png";
+                            string p1s2 = "~/img/summoner/" + Model.matchDetails.First().p1Spell2 + ".png";
+                            string p2s1 = "~/img/summoner/" + Model.matchDetails.First().p2Spell1 + ".png";
+                            string p2s2 = "~/img/summoner/" + Model.matchDetails.First().p2Spell2 + ".png";
+                            string p3s1 = "~/img/summoner/" + Model.matchDetails.First().p3Spell1 + ".png";
+                            string p3s2 = "~/img/summoner/" + Model.matchDetails.First().p3Spell2 + ".png";
+                            string p4s1 = "~/img/summoner/" + Model.matchDetails.First().p4Spell1 + ".png";
+                            string p4s2 = "~/img/summoner/" + Model.matchDetails.First().p4Spell2 + ".png";
+                            string p5s1 = "~/img/summoner/" + Model.matchDetails.First().p5Spell1 + ".png";
+                            string p5s2 = "~/img/summoner/" + Model.matchDetails.First().p5Spell2 + ".png";
+                            string p6s1 = "~/img/summoner/" + Model.matchDetails.First().p6Spell1 + ".png";
+                            string p6s2 = "~/img/summoner/" + Model.matchDetails.First().p6Spell2 + ".png";
+                            string p7s1 = "~/img/summoner/" + Model.matchDetails.First().p7Spell1 + ".png";
+                            string p7s2 = "~/img/summoner/" + Model.matchDetails.First().p7Spell2 + ".png";
+                            string p8s1 = "~/img/summoner/" + Model.matchDetails.First().p8Spell1 + ".png";
+                            string p8s2 = "~/img/summoner/" + Model.matchDetails.First().p8Spell2 + ".png";
+                            string p9s1 = "~/img/summoner/" + Model.matchDetails.First().p9Spell1 + ".png";
+                            string p9s2 = "~/img/summoner/" + Model.matchDetails.First().p9Spell2 + ".png";
+                            string p10s1 = "~/img/summoner/" + Model.matchDetails.First().p10Spell1 + ".png";
+                            string p10s2 = "~/img/summoner/" + Model.matchDetails.First().p10Spell2 + ".png";
+
+                            string p1i1 = "~/img/item/" + Model.matchDetails.First().p1Item1 + ".png";
+                            string p1i2 = "~/img/item/" + Model.matchDetails.First().p1Item2 + ".png";
+                            string p1i3 = "~/img/item/" + Model.matchDetails.First().p1Item3 + ".png";
+                            string p1i4 = "~/img/item/" + Model.matchDetails.First().p1Item4 + ".png";
+                            string p1i5 = "~/img/item/" + Model.matchDetails.First().p1Item5 + ".png";
+                            string p1i6 = "~/img/item/" + Model.matchDetails.First().p1Item6 + ".png";
+                            string p2i1 = "~/img/item/" + Model.matchDetails.First().p2Item1 + ".png";
+                            string p2i2 = "~/img/item/" + Model.matchDetails.First().p2Item2 + ".png";
+                            string p2i3 = "~/img/item/" + Model.matchDetails.First().p2Item3 + ".png";
+                            string p2i4 = "~/img/item/" + Model.matchDetails.First().p2Item4 + ".png";
+                            string p2i5 = "~/img/item/" + Model.matchDetails.First().p2Item5 + ".png";
+                            string p2i6 = "~/img/item/" + Model.matchDetails.First().p2Item6 + ".png";
+                            string p3i1 = "~/img/item/" + Model.matchDetails.First().p3Item1 + ".png";
+                            string p3i2 = "~/img/item/" + Model.matchDetails.First().p3Item2 + ".png";
+                            string p3i3 = "~/img/item/" + Model.matchDetails.First().p3Item3 + ".png";
+                            string p3i4 = "~/img/item/" + Model.matchDetails.First().p3Item4 + ".png";
+                            string p3i5 = "~/img/item/" + Model.matchDetails.First().p3Item5 + ".png";
+                            string p3i6 = "~/img/item/" + Model.matchDetails.First().p3Item6 + ".png";
+                            string p4i1 = "~/img/item/" + Model.matchDetails.First().p4Item1 + ".png";
+                            string p4i2 = "~/img/item/" + Model.matchDetails.First().p4Item2 + ".png";
+                            string p4i3 = "~/img/item/" + Model.matchDetails.First().p4Item3 + ".png";
+                            string p4i4 = "~/img/item/" + Model.matchDetails.First().p4Item4 + ".png";
+                            string p4i5 = "~/img/item/" + Model.matchDetails.First().p4Item5 + ".png";
+                            string p4i6 = "~/img/item/" + Model.matchDetails.First().p4Item6 + ".png";
+                            string p5i1 = "~/img/item/" + Model.matchDetails.First().p5Item1 + ".png";
+                            string p5i2 = "~/img/item/" + Model.matchDetails.First().p5Item2 + ".png";
+                            string p5i3 = "~/img/item/" + Model.matchDetails.First().p5Item3 + ".png";
+                            string p5i4 = "~/img/item/" + Model.matchDetails.First().p5Item4 + ".png";
+                            string p5i5 = "~/img/item/" + Model.matchDetails.First().p5Item5 + ".png";
+                            string p5i6 = "~/img/item/" + Model.matchDetails.First().p5Item6 + ".png";
+                            string p6i1 = "~/img/item/" + Model.matchDetails.First().p6Item1 + ".png";
+                            string p6i2 = "~/img/item/" + Model.matchDetails.First().p6Item2 + ".png";
+                            string p6i3 = "~/img/item/" + Model.matchDetails.First().p6Item3 + ".png";
+                            string p6i4 = "~/img/item/" + Model.matchDetails.First().p6Item4 + ".png";
+                            string p6i5 = "~/img/item/" + Model.matchDetails.First().p6Item5 + ".png";
+                            string p6i6 = "~/img/item/" + Model.matchDetails.First().p6Item6 + ".png";
+                            string p7i1 = "~/img/item/" + Model.matchDetails.First().p7Item1 + ".png";
+                            string p7i2 = "~/img/item/" + Model.matchDetails.First().p7Item2 + ".png";
+                            string p7i3 = "~/img/item/" + Model.matchDetails.First().p7Item3 + ".png";
+                            string p7i4 = "~/img/item/" + Model.matchDetails.First().p7Item4 + ".png";
+                            string p7i5 = "~/img/item/" + Model.matchDetails.First().p7Item5 + ".png";
+                            string p7i6 = "~/img/item/" + Model.matchDetails.First().p7Item6 + ".png";
+                            string p8i1 = "~/img/item/" + Model.matchDetails.First().p8Item1 + ".png";
+                            string p8i2 = "~/img/item/" + Model.matchDetails.First().p8Item2 + ".png";
+                            string p8i3 = "~/img/item/" + Model.matchDetails.First().p8Item3 + ".png";
+                            string p8i4 = "~/img/item/" + Model.matchDetails.First().p8Item4 + ".png";
+                            string p8i5 = "~/img/item/" + Model.matchDetails.First().p8Item5 + ".png";
+                            string p8i6 = "~/img/item/" + Model.matchDetails.First().p8Item6 + ".png";
+                            string p9i1 = "~/img/item/" + Model.matchDetails.First().p9Item1 + ".png";
+                            string p9i2 = "~/img/item/" + Model.matchDetails.First().p9Item2 + ".png";
+                            string p9i3 = "~/img/item/" + Model.matchDetails.First().p9Item3 + ".png";
+                            string p9i4 = "~/img/item/" + Model.matchDetails.First().p9Item4 + ".png";
+                            string p9i5 = "~/img/item/" + Model.matchDetails.First().p9Item5 + ".png";
+                            string p9i6 = "~/img/item/" + Model.matchDetails.First().p9Item6 + ".png";
+                            string p10i1 = "~/img/item/" + Model.matchDetails.First().p10Item1 + ".png";
+                            string p10i2 = "~/img/item/" + Model.matchDetails.First().p10Item2 + ".png";
+                            string p10i3 = "~/img/item/" + Model.matchDetails.First().p10Item3 + ".png";
+                            string p10i4 = "~/img/item/" + Model.matchDetails.First().p10Item4 + ".png";
+                            string p10i5 = "~/img/item/" + Model.matchDetails.First().p10Item5 + ".png";
+                            string p10i6 = "~/img/item/" + Model.matchDetails.First().p10Item6 + ".png";
+
+                            string winLose = "0";
+                            string winLoseHD = "0";
+                            string winLoseBG = "0";
+
+
+                            if (playerStats[15] == 1)
+                            {
+                                winLose = "Victory";
+                                winLoseHD = "victory-hd";
+                                winLoseBG = "victory-bg";
+                            }
+                            else
+                            {
+                                winLose = "Defeat";
+                                winLoseHD = "defeat-hd";
+                                winLoseBG = "defeat-bg";
+                            }
+
+                            //variables for match details
+
+                            string detT1HD = "0";
+                            string detT2HD = "0";
+                            string detT1Title = "0";
+                            string detT2Title = "0";
+                            string detT1BG = "0";
+                            string detT2BG = "0";
+
+                            if (Model.matchDetails.First().winner == "Team1")
+                            {
+                                detT1HD = "victory-hd";
+                                detT2HD = "defeat-hd";
+                                detT1Title = "Victory";
+                                detT2Title = "Defeat";
+                                detT1BG = "victory-bg";
+                                detT2BG = "defeat-bg";
+                            }
+                            else
+                            {
+                                detT1HD = "defeat-hd";
+                                detT2HD = "victory-hd";
+                                detT1Title = "Defeat";
+                                detT2Title = "Victory";
+                                detT1BG = "defeat-bg";
+                                detT2BG = "victory-bg";
+                            }
                         <div>
                             <div class="win-lose @winLoseHD">
                                 @{ string duration = TimeSpan.FromSeconds(Model.matchDetails.First().matchDuration).ToString(@"mm\:ss"); }
@@ -733,6 +782,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     }
                 }
             </div>

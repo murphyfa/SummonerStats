@@ -16,6 +16,9 @@ namespace SummonerStats.Controllers
         tblMatchDetails mdm = new tblMatchDetails();
         private MatchHistoryDBContext db = new MatchHistoryDBContext();
 
+
+        JObject champRecords = null;
+
         public ActionResult Index()
         {
             return View();
@@ -27,10 +30,12 @@ namespace SummonerStats.Controllers
 
             int summonerID = profile.playerProfile.pullPlayer(searchName);
 
-            profile.mh.UpdateMatchHistory(summonerID, searchName);
+            if (profile.playerProfile.name != "The player was not found")
+            {
+                profile.mh.UpdateMatchHistory(summonerID, searchName);
 
-            profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
-
+                profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
+            }
             return View("Profile", profile);
         }
 
@@ -276,22 +281,42 @@ namespace SummonerStats.Controllers
             return playerDetails;
         }
 
-        public string ChampById (int champID)
+        //public string ChampById (int champID)
+        //{
+        //    string champName;
+
+        //    string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
+        //    string champURL = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champID + "?api_key=" + apiKey;
+
+        //    using (var client = new WebClient())
+        //    {
+        //        string champData = client.DownloadString(champURL);
+        //        JObject champRecords = JObject.Parse(champData);
+
+        //        champName = (string)champRecords["name"];
+        //    }
+
+        //    return champName;
+        //}
+
+        public string ChampById(int champID)
         {
             string champName;
 
-            string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
-            string champURL = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champID + "?api_key=" + apiKey;
+            string champURL = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
 
-            using (var client = new WebClient())
+            if (champRecords == null)
             {
-                string champData = client.DownloadString(champURL);
-                JObject champRecords = JObject.Parse(champData);
-
-                champName = (string)champRecords["name"];
+                using (var client = new WebClient())
+                {
+                    string champData = client.DownloadString(champURL);
+                    champRecords = JObject.Parse(champData);
+                }
             }
 
-                return champName;
+            champName = (string)champRecords["data"][champID.ToString()]["name"];
+
+            return champName;
         }
 
         public string ItemURL (int itemID)

@@ -10,7 +10,6 @@
 
 #sum-icon {
     border-radius: 10px;
-    border: 0px solid white;
     margin: 15px;
     width: 128px;
     height: 128px;
@@ -186,7 +185,7 @@
     text-align: center;
     width: 80px;
     position: relative;
-    top: 10px;;
+    top: 10px;
 }
 
 .mc5 {
@@ -229,7 +228,6 @@
     margin: 0;
     height: 25px;
     border-top: 1px solid rgba(128, 128, 128, 0.50);
-    height: 25px;
 }
 
 .team1-details {
