@@ -29,7 +29,7 @@ namespace SummonerStats.Controllers
 
             profile.mh.UpdateMatchHistory(summonerID, searchName);
 
-            profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(3) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
+            profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
 
             return View("Profile", profile);
         }
@@ -42,7 +42,7 @@ namespace SummonerStats.Controllers
             int[] playerDetails = new int[16];
             playerDetails[15] = 0;
 
-            if (details.First().p1Name == summonerName)
+            if (details.First().p1Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p1Gold;
                 playerDetails[1] = details.First().p1Champ;
@@ -64,10 +64,8 @@ namespace SummonerStats.Controllers
                 {
                     playerDetails[15] = 1;
                 }
-
-                
             }
-            else if (details.First().p2Name == summonerName)
+            else if (details.First().p2Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p2Gold;
                 playerDetails[1] = details.First().p2Champ;
@@ -90,7 +88,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p3Name == summonerName)
+            else if (details.First().p3Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p3Gold;
                 playerDetails[1] = details.First().p3Champ;
@@ -113,7 +111,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p4Name == summonerName)
+            else if (details.First().p4Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p4Gold;
                 playerDetails[1] = details.First().p4Champ;
@@ -136,7 +134,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p5Name == summonerName)
+            else if (details.First().p5Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p5Gold;
                 playerDetails[1] = details.First().p5Champ;
@@ -159,7 +157,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p6Name == summonerName)
+            else if (details.First().p6Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p6Gold;
                 playerDetails[1] = details.First().p6Champ;
@@ -182,7 +180,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p7Name == summonerName)
+            else if (details.First().p7Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p7Gold;
                 playerDetails[1] = details.First().p7Champ;
@@ -205,7 +203,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p8Name == summonerName)
+            else if (details.First().p8Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p8Gold;
                 playerDetails[1] = details.First().p8Champ;
@@ -228,7 +226,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p9Name == summonerName)
+            else if (details.First().p9Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p9Gold;
                 playerDetails[1] = details.First().p9Champ;
@@ -251,7 +249,7 @@ namespace SummonerStats.Controllers
                     playerDetails[15] = 1;
                 }
             }
-            else if (details.First().p10Name == summonerName)
+            else if (details.First().p10Name.Equals(summonerName, StringComparison.OrdinalIgnoreCase))
             {
                 playerDetails[0] = details.First().p10Gold;
                 playerDetails[1] = details.First().p10Champ;

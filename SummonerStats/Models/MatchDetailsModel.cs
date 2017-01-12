@@ -26,9 +26,9 @@ namespace SummonerStats.Models
                 System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
                 UpdateMatch(matchID);
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
+                System.Threading.Thread.Sleep(5000);
             }
-
-            
+         
             return matchDetails;
         }
 

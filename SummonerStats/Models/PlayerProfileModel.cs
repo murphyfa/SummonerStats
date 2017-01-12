@@ -18,6 +18,7 @@ namespace SummonerStats.Models
         public int summonerLevel { get; set; }
 
         //league stats
+        public string group { get; set; }
         public int leaguePoints { get; set; }
         public bool isFreshBlood { get; set; }
         public bool isHotStreak { get; set; }
@@ -56,6 +57,7 @@ namespace SummonerStats.Models
                     string leagueData = client.DownloadString(leagueURL);
                     JObject leagueStats = JObject.Parse(leagueData);
 
+                    group = (string)leagueStats[id.ToString()][0]["name"];
                     leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
                     league = (string)leagueStats[id.ToString()][0]["tier"];
                     division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];

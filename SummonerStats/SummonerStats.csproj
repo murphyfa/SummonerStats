@@ -470,6 +470,7 @@
     <Content Include="img\champion\Ziggs.png" />
     <Content Include="img\champion\Zilean.png" />
     <Content Include="img\champion\Zyra.png" />
+    <Content Include="img\item\0.png" />
     <Content Include="img\item\1001.png" />
     <Content Include="img\item\1004.png" />
     <Content Include="img\item\1006.png" />
@@ -1852,6 +1853,14 @@
     <Content Include="img\profileicon\997.png" />
     <Content Include="img\profileicon\998.png" />
     <Content Include="img\profileicon\999.png" />
+    <Content Include="img\rank\bronze.png" />
+    <Content Include="img\rank\challenger.png" />
+    <Content Include="img\rank\diamond.png" />
+    <Content Include="img\rank\gold.png" />
+    <Content Include="img\rank\master.png" />
+    <Content Include="img\rank\platinum.png" />
+    <Content Include="img\rank\silver.png" />
+    <Content Include="img\rank\unranked.png" />
     <Content Include="img\rune\10001.png" />
     <Content Include="img\rune\10002.png" />
     <Content Include="img\rune\8001.png" />
