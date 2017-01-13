@@ -102,6 +102,9 @@
                         }
                 </table>
             </div>
+
+
+
         </div>
 
         @{ 
@@ -187,7 +190,14 @@
                             int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
                             string playerChamp = pc.ChampById(playerStats[1]);
                             string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            double kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2);
+                            string kda;
+                            if (playerStats[5] == 0)
+                            {
+                                kda = "Perfect";
+                            } else
+                            {
+                                kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2).ToString();
+                            }
 
                             string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
                             string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
@@ -285,22 +295,35 @@
                             string p10i5 = "~/img/item/" + Model.matchDetails.First().p10Item5 + ".png";
                             string p10i6 = "~/img/item/" + Model.matchDetails.First().p10Item6 + ".png";
 
+                            string playerIOne = "~/img/item/" + playerStats[7] + ".png";
+                            string playerITwo = "~/img/item/" + playerStats[8] + ".png";
+                            string playerIThree = "~/img/item/" + playerStats[9] + ".png";
+                            string playerIFour = "~/img/item/" + playerStats[10] + ".png";
+                            string playerIFive = "~/img/item/" + playerStats[11] + ".png";
+                            string playerISix = "~/img/item/" + playerStats[12] + ".png";
+
                             string winLose = "0";
                             string winLoseHD = "0";
                             string winLoseBG = "0";
 
 
-                            if (playerStats[15] == 1)
+                            if (playerStats[15] == 1 && Model.matchDetails.First().matchDuration >= 300)
                             {
                                 winLose = "Victory";
                                 winLoseHD = "victory-hd";
                                 winLoseBG = "victory-bg";
                             }
-                            else
+                            else if (playerStats[15] == 0 && Model.matchDetails.First().matchDuration >= 300)
                             {
                                 winLose = "Defeat";
                                 winLoseHD = "defeat-hd";
                                 winLoseBG = "defeat-bg";
+                            }
+                            else
+                            {
+                                winLose = "Remake";
+                                winLoseHD = "remake-hd";
+                                winLoseBG = "remake-bg";
                             }
 
                             //variables for match details
@@ -348,12 +371,12 @@
                                     <span class="kda-avg">@kda KDA</span>
                                 </div>
                                 <div class="mc3">
-                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[7])" height="35" width="35" />
-                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[8])" height="35" width="35" />
-                                    <img class="img-rounded i-img1" src="@pc.ItemURL(playerStats[9])" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[10])" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[11])" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@pc.ItemURL(playerStats[12])" height="35" width="35" />
+                                    <img class="img-rounded i-img1" src="@Url.Content(playerIOne)" height="35" width="35" />
+                                    <img class="img-rounded i-img1" src="@Url.Content(playerITwo)" height="35" width="35" />
+                                    <img class="img-rounded i-img1" src="@Url.Content(playerIThree)" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@Url.Content(playerIFour)" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@Url.Content(playerIFive)" height="35" width="35" />
+                                    <img class="img-rounded i-img2" src="@Url.Content(playerISix)" height="35" width="35" />
                                 </div>
                                 <div class="mc4">
                                     <span>Level @playerStats[13]</span>

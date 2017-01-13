@@ -1,6 +1,6 @@
 ﻿/* Header */
 #profile-header {
-    margin-top: 95px;
+    margin-top: 93px;
     margin-bottom: 25px;
 }
 
@@ -384,6 +384,14 @@
 
 .victory-bg {
     background-color: #9eb4e2;
+}
+
+.remake-hd {
+    background-color: #a5a5a5;
+}
+
+.remake-bg {
+    background-color: #b4b4b4;
 }
 
 .match-row {
