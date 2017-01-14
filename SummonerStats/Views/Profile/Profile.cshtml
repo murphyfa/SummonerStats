@@ -4,6 +4,7 @@
     ViewBag.BG = Model.mh.topChampBG;
 }
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<div class="champ-hd" style="background-image:url(@ViewBag.BG)"></div>
 <div class="container" id="profile-header">
     @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + Model.playerProfile.profileIconId + ".png";}
     <img id="sum-icon" src="@profileIcon" />
@@ -51,8 +52,14 @@
                             <tr class="tc-tr">
                                 <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
                                 <td><span class="tc-name">@Model.mh.topChampOne</span></td>
-                                <td class="tc-td"><p>@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA<br />W: @Model.mh.winsOne L: @Model.mh.lossesOne</p></td>
-                                <td class="tc-td"><span>@Model.mh.winrateOne<br />WIN RATE</span></td>
+                                <td class="tc-td">
+                                    <span class="tc-kda">@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA</span>
+                                    <span class="tc-wl">W: @Model.mh.winsOne L: @Model.mh.lossesOne</span>
+                                </td>
+                                <td class="tc-td">
+                                    <span class="tc-winrate">@Model.mh.winrateOne</span>
+                                    <span>WIN RATE</span>
+                                </td>
                             </tr>
                         }
                         }
@@ -62,8 +69,14 @@
                             <tr class="tc-tr">
                                 <td><img class="top-champ-icon" src="@Url.Content(champTwoImg)" height="50" width="50" /></td>
                                 <td><span class="tc-name">@Model.mh.topChampTwo</span></td>
-                                <td class="tc-td"><p>@Model.mh.killsTwo / @Model.mh.deathsTwo / @Model.mh.assistsTwo KDA<br />W:@Model.mh.winsTwo L:@Model.mh.lossesTwo</p></td>
-                                <td class="tc-td"><p>@Model.mh.winrateTwo<br />WIN RATE</p></td>
+                                <td class="tc-td">
+                                    <span class="tc-kda">@Model.mh.killsTwo / @Model.mh.deathsTwo / @Model.mh.assistsTwo KDA</span>
+                                    <span class="tc-wl">W:@Model.mh.winsTwo L:@Model.mh.lossesTwo</span>
+                                </td>
+                                <td class="tc-td">
+                                    <span class="tc-winrate">@Model.mh.winrateTwo</span>
+                                    <span>WIN RATE</span>
+                                </td>
                             </tr>
                         }
                         }
@@ -73,8 +86,14 @@
                             <tr class="tc-tr">
                                 <td><img class="top-champ-icon" src="@Url.Content(champThreeImg)" height="50" width="50" /></td>
                                 <td><span class="tc-name">@Model.mh.topChampThree</span></td>
-                                <td class="tc-td"><p>@Model.mh.killsThree / @Model.mh.deathsThree / @Model.mh.assistsThree KDA<br />W:@Model.mh.winsThree L:@Model.mh.lossesThree</p></td>
-                                <td class="tc-td"><p>@Model.mh.winrateThree<br />WIN RATE</p></td>
+                                <td class="tc-td">
+                                    <span class="tc-kda">@Model.mh.killsThree / @Model.mh.deathsThree / @Model.mh.assistsThree KDA</span>
+                                    <span class="tc-wl">W:@Model.mh.winsThree L:@Model.mh.lossesThree</span>
+                                </td>
+                                <td class="tc-td">
+                                    <span class="tc-winrate">@Model.mh.winrateThree</span>
+                                    <span>WIN RATE</span>
+                                </td>
                             </tr>
                         }
                         }
@@ -84,8 +103,14 @@
                             <tr class="tc-tr">
                                 <td><img class="top-champ-icon" src="@Url.Content(champFourImg)" height="50" width="50" /></td>
                                 <td><span class="tc-name">@Model.mh.topChampFour</span></td>
-                                <td class="tc-td"><p>@Model.mh.killsFour / @Model.mh.deathsFour / @Model.mh.assistsFour KDA<br />W:@Model.mh.winsFour L:@Model.mh.lossesFour</p></td>
-                                <td class="tc-td"><p>@Model.mh.winrateFour<br />WIN RATE</p></td>
+                                <td class="tc-td">
+                                    <span class="tc-kda">@Model.mh.killsFour / @Model.mh.deathsFour / @Model.mh.assistsFour KDA</span>
+                                    <span class="tc-wl">W:@Model.mh.winsFour L:@Model.mh.lossesFour</span>
+                                </td>
+                                <td class="tc-td">
+                                    <span class="tc-winrate">@Model.mh.winrateFour</span>
+                                    <span>WIN RATE</span>
+                                </td>
                             </tr>
                         }
                         }
@@ -95,14 +120,81 @@
                             <tr class="tc-tr">
                                 <td><img class="top-champ-icon" src="@Url.Content(champFiveImg)" height="50" width="50" /></td>
                                 <td><span class="tc-name">@Model.mh.topChampFive</span></td>
-                                <td class="tc-td"><p>@Model.mh.killsFive / @Model.mh.deathsFive / @Model.mh.assistsFive KDA<br />W:@Model.mh.winsFive L:@Model.mh.lossesFive</p></td>
-                                <td class="tc-td"><p>@Model.mh.winrateFive<br />WIN RATE</p></td>
+                                <td class="tc-td">
+                                    <span class="tc-kda">@Model.mh.killsFive / @Model.mh.deathsFive / @Model.mh.assistsFive KDA</span>
+                                    <span class="tc-wl">W:@Model.mh.winsFive L:@Model.mh.lossesFive</span>
+                                </td>
+                                <td class="tc-td">
+                                    <span class="tc-winrate">@Model.mh.winrateFive</span>
+                                    <span>WIN RATE</span>
+                                </td>
                             </tr>
                         }
                         }
                 </table>
             </div>
+            @{
+                List<string> recentList = new List<string>();
+                List<Tuple<string, int>> recentGroup = new List<Tuple<string, int>>();
 
+                foreach (var match in Model.matchHistory)
+                {
+                    SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                    SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+                    Model.matchDetails = mdm.PullMatch(match.matchId);
+                    int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+
+                    if (Model.matchDetails.First().winner == "Team1" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team2" && playerStats[15] == 0)
+                    {
+                        recentList.Add(Model.matchDetails.First().p1Name);
+                        recentList.Add(Model.matchDetails.First().p2Name);
+                        recentList.Add(Model.matchDetails.First().p3Name);
+                        recentList.Add(Model.matchDetails.First().p4Name);
+                        recentList.Add(Model.matchDetails.First().p5Name);
+                    }
+                    else if (Model.matchDetails.First().winner == "Team2" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team1" && playerStats[15] == 0)
+                    {
+                        recentList.Add(Model.matchDetails.First().p6Name);
+                        recentList.Add(Model.matchDetails.First().p7Name);
+                        recentList.Add(Model.matchDetails.First().p8Name);
+                        recentList.Add(Model.matchDetails.First().p9Name);
+                        recentList.Add(Model.matchDetails.First().p10Name);
+                    }
+                }
+
+                recentList.RemoveAll(name => name == Model.playerProfile.name);
+
+                var playedWith = recentList.GroupBy(i => i);
+                foreach (var recentPlayer in playedWith)
+                {
+                    var player = recentPlayer.Key;
+                    var count = recentPlayer.Count();
+
+                    if (count > 1)
+                    {
+                        recentGroup.Add(new Tuple<string, int>(player, count));
+                    }
+                }
+
+                <div class="recent-played-with">
+                    <div class="top-champs-hd">
+                        <span class="top-champs-title">Recently Played With </span>
+                        <span> (Last 10 Games)</span>
+                    </div>
+
+                    <table class="centered rpw-table">
+                        @{foreach (var player in recentGroup)
+                            {
+                                <tr class="rpw-tr">
+                                    <td class="rpw-name-td"><a class="rpw-name" href="@Url.Action("Search", "Profile", new { searchName = player.Item1 })">@player.Item1</a></td>
+                                    <td class="rpw-count-td"><span class="rpw-count">@player.Item2 games</span></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+
+            }
 
 
         </div>
@@ -170,7 +262,7 @@
         <div class="col-sm-8 matches">
             <div class="recent-match-hd">
                 <span class="rct-title">Recent Matches</span>
-                <span class="rct-wl">@gameCount @winString @lossString</span>
+                <span class="rct-wl">@winString @lossString</span>
                 <div class="rct-kda-div">
                     <span class="rct-kda-lbl">Avg KDA: </span>
                     <span class="rct-kda">@killAvg / @deathsAvg / @assistsAvg</span>

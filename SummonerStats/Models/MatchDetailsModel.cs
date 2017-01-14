@@ -20,10 +20,10 @@ namespace SummonerStats.Models
             if (db.MatchDetails.Where(u => u.matchId == matchID).ToList().Count() > 0)
             {
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
-                System.Diagnostics.Debug.WriteLine("Match " + matchID + " found in database!");
+                //System.Diagnostics.Debug.WriteLine("Match " + matchID + " found in database!");
             } else
             {
-                System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
+                //System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
                 UpdateMatch(matchID);
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
                 System.Threading.Thread.Sleep(5000);

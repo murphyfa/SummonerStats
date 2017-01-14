@@ -1,0 +1,61 @@
+﻿
+/* Home Page */
+
+.home-bg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/img/background/teambuilder.jpg);
+    width: 100%;
+    height: 500px;
+    background-position: top -150px center;
+    background-size: cover;
+    z-index: -1;
+    position: absolute;
+    border-bottom: 1px solid #8d8d8d;
+}
+
+.home-search {
+    text-align: center;
+    position: relative;
+    top: 300px;
+}
+
+.footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 25px;
+}
+
+body {
+    text-align: center;
+}
+
+h1 {
+    color: whitesmoke;
+    text-shadow: 2px 2px 2px black;
+    font-size: 60px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+input {
+    font-size: 24px;
+    line-height: 30px;
+}
+
+#search-fld {
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 0;
+}
+
+#search-btn {
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    color: white;
+    background-color: #4474b4;
+    border: 0;
+}

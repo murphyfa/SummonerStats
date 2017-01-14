@@ -1,6 +1,7 @@
 ﻿/* Header */
 #profile-header {
-    margin-top: 93px;
+    margin-top: 0;
+    padding-top: 93px;
     margin-bottom: 25px;
 }
 
@@ -83,7 +84,7 @@
     border: 1px solid #8d8d8d;
     padding: 0;
     padding-bottom: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .top-champs-hd {
@@ -108,9 +109,59 @@
 
 .tc-name {
     color: black;
+    width: 100px;
+    font-size: 16px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.tc-kda {
+    display: block;
+    font-size: 16px;
+}
+
+.tc-wl {
+    font-size: 14px;
+}
+
+.tc-winrate {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Recently Played With */
+
+.recent-played-with {
+    background-color: white;
+    border: 1px solid #8d8d8d;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.rpw-table {
+}
+
+.rpw-name-td {
+    width: 250px;
+}
+
+.rpw-name {
+    color: black;
     font-size: 18px;
 }
 
+.rpw-count-td {
+    width: 100px;
+    text-align: left;
+}
+
+.rpw-count {
+    font-size: 16px;
+}
 /*Recent Matches*/
 .recent-match-hd {
     background-color: #eaeaea;
@@ -202,7 +253,7 @@
     height: 40px;
     position: relative;
     left: 10px;
-    bottom: 18px;
+    top: 70px;
     text-align:center;
     border-top: 1px solid #8d8d8d;
     border-left: 1px solid #8d8d8d;
@@ -227,17 +278,24 @@
 .w-l-details-hd {
     margin: 0;
     height: 25px;
-    border-top: 1px solid rgba(128, 128, 128, 0.50);
+    border-left: 1px solid #8d8d8d;
+    border-right: 1px solid #8d8d8d;
 }
 
 .team1-details {
     margin: 0;
     height: 250px;
+    border-left: 1px solid #8d8d8d;
+    border-right: 1px solid #8d8d8d;
+    border-bottom: 1px solid #8d8d8d;
 }
 
 .team2-details {
     margin-bottom: 10px;
     height: 250px;
+    border-left: 1px solid #8d8d8d;
+    border-right: 1px solid #8d8d8d;
+    border-bottom: 1px solid #8d8d8d;
 }
 
 .details-header {
@@ -250,7 +308,7 @@
 }
 
 .md-c1 {
-    width: 200px;
+    width: 225px;
     padding-left: 20px;
     display: inline-block;
     white-space: nowrap;
@@ -362,6 +420,9 @@
     margin-bottom: 0;
     margin-top: 10px;
     height: 25px;
+    border-top: 1px solid #8d8d8d;
+    border-left: 1px solid #8d8d8d;
+    border-right: 1px solid #8d8d8d;
 }
 
 .mh-wl-span {
@@ -397,6 +458,8 @@
 .match-row {
     padding: 10px;
     height: 120px;
+    
+    border: 1px solid #8d8d8d;
 }
 
 body {
@@ -420,12 +483,6 @@ h1 {
     border-bottom: 1px solid #8d8d8d;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -444,6 +501,13 @@ textarea {
     text-align: center;
 }
 
-navbar-brand {
-    line-height: 35px;
+.navbar-brand {
+    line-height: 25px;
+    font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
 }

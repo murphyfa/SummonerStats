@@ -8,23 +8,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summoner Stats</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/home")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:700" rel="stylesheet">
 </head>
 <body>
-    <div class="jumbotron centered">
-        <h1>Summoner Stats</h1>
+    <div class="home-bg"></div>
+    <div class="container home-search">
+        <h1 class="title">Summoner Stats</h1>
         @using (Html.BeginForm("Search", "Profile", new { id = "search-fld" }, FormMethod.Get))
         {
             <form>
                 <input type="text" placeholder="Summoner Name" id="search-fld" name="searchName" />
-                <input type="submit" value="Search" />
+                <input type="submit" value="Search" id="search-btn" />
             </form>
         }
     </div>
 
-    <div class="container-fluid">
+    <div class="container footer">
         Summoner Stats isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
     </div>
 
