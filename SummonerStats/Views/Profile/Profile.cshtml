@@ -272,11 +272,11 @@
                 @{
                     if (Model.matchHistory != null)
                     {
+                        SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                        SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+
                         foreach (var match in Model.matchHistory)
                         {
-                            SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
-                            SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
-
                             Model.matchDetails = mdm.PullMatch(match.matchId);
 
                             int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);

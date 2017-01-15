@@ -39,7 +39,21 @@ namespace SummonerStats.Models
 
             using (var client = new WebClient())
             {
-                string mdData = client.DownloadString(mdURL);
+                bool retry = true;
+                string mdData = null;
+
+                while (retry)
+                {
+                    try
+                    {
+                        mdData = client.DownloadString(mdURL);
+                        retry = false;
+                    }
+                    catch
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                }
                 JObject mdRecords = JObject.Parse(mdData);
 
                 tblMatchDetails mdm = new tblMatchDetails();

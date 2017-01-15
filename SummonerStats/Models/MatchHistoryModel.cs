@@ -64,28 +64,43 @@ namespace SummonerStats.Models
 
         public string topChampBG;
 
+        JObject champInfo = null;
+
         public void UpdateMatchHistory(int sumID, string sumName)
         {
-            System.Diagnostics.Debug.WriteLine("UPDATING MATCH HISTORY");
             MatchHistoryDBContext db = new MatchHistoryDBContext();
 
             string mhURL;
             string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
 
             //if we have no matches stored, start at beginning of season 7, otherwise only since most recent
-            //if (db.MatchHistory.Where(u => u.id == sumID).ToList().Count() == 0)
-            //{
+            if (db.MatchHistory.Where(u => u.id == sumID).ToList().Count() == 0)
+            {
                 mhURL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + sumID + "?beginTime=1481108400000&api_key=" + apiKey;
-            //}
-            //else
-            //{
-            //    long lastMatch = db.MatchHistory.OrderByDescending(u => u.timestamp).Where(u => u.id == sumID).Select(u => u.timestamp).First();
-            //    mhURL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + sumID + "?beginTime=" + lastMatch + "&api_key=" + apiKey;
-            //}
+            }
+            else
+            {
+                long lastMatch = db.MatchHistory.OrderByDescending(u => u.timestamp).Where(u => u.id == sumID).Select(u => u.timestamp).First();
+                mhURL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + sumID + "?beginTime=" + lastMatch + "&api_key=" + apiKey;
+            }
 
             using (var client = new WebClient())
             {
-                string mhData = client.DownloadString(mhURL);
+                string mhData = null;
+
+                bool retry = true;
+                while (retry)
+                {
+                    try
+                    {
+                        mhData = client.DownloadString(mhURL);
+                        retry = false;
+                    }
+                    catch
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                }
                 JObject mhRecords = JObject.Parse(mhData);
 
                 if ((Int32)mhRecords["totalGames"] > 0)
@@ -100,11 +115,8 @@ namespace SummonerStats.Models
 
                         if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
                         {
-                            System.Diagnostics.Debug.WriteLine("PULLING MATCH " + matchID);
                             IEnumerable<tblMatchDetails> matchDetails = mdm.PullMatch(matchID);
-                            System.Diagnostics.Debug.WriteLine("MATCH DETAILS: " + matchDetails.First().matchId + ", " + matchDetails.First().p1Name);
                             int[] playerStats = pc.FindViewPlayer(matchDetails, sumName);
-                            System.Diagnostics.Debug.WriteLine(playerStats[4] + ", " + playerStats[5] + ", " + playerStats[5]);
 
                             mhm.id = sumID;
                             mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
@@ -172,10 +184,15 @@ namespace SummonerStats.Models
                     {
                         if (champsPlayed[n].Item1 != 0)
                         {
-                            string staticChampInfo = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champsPlayed[n].Item1 + "?api_key=" + key;
-                            string champData = client.DownloadString(staticChampInfo);
-                            JObject champInfo = JObject.Parse(champData);
-                            topFiveNames[n] = (string)champInfo["name"];
+
+                            if (champInfo == null)
+                            {
+                                string staticChampInfo = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
+                                string champData = client.DownloadString(staticChampInfo);
+                                champInfo = JObject.Parse(champData);
+                            }
+
+                            topFiveNames[n] = (string)champInfo["data"][champ.Item1.ToString()]["name"];
                             n++;
                         }
                     }
