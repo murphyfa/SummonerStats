@@ -2624,6 +2624,7 @@
       <DependentUpon>DBEntities.edmx</DependentUpon>
       <LastGenOutput>DBEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="riot.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
