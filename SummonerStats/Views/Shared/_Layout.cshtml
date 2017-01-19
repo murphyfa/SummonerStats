@@ -1,12 +1,24 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3429677302647607",
+    enable_page_level_ads: true
+  });
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,18 +50,23 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
     <script>
-    $(document).ready(function () {
-        $('.xpnd-a').on('click', function (event) {
-            var target = "#" + $(this).attr('data-toggle');
-            event.preventDefault();
-            $(target).toggle();
+        $("body").on('click', '.xpnd-a', function (event) {
+                var target = "#" + $(this).attr('data-toggle');
+                event.preventDefault();
+                $(target).toggle();
+            })
+
+        $(document).on('click', '.more-matches-link', function () {
+            $('#more-matches').hide();
+            $('#loading-img').show();
         })
-    })
+
+        function removelink() {
+            $('#match-list .more-matches').first().remove();
+        }
+
+
     </script>
 </body>
 </html>

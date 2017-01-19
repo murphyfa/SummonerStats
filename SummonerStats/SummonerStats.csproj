@@ -724,6 +724,7 @@
     <Content Include="img\item\3931.png" />
     <Content Include="img\item\3932.png" />
     <Content Include="img\item\3933.png" />
+    <Content Include="img\loading.gif" />
     <Content Include="img\map\map1.png" />
     <Content Include="img\map\map10.png" />
     <Content Include="img\map\map11.png" />
@@ -2643,11 +2644,14 @@
     <Content Include="Models\DBEntities.edmx.diagram">
       <DependentUpon>DBEntities.edmx</DependentUpon>
     </Content>
+    <Content Include="JSON\item.json" />
     <None Include="Properties\PublishProfiles\summonerstats - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -2677,6 +2681,7 @@
     <Content Include="Views\MatchHistory\Details.cshtml" />
     <Content Include="Views\MatchHistory\Edit.cshtml" />
     <Content Include="Views\MatchHistory\Index.cshtml" />
+    <Content Include="Views\Profile\MatchDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -6,12 +6,28 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <div class="champ-hd" style="background-image:url(@ViewBag.BG)"></div>
 <div class="container" id="profile-header">
-    @{string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + Model.playerProfile.profileIconId + ".png";}
+    @{
+        string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + Model.playerProfile.profileIconId + ".png";
+    }
     <img id="sum-icon" src="@profileIcon" />
     <div class="name-div">
         <div class="name-div">
-            <h1 id="player-name">@Model.playerProfile.name </h1>
+            <h1 id="player-name">@Model.playerProfile.name</h1>
             <div class="s-lvl">Level @Model.playerProfile.summonerLevel</div>
+            <div id="update-player">
+                @Ajax.ActionLink("Refresh", "UpdatePlayer", new { searchName = Model.playerProfile.name }, new AjaxOptions()
+           {
+               HttpMethod = "GET",
+               AllowCache = false,
+               InsertionMode = InsertionMode.InsertAfter,
+               UpdateTargetId = "match-list",
+               OnSuccess = "window.location.reload(true)"
+           }, new { @class = "update-link", id = "update-link" })
+                <div id="update-img">
+                    <img src="~/img/loading.gif" height="27" width="27" />
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -134,47 +150,49 @@
                 </table>
             </div>
             @{
-                List<string> recentList = new List<string>();
-                List<Tuple<string, int>> recentGroup = new List<Tuple<string, int>>();
-
-                foreach (var match in Model.matchHistory)
+                if (Model.matchHistory != null)
                 {
-                    SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
-                    SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
-                    Model.matchDetails = mdm.PullMatch(match.matchId);
-                    int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+                    List<string> recentList = new List<string>();
+                    List<Tuple<string, int>> recentGroup = new List<Tuple<string, int>>();
 
-                    if (Model.matchDetails.First().winner == "Team1" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team2" && playerStats[15] == 0)
+                    foreach (var match in Model.matchHistory)
                     {
-                        recentList.Add(Model.matchDetails.First().p1Name);
-                        recentList.Add(Model.matchDetails.First().p2Name);
-                        recentList.Add(Model.matchDetails.First().p3Name);
-                        recentList.Add(Model.matchDetails.First().p4Name);
-                        recentList.Add(Model.matchDetails.First().p5Name);
+                        SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
+                        SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
+                        Model.matchDetails = mdm.PullMatch(match.matchId);
+                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+
+                        if (Model.matchDetails.First().winner == "Team1" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team2" && playerStats[15] == 0)
+                        {
+                            recentList.Add(Model.matchDetails.First().p1Name);
+                            recentList.Add(Model.matchDetails.First().p2Name);
+                            recentList.Add(Model.matchDetails.First().p3Name);
+                            recentList.Add(Model.matchDetails.First().p4Name);
+                            recentList.Add(Model.matchDetails.First().p5Name);
+                        }
+                        else if (Model.matchDetails.First().winner == "Team2" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team1" && playerStats[15] == 0)
+                        {
+                            recentList.Add(Model.matchDetails.First().p6Name);
+                            recentList.Add(Model.matchDetails.First().p7Name);
+                            recentList.Add(Model.matchDetails.First().p8Name);
+                            recentList.Add(Model.matchDetails.First().p9Name);
+                            recentList.Add(Model.matchDetails.First().p10Name);
+                        }
                     }
-                    else if (Model.matchDetails.First().winner == "Team2" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team1" && playerStats[15] == 0)
+
+                    recentList.RemoveAll(name => name == Model.playerProfile.name);
+
+                    var playedWith = recentList.GroupBy(i => i);
+                    foreach (var recentPlayer in playedWith)
                     {
-                        recentList.Add(Model.matchDetails.First().p6Name);
-                        recentList.Add(Model.matchDetails.First().p7Name);
-                        recentList.Add(Model.matchDetails.First().p8Name);
-                        recentList.Add(Model.matchDetails.First().p9Name);
-                        recentList.Add(Model.matchDetails.First().p10Name);
+                        var player = recentPlayer.Key;
+                        var count = recentPlayer.Count();
+
+                        if (count > 1)
+                        {
+                            recentGroup.Add(new Tuple<string, int>(player, count));
+                        }
                     }
-                }
-
-                recentList.RemoveAll(name => name == Model.playerProfile.name);
-
-                var playedWith = recentList.GroupBy(i => i);
-                foreach (var recentPlayer in playedWith)
-                {
-                    var player = recentPlayer.Key;
-                    var count = recentPlayer.Count();
-
-                    if (count > 1)
-                    {
-                        recentGroup.Add(new Tuple<string, int>(player, count));
-                    }
-                }
 
                 <div class="recent-played-with">
                     <div class="top-champs-hd">
@@ -193,7 +211,7 @@
                         }
                     </table>
                 </div>
-
+                }
             }
 
 
@@ -268,640 +286,45 @@
                     <span class="rct-kda">@killAvg / @deathsAvg / @assistsAvg</span>
                 </div>
             </div>
-            <div>
-                @{
+            <div id="match-list">
+                @{ 
                     if (Model.matchHistory != null)
                     {
-                        SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
-                        SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
-
-                        foreach (var match in Model.matchHistory)
-                        {
-                            Model.matchDetails = mdm.PullMatch(match.matchId);
-
-                            int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
-                            string playerChamp = pc.ChampById(playerStats[1]);
-                            string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string kda;
-                            if (playerStats[5] == 0)
-                            {
-                                kda = "Perfect";
-                            } else
-                            {
-                                kda = Math.Round(((float)playerStats[4] + (float)playerStats[6]) / (float)playerStats[5], 2).ToString();
-                            }
-
-                            string p1Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p1Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p2Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p2Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p3Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p3Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p4Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p4Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p5Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p5Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p6Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p6Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p7Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p7Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p8Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p8Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p9Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p9Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            string p10Img = "~/img/champion/" + pc.ChampById(Model.matchDetails.First().p10Champ).Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-
-                            string playerS1 = "~/img/summoner/" + playerStats[2] + ".png";
-                            string playerS2 = "~/img/summoner/" + playerStats[3] + ".png";
-
-                            string p1s1 = "~/img/summoner/" + Model.matchDetails.First().p1Spell1 + ".png";
-                            string p1s2 = "~/img/summoner/" + Model.matchDetails.First().p1Spell2 + ".png";
-                            string p2s1 = "~/img/summoner/" + Model.matchDetails.First().p2Spell1 + ".png";
-                            string p2s2 = "~/img/summoner/" + Model.matchDetails.First().p2Spell2 + ".png";
-                            string p3s1 = "~/img/summoner/" + Model.matchDetails.First().p3Spell1 + ".png";
-                            string p3s2 = "~/img/summoner/" + Model.matchDetails.First().p3Spell2 + ".png";
-                            string p4s1 = "~/img/summoner/" + Model.matchDetails.First().p4Spell1 + ".png";
-                            string p4s2 = "~/img/summoner/" + Model.matchDetails.First().p4Spell2 + ".png";
-                            string p5s1 = "~/img/summoner/" + Model.matchDetails.First().p5Spell1 + ".png";
-                            string p5s2 = "~/img/summoner/" + Model.matchDetails.First().p5Spell2 + ".png";
-                            string p6s1 = "~/img/summoner/" + Model.matchDetails.First().p6Spell1 + ".png";
-                            string p6s2 = "~/img/summoner/" + Model.matchDetails.First().p6Spell2 + ".png";
-                            string p7s1 = "~/img/summoner/" + Model.matchDetails.First().p7Spell1 + ".png";
-                            string p7s2 = "~/img/summoner/" + Model.matchDetails.First().p7Spell2 + ".png";
-                            string p8s1 = "~/img/summoner/" + Model.matchDetails.First().p8Spell1 + ".png";
-                            string p8s2 = "~/img/summoner/" + Model.matchDetails.First().p8Spell2 + ".png";
-                            string p9s1 = "~/img/summoner/" + Model.matchDetails.First().p9Spell1 + ".png";
-                            string p9s2 = "~/img/summoner/" + Model.matchDetails.First().p9Spell2 + ".png";
-                            string p10s1 = "~/img/summoner/" + Model.matchDetails.First().p10Spell1 + ".png";
-                            string p10s2 = "~/img/summoner/" + Model.matchDetails.First().p10Spell2 + ".png";
-
-                            string p1i1 = "~/img/item/" + Model.matchDetails.First().p1Item1 + ".png";
-                            string p1i2 = "~/img/item/" + Model.matchDetails.First().p1Item2 + ".png";
-                            string p1i3 = "~/img/item/" + Model.matchDetails.First().p1Item3 + ".png";
-                            string p1i4 = "~/img/item/" + Model.matchDetails.First().p1Item4 + ".png";
-                            string p1i5 = "~/img/item/" + Model.matchDetails.First().p1Item5 + ".png";
-                            string p1i6 = "~/img/item/" + Model.matchDetails.First().p1Item6 + ".png";
-                            string p2i1 = "~/img/item/" + Model.matchDetails.First().p2Item1 + ".png";
-                            string p2i2 = "~/img/item/" + Model.matchDetails.First().p2Item2 + ".png";
-                            string p2i3 = "~/img/item/" + Model.matchDetails.First().p2Item3 + ".png";
-                            string p2i4 = "~/img/item/" + Model.matchDetails.First().p2Item4 + ".png";
-                            string p2i5 = "~/img/item/" + Model.matchDetails.First().p2Item5 + ".png";
-                            string p2i6 = "~/img/item/" + Model.matchDetails.First().p2Item6 + ".png";
-                            string p3i1 = "~/img/item/" + Model.matchDetails.First().p3Item1 + ".png";
-                            string p3i2 = "~/img/item/" + Model.matchDetails.First().p3Item2 + ".png";
-                            string p3i3 = "~/img/item/" + Model.matchDetails.First().p3Item3 + ".png";
-                            string p3i4 = "~/img/item/" + Model.matchDetails.First().p3Item4 + ".png";
-                            string p3i5 = "~/img/item/" + Model.matchDetails.First().p3Item5 + ".png";
-                            string p3i6 = "~/img/item/" + Model.matchDetails.First().p3Item6 + ".png";
-                            string p4i1 = "~/img/item/" + Model.matchDetails.First().p4Item1 + ".png";
-                            string p4i2 = "~/img/item/" + Model.matchDetails.First().p4Item2 + ".png";
-                            string p4i3 = "~/img/item/" + Model.matchDetails.First().p4Item3 + ".png";
-                            string p4i4 = "~/img/item/" + Model.matchDetails.First().p4Item4 + ".png";
-                            string p4i5 = "~/img/item/" + Model.matchDetails.First().p4Item5 + ".png";
-                            string p4i6 = "~/img/item/" + Model.matchDetails.First().p4Item6 + ".png";
-                            string p5i1 = "~/img/item/" + Model.matchDetails.First().p5Item1 + ".png";
-                            string p5i2 = "~/img/item/" + Model.matchDetails.First().p5Item2 + ".png";
-                            string p5i3 = "~/img/item/" + Model.matchDetails.First().p5Item3 + ".png";
-                            string p5i4 = "~/img/item/" + Model.matchDetails.First().p5Item4 + ".png";
-                            string p5i5 = "~/img/item/" + Model.matchDetails.First().p5Item5 + ".png";
-                            string p5i6 = "~/img/item/" + Model.matchDetails.First().p5Item6 + ".png";
-                            string p6i1 = "~/img/item/" + Model.matchDetails.First().p6Item1 + ".png";
-                            string p6i2 = "~/img/item/" + Model.matchDetails.First().p6Item2 + ".png";
-                            string p6i3 = "~/img/item/" + Model.matchDetails.First().p6Item3 + ".png";
-                            string p6i4 = "~/img/item/" + Model.matchDetails.First().p6Item4 + ".png";
-                            string p6i5 = "~/img/item/" + Model.matchDetails.First().p6Item5 + ".png";
-                            string p6i6 = "~/img/item/" + Model.matchDetails.First().p6Item6 + ".png";
-                            string p7i1 = "~/img/item/" + Model.matchDetails.First().p7Item1 + ".png";
-                            string p7i2 = "~/img/item/" + Model.matchDetails.First().p7Item2 + ".png";
-                            string p7i3 = "~/img/item/" + Model.matchDetails.First().p7Item3 + ".png";
-                            string p7i4 = "~/img/item/" + Model.matchDetails.First().p7Item4 + ".png";
-                            string p7i5 = "~/img/item/" + Model.matchDetails.First().p7Item5 + ".png";
-                            string p7i6 = "~/img/item/" + Model.matchDetails.First().p7Item6 + ".png";
-                            string p8i1 = "~/img/item/" + Model.matchDetails.First().p8Item1 + ".png";
-                            string p8i2 = "~/img/item/" + Model.matchDetails.First().p8Item2 + ".png";
-                            string p8i3 = "~/img/item/" + Model.matchDetails.First().p8Item3 + ".png";
-                            string p8i4 = "~/img/item/" + Model.matchDetails.First().p8Item4 + ".png";
-                            string p8i5 = "~/img/item/" + Model.matchDetails.First().p8Item5 + ".png";
-                            string p8i6 = "~/img/item/" + Model.matchDetails.First().p8Item6 + ".png";
-                            string p9i1 = "~/img/item/" + Model.matchDetails.First().p9Item1 + ".png";
-                            string p9i2 = "~/img/item/" + Model.matchDetails.First().p9Item2 + ".png";
-                            string p9i3 = "~/img/item/" + Model.matchDetails.First().p9Item3 + ".png";
-                            string p9i4 = "~/img/item/" + Model.matchDetails.First().p9Item4 + ".png";
-                            string p9i5 = "~/img/item/" + Model.matchDetails.First().p9Item5 + ".png";
-                            string p9i6 = "~/img/item/" + Model.matchDetails.First().p9Item6 + ".png";
-                            string p10i1 = "~/img/item/" + Model.matchDetails.First().p10Item1 + ".png";
-                            string p10i2 = "~/img/item/" + Model.matchDetails.First().p10Item2 + ".png";
-                            string p10i3 = "~/img/item/" + Model.matchDetails.First().p10Item3 + ".png";
-                            string p10i4 = "~/img/item/" + Model.matchDetails.First().p10Item4 + ".png";
-                            string p10i5 = "~/img/item/" + Model.matchDetails.First().p10Item5 + ".png";
-                            string p10i6 = "~/img/item/" + Model.matchDetails.First().p10Item6 + ".png";
-
-                            string playerIOne = "~/img/item/" + playerStats[7] + ".png";
-                            string playerITwo = "~/img/item/" + playerStats[8] + ".png";
-                            string playerIThree = "~/img/item/" + playerStats[9] + ".png";
-                            string playerIFour = "~/img/item/" + playerStats[10] + ".png";
-                            string playerIFive = "~/img/item/" + playerStats[11] + ".png";
-                            string playerISix = "~/img/item/" + playerStats[12] + ".png";
-
-                            string winLose = "0";
-                            string winLoseHD = "0";
-                            string winLoseBG = "0";
-
-
-                            if (playerStats[15] == 1 && Model.matchDetails.First().matchDuration >= 300)
-                            {
-                                winLose = "Victory";
-                                winLoseHD = "victory-hd";
-                                winLoseBG = "victory-bg";
-                            }
-                            else if (playerStats[15] == 0 && Model.matchDetails.First().matchDuration >= 300)
-                            {
-                                winLose = "Defeat";
-                                winLoseHD = "defeat-hd";
-                                winLoseBG = "defeat-bg";
-                            }
-                            else
-                            {
-                                winLose = "Remake";
-                                winLoseHD = "remake-hd";
-                                winLoseBG = "remake-bg";
-                            }
-
-                            //variables for match details
-
-                            string detT1HD = "0";
-                            string detT2HD = "0";
-                            string detT1Title = "0";
-                            string detT2Title = "0";
-                            string detT1BG = "0";
-                            string detT2BG = "0";
-
-                            if (Model.matchDetails.First().winner == "Team1")
-                            {
-                                detT1HD = "victory-hd";
-                                detT2HD = "defeat-hd";
-                                detT1Title = "Victory";
-                                detT2Title = "Defeat";
-                                detT1BG = "victory-bg";
-                                detT2BG = "defeat-bg";
-                            }
-                            else
-                            {
-                                detT1HD = "defeat-hd";
-                                detT2HD = "victory-hd";
-                                detT1Title = "Defeat";
-                                detT2Title = "Victory";
-                                detT1BG = "defeat-bg";
-                                detT2BG = "victory-bg";
-                            }
-                        <div>
-                            <div class="win-lose @winLoseHD">
-                                @{ string duration = TimeSpan.FromSeconds(Model.matchDetails.First().matchDuration).ToString(@"mm\:ss"); }
-                                <span class="mh-wl-span">@winLose - @duration</span>
-                            </div>
-
-                            <div class="match-row @winLoseBG">
-                                <div class="match-expand"></div>
-                                <div class="mc1">
-                                    <img class="img-rounded pl-icon" src="@Url.Content(pIcon)" height="80" width="80" />
-                                    <img class="img-rounded s1" src="@Url.Content(playerS1)" height="35" width="35" />
-                                    <img class="img-rounded s2" src="@Url.Content(playerS2)" height="35" width="35" />
-                                </div>
-                                <div class="mc2">
-                                    <span class="kda-txt">@playerStats[4].ToString()  /@playerStats[5].ToString() / @playerStats[6]</span>
-                                    <span class="kda-avg">@kda KDA</span>
-                                </div>
-                                <div class="mc3">
-                                    <img class="img-rounded i-img1" src="@Url.Content(playerIOne)" height="35" width="35" />
-                                    <img class="img-rounded i-img1" src="@Url.Content(playerITwo)" height="35" width="35" />
-                                    <img class="img-rounded i-img1" src="@Url.Content(playerIThree)" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@Url.Content(playerIFour)" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@Url.Content(playerIFive)" height="35" width="35" />
-                                    <img class="img-rounded i-img2" src="@Url.Content(playerISix)" height="35" width="35" />
-                                </div>
-                                <div class="mc4">
-                                    <span>Level @playerStats[13]</span>
-                                    <span>@playerStats[0] Gold</span>
-                                    <span>@playerStats[14] CS</span>
-                                </div>
-                                <div class="mc5">
-                                    <div>
-                                        <table class="team1-players">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p1Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p1Name })">@Model.matchDetails.First().p1Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p2Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p2Name })">@Model.matchDetails.First().p2Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p3Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p3Name })">@Model.matchDetails.First().p3Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p4Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p4Name })">@Model.matchDetails.First().p4Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p5Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p5Name })">@Model.matchDetails.First().p5Name</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div>
-                                        <table class="team2-players">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p6Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p6Name })">@Model.matchDetails.First().p6Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p7Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p7Name })">@Model.matchDetails.First().p7Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p8Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p8Name })">@Model.matchDetails.First().p8Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p9Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p9Name })">@Model.matchDetails.First().p9Name</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sm-pl-icon">
-                                                        <img src="@Url.Content(p10Img)" height="16" width="16" />
-                                                    </td>
-                                                    <td>
-                                                        <a class="sm-pl-link" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p10Name })">@Model.matchDetails.First().p10Name</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="mc6">
-                                    <a href="#" class="xpnd-a" id="details-btn" data-toggle="@Model.matchDetails.First().matchId">
-                                        <div style="width:100%; height:auto">
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="match-details" id="@Model.matchDetails.First().matchId">
-                                <div class="w-l-details-hd @detT1HD">
-                                    <span class="mh-wl-span">Team 1 - @detT1Title</span>
-                                </div>
-                                <div class="team1-details @detT1BG">
-                                    <div class="details-header">
-                                        <span class="md-c1">Summoner</span>
-                                        <span class="md-c2">Items</span>
-                                        <span class="md-c3">KDA</span>
-                                        <span class="md-c4">CS</span>
-                                        <span class="md-c5">Damage</span>
-                                        <span class="md-c6">Tier</span>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p1Level</span>
-                                            <img src="@Url.Content(p1Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p1s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p1s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p1Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p1i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p1i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p1i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p1i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p1i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p1i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p1Kills / @Model.matchDetails.First().p1Deaths / @Model.matchDetails.First().p1Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p1CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p1Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p1Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p2Level</span>
-                                            <img src="@Url.Content(p2Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p2s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p2s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p2Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p2i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p2i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p2i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p2i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p2i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p2i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p2Kills / @Model.matchDetails.First().p2Deaths / @Model.matchDetails.First().p2Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p2CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p2Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p2Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p3Level</span>
-                                            <img src="@Url.Content(p3Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p3s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p3s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p3Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p3i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p3i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p3i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p3i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p3i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p3i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p3Kills / @Model.matchDetails.First().p3Deaths / @Model.matchDetails.First().p3Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p3CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p3Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p3Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p4Level</span>
-                                            <img src="@Url.Content(p4Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p4s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p4s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p4Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p4i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p4i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p4i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p4i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p4i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p4i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p4Kills / @Model.matchDetails.First().p4Deaths / @Model.matchDetails.First().p4Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p4CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p4Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p4Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p5Level</span>
-                                            <img src="@Url.Content(p5Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p5s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p5s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p5Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p5i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p5i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p5i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p5i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p5i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p5i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p5Kills / @Model.matchDetails.First().p5Deaths / @Model.matchDetails.First().p5Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p5CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p5Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p5Tier</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-l-details-hd @detT2HD">
-                                    <span class="mh-wl-span">Teams 2 - @detT2Title</span>
-                                </div>
-                                <div class="team2-details @detT2BG">
-                                    <div class="details-header">
-                                        <span class="md-c1">Summoner</span>
-                                        <span class="md-c2">Items</span>
-                                        <span class="md-c3">KDA</span>
-                                        <span class="md-c4">CS</span>
-                                        <span class="md-c5">Damage</span>
-                                        <span class="md-c6">Tier</span>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p6Level</span>
-                                            <img src="@Url.Content(p6Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p6s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p6s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p6Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p6i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p6i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p6i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p6i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p6i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p6i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p6Kills / @Model.matchDetails.First().p6Deaths / @Model.matchDetails.First().p6Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p6CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p6Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p6Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p7Level</span>
-                                            <img src="@Url.Content(p7Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p7s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p7s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p7Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p7i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p7i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p7i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p7i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p7i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p7i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p7Kills / @Model.matchDetails.First().p7Deaths / @Model.matchDetails.First().p7Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p7CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p7Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p7Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p8Level</span>
-                                            <img src="@Url.Content(p8Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p8s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p8s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p8Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p8i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p8i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p8i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p8i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p8i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p8i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p8Kills / @Model.matchDetails.First().p8Deaths / @Model.matchDetails.First().p8Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p8CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p8Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p8Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p4Level</span>
-                                            <img src="@Url.Content(p9Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p9s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p9s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p9Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p9i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p9i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p9i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p9i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p9i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p9i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p9Kills / @Model.matchDetails.First().p9Deaths / @Model.matchDetails.First().p9Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p9CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p9Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p9Tier</span>
-                                        </div>
-                                    </div>
-                                    <div class="details-player">
-                                        <div class="md-c1">
-                                            <span>@Model.matchDetails.First().p10Level</span>
-                                            <img src="@Url.Content(p10Img)" width="40" height="40" />
-                                            <img class="md-s1" src="@Url.Content(p10s1)" width="18" height="18" />
-                                            <img class="md-s2" src="@Url.Content(p10s2)" width="18" height="18" />
-                                            <span>@Model.matchDetails.First().p10Name</span>
-                                        </div>
-                                        <div class="md-c2">
-                                            <img src="@Url.Content(p10i1)" width="24" height="24" />
-                                            <img src="@Url.Content(p10i2)" width="24" height="24" />
-                                            <img src="@Url.Content(p10i3)" width="24" height="24" />
-                                            <img src="@Url.Content(p10i4)" width="24" height="24" />
-                                            <img src="@Url.Content(p10i5)" width="24" height="24" />
-                                            <img src="@Url.Content(p10i6)" width="24" height="24" />
-                                        </div>
-                                        <div class="md-c3">
-                                            <span>@Model.matchDetails.First().p10Kills / @Model.matchDetails.First().p10Deaths / @Model.matchDetails.First().p10Assists</span>
-                                        </div>
-                                        <div class="md-c4">
-                                            <span>@Model.matchDetails.First().p10CS</span>
-                                        </div>
-                                        <div class="md-c5">
-                                            <span>@Model.matchDetails.First().p10Damage</span>
-                                        </div>
-                                        <div class="md-c6">
-                                            <span>@Model.matchDetails.First().p10Tier</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        }
+                        Html.RenderPartial("MatchDetails", Model);
                     }
                 }
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    @*$(document).ready(function () {
+        var name = '@Model.playerProfile.name';
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetTenMore")',
+            data: { searchName: name, lastMatch: 0 },
+            success: function (result) {
+                $('#match-list').html(result);
+            }
+        })
+    })*@
+
+    $(document).ready(function () {
+        if ($('#player-name').text() == 'The player was not found') {
+            $('#update-player').hide();
+        }
+    })
+
+    $(document).on('click', '#update-link', function () {
+        $('#update-link').hide();
+        $('#update-img').show();
+    })
+
+    $("body").tooltip({
+        selector: '[data-toggle="tooltip"]',
+        html: true
+    });
+</script>
 

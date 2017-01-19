@@ -66,6 +66,8 @@ namespace SummonerStats.Models
 
         JObject champInfo = null;
 
+        public long lastMatchPulled;
+
         public void UpdateMatchHistory(int sumID, string sumName)
         {
             MatchHistoryDBContext db = new MatchHistoryDBContext();
@@ -96,9 +98,18 @@ namespace SummonerStats.Models
                         mhData = client.DownloadString(mhURL);
                         retry = false;
                     }
-                    catch
+                    catch (WebException we)
                     {
-                        System.Threading.Thread.Sleep(1000);
+                        var response = ((HttpWebResponse)we.Response).StatusCode;
+                        if ((int)response == 429)
+                        {
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            retry = false;
+                        }
+                        System.Diagnostics.Debug.WriteLine("MATCH HISTORY RESPONDED WITH STATUS " + response);
                     }
                 }
                 JObject mhRecords = JObject.Parse(mhData);
@@ -138,20 +149,20 @@ namespace SummonerStats.Models
                         }
                     }
 
-                    Top5Champs(sumID, apiKey);
+                    Top5Champs(sumID);
 
                 }
             }
             
         }
 
-        public void Top5Champs(int sumID, string key)
+        public void Top5Champs(int sumID)
         {
             using (var client = new WebClient())
             {
                 //stats from ranked games
                 //currently only looking at season 7
-                string statsURL = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/" + sumID + "/ranked?season=SEASON2017&api_key=" + key;
+                string statsURL = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/" + sumID + "/ranked?season=SEASON2017&api_key=RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
                 string statsData = client.DownloadString(statsURL);
                 JObject statsStats = JObject.Parse(statsData);
 
@@ -203,69 +214,119 @@ namespace SummonerStats.Models
 
                 if (champsPlayed.Count() >= 1)
                 {
-                    topChampBG = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + topFiveNames[0].Replace(" ", "") + "_0.jpg";
-
                     int champOne = champsPlayed[0].Item1;
-                    topChampOne = pc.ChampById(champOne);
-                    totalGamesOne = champsPlayed[0].Item2;
-                    killsOne = db.MatchHistory.Where(u => u.id == sumID && u.champion == champOne).Sum(u => (Int32)u.kills) / totalGamesOne;
-                    deathsOne = db.MatchHistory.Where(u => u.id == sumID && u.champion == champOne).Sum(u => (Int32)u.deaths) / totalGamesOne;
-                    assistsOne = db.MatchHistory.Where(u => u.id == sumID && u.champion == champOne).Sum(u => (Int32)u.assists) / totalGamesOne;
-                    winsOne = db.MatchHistory.Where(u => u.id == sumID && u.champion == champOne).Sum(u => (Int32)u.winner);
-                    lossesOne = totalGamesOne - db.MatchHistory.Where(u => u.id == sumID && u.champion == champOne).Sum(u => (Int32)u.winner);
-                    winrateOne = Math.Round((double)winsOne * 100 / totalGamesOne).ToString() + "%";
+                    if (db.MatchHistory.Where(s => s.id == sumID && s.champion == champOne).Count() > 0)
+                    {
+                        topChampBG = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + topFiveNames[0].Replace(" ", "") + "_0.jpg";
+
+                        var detailsOne = db.MatchHistory.Where(s => s.id == sumID && s.champion == champOne).GroupBy(s => 1).Select(s => new
+                        {
+                            killsOne = s.Sum(x => x.kills),
+                            deathsOne = s.Sum(x => x.deaths),
+                            assistsOne = s.Sum(x => x.assists),
+                            winsOne = s.Sum(x => x.winner)
+                        });
+                        topChampOne = pc.ChampById(champOne);
+                        totalGamesOne = champsPlayed[0].Item2;
+                        killsOne = (Int32)detailsOne.First().killsOne / totalGamesOne;
+                        deathsOne = (Int32)detailsOne.First().deathsOne / totalGamesOne;
+                        assistsOne = (Int32)detailsOne.First().assistsOne / totalGamesOne;
+                        winsOne = (Int32)detailsOne.First().winsOne;
+                        lossesOne = totalGamesOne - winsOne;
+                        winrateOne = Math.Round((double)winsOne * 100 / totalGamesOne).ToString() + "%";
+                    }
                 }
 
                 if (champsPlayed.Count() >= 2)
                 {
                     int champTwo = champsPlayed[1].Item1;
-                    topChampTwo = pc.ChampById(champTwo);
-                    totalGamesTwo = champsPlayed[1].Item2;
-                    killsTwo = db.MatchHistory.Where(u => u.id == sumID && u.champion == champTwo).Sum(u => (Int32)u.kills) / totalGamesTwo;
-                    deathsTwo = db.MatchHistory.Where(u => u.id == sumID && u.champion == champTwo).Sum(u => (Int32)u.deaths) / totalGamesTwo;
-                    assistsTwo = db.MatchHistory.Where(u => u.id == sumID && u.champion == champTwo).Sum(u => (Int32)u.assists) / totalGamesTwo;
-                    winsTwo = db.MatchHistory.Where(u => u.id == sumID && u.champion == champTwo).Sum(u => (Int32)u.winner);
-                    lossesTwo = totalGamesTwo - db.MatchHistory.Where(u => u.id == sumID && u.champion == champTwo).Sum(u => (Int32)u.winner);
-                    winrateTwo = Math.Round((double)winsTwo * 100 / totalGamesTwo).ToString() + "%";
+                    if (db.MatchHistory.Where(s => s.id == sumID && s.champion == champTwo).Count() > 0)
+                    {
+                        var detailsTwo = db.MatchHistory.Where(s => s.id == sumID && s.champion == champTwo).GroupBy(s => 1).Select(s => new
+                        {
+                            killsTwo = s.Sum(x => x.kills),
+                            deathsTwo = s.Sum(x => x.deaths),
+                            assistsTwo = s.Sum(x => x.assists),
+                            winsTwo = s.Sum(x => x.winner)
+                        });
+                        topChampTwo = pc.ChampById(champTwo);
+                        totalGamesTwo = champsPlayed[1].Item2;
+                        killsTwo = (Int32)detailsTwo.First().killsTwo / totalGamesTwo;
+                        deathsTwo = (Int32)detailsTwo.First().deathsTwo / totalGamesTwo;
+                        assistsTwo = (Int32)detailsTwo.First().assistsTwo / totalGamesTwo;
+                        winsTwo = (Int32)detailsTwo.First().winsTwo;
+                        lossesTwo = totalGamesTwo - winsTwo;
+                        winrateTwo = Math.Round((double)winsTwo * 100 / totalGamesTwo).ToString() + "%";
+                    }
                 }
 
                 if (champsPlayed.Count() >= 3)
                 {
                     int champThree = champsPlayed[2].Item1;
-                    topChampThree = pc.ChampById(champThree);
-                    totalGamesThree = champsPlayed[2].Item2;
-                    killsThree = db.MatchHistory.Where(u => u.id == sumID && u.champion == champThree).Sum(u => (Int32)u.kills) / totalGamesThree;
-                    deathsThree = db.MatchHistory.Where(u => u.id == sumID && u.champion == champThree).Sum(u => (Int32)u.deaths) / totalGamesThree;
-                    assistsThree = db.MatchHistory.Where(u => u.id == sumID && u.champion == champThree).Sum(u => (Int32)u.assists) / totalGamesThree;
-                    winsThree = db.MatchHistory.Where(u => u.id == sumID && u.champion == champThree).Sum(u => (Int32)u.winner);
-                    lossesThree = totalGamesThree - db.MatchHistory.Where(u => u.id == sumID && u.champion == champThree).Sum(u => (Int32)u.winner);
-                    winrateThree = Math.Round((double)winsThree * 100 / totalGamesThree).ToString() + "%";
+                    if (db.MatchHistory.Where(s => s.id == sumID && s.champion == champThree).Count() > 0)
+                    {
+                        var detailsThree = db.MatchHistory.Where(s => s.id == sumID && s.champion == champThree).GroupBy(s => 1).Select(s => new
+                        {
+                            killsThree = s.Sum(x => x.kills),
+                            deathsThree = s.Sum(x => x.deaths),
+                            assistsThree = s.Sum(x => x.assists),
+                            winsThree = s.Sum(x => x.winner)
+                        });
+                        topChampThree = pc.ChampById(champThree);
+                        totalGamesThree = champsPlayed[2].Item2;
+                        killsThree = (Int32)detailsThree.First().killsThree / totalGamesThree;
+                        deathsThree = (Int32)detailsThree.First().deathsThree / totalGamesThree;
+                        assistsThree = (Int32)detailsThree.First().assistsThree / totalGamesThree;
+                        winsThree = (Int32)detailsThree.First().winsThree;
+                        lossesThree = totalGamesThree - winsThree;
+                        winrateThree = Math.Round((double)winsThree * 100 / totalGamesThree).ToString() + "%";
+                    }
                 }
 
                 if (champsPlayed.Count() >= 4)
                 {
                     int champFour = champsPlayed[3].Item1;
-                    topChampFour = pc.ChampById(champFour);
-                    totalGamesFour = champsPlayed[3].Item2;
-                    killsFour = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFour).Sum(u => (Int32)u.kills) / totalGamesFour;
-                    deathsFour = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFour).Sum(u => (Int32)u.deaths) / totalGamesFour;
-                    assistsFour = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFour).Sum(u => (Int32)u.assists) / totalGamesFour;
-                    winsFour = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFour).Sum(u => (Int32)u.winner);
-                    lossesFour = totalGamesFour - db.MatchHistory.Where(u => u.id == sumID && u.champion == champFour).Sum(u => (Int32)u.winner);
-                    winrateFour = Math.Round((double)winsFour * 100 / totalGamesFour).ToString() + "%";
+                    if (db.MatchHistory.Where(s => s.id == sumID && s.champion == champFour).Count() > 0)
+                    {
+                        var detailsFour = db.MatchHistory.Where(s => s.id == sumID && s.champion == champFour).GroupBy(s => 1).Select(s => new
+                        {
+                            killsFour = s.Sum(x => x.kills),
+                            deathsFour = s.Sum(x => x.deaths),
+                            assistsFour = s.Sum(x => x.assists),
+                            winsFour = s.Sum(x => x.winner)
+                        });
+                        topChampFour = pc.ChampById(champFour);
+                        totalGamesFour = champsPlayed[3].Item2;
+                        killsFour = (Int32)detailsFour.First().killsFour / totalGamesFour;
+                        deathsFour = (Int32)detailsFour.First().deathsFour / totalGamesFour;
+                        assistsFour = (Int32)detailsFour.First().assistsFour / totalGamesFour;
+                        winsFour = (Int32)detailsFour.First().winsFour;
+                        lossesFour = totalGamesFour - winsFour;
+                        winrateFour = Math.Round((double)winsFour * 100 / totalGamesFour).ToString() + "%";
+                    }
                 }
 
                 if (champsPlayed.Count() >= 5)
                 {
                     int champFive = champsPlayed[4].Item1;
-                    topChampFive = pc.ChampById(champFive);
-                    totalGamesFive = champsPlayed[4].Item2;
-                    killsFive = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFive).Sum(u => (Int32)u.kills) / totalGamesFive;
-                    deathsFive = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFive).Sum(u => (Int32)u.deaths) / totalGamesFive;
-                    assistsFive = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFive).Sum(u => (Int32)u.assists) / totalGamesFive;
-                    winsFive = db.MatchHistory.Where(u => u.id == sumID && u.champion == champFive).Sum(u => (Int32)u.winner);
-                    lossesFive = totalGamesFive - db.MatchHistory.Where(u => u.id == sumID && u.champion == champFive).Sum(u => (Int32)u.winner);
-                    winrateFive = Math.Round((double)winsFive * 100 / totalGamesFive).ToString() + "%";
+                    if (db.MatchHistory.Where(s => s.id == sumID && s.champion == champFive).Count() > 0)
+                    {
+                        var detailsFive = db.MatchHistory.Where(s => s.id == sumID && s.champion == champFive).GroupBy(s => 1).Select(s => new
+                        {
+                            killsFive = s.Sum(x => x.kills),
+                            deathsFive = s.Sum(x => x.deaths),
+                            assistsFive = s.Sum(x => x.assists),
+                            winsFive = s.Sum(x => x.winner)
+                        });
+                        topChampFive = pc.ChampById(champFive);
+                        totalGamesFive = champsPlayed[4].Item2;
+                        killsFive = (Int32)detailsFive.First().killsFive / totalGamesFive;
+                        deathsFive = (Int32)detailsFive.First().deathsFive / totalGamesFive;
+                        assistsFive = (Int32)detailsFive.First().assistsFive / totalGamesFive;
+                        winsFive = (Int32)detailsFive.First().winsFive;
+                        lossesFive = totalGamesFive - winsFive;
+                        winrateFive = Math.Round((double)winsFive * 100 / totalGamesFive).ToString() + "%";
+                    }
                 }
             }
         }

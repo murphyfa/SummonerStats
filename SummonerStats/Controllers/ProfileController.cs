@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SummonerStats.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Text;
 using System.Web.Mvc;
 
 namespace SummonerStats.Controllers
@@ -30,16 +32,32 @@ namespace SummonerStats.Controllers
 
             int summonerID = profile.playerProfile.pullPlayer(searchName);
 
+
             if (profile.playerProfile.name != "The player was not found")
             {
-                profile.mh.UpdateMatchHistory(summonerID, searchName);
-
+                profile.mh.Top5Champs(summonerID);
                 profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
             }
             return View("Profile", profile);
         }
 
+        [HttpGet]
+        public ActionResult UpdatePlayer(string searchName)
+        {
+            int summonerID = profile.playerProfile.pullPlayer(searchName);
+            profile.mh.UpdateMatchHistory(summonerID, searchName);
+            profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
 
+            return View("Profile", profile);
+        }
+
+        [HttpGet]
+        public PartialViewResult GetTenMore(string searchName, long lastMatch)
+        {
+            int summonerID = profile.playerProfile.pullPlayer(searchName);
+            profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' and timestamp < '" + lastMatch + "' ORDER BY timestamp DESC").ToList();
+            return PartialView("MatchDetails", profile);
+        }
 
 
         public int[] FindViewPlayer(IEnumerable<tblMatchDetails> details, string summonerName)
@@ -319,17 +337,25 @@ namespace SummonerStats.Controllers
             return champName;
         }
 
-        public string ItemURL (int itemID)
+        public DateTime ConvertTimeStamp(long timestamp)
         {
-            string itemURL;
-            if (itemID != 0)
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return epoch.AddMilliseconds(timestamp);
+        }
+
+        public string ItemJSON(int itemNumber)
+        {
+            string itemInfo;
+            JObject itemData = JObject.Parse(System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/JSON/item.json"));
+            if (itemNumber != 0)
             {
-                itemURL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/" + itemID + ".png";
-            } else
-            {
-                itemURL = "";
+                itemInfo = "<span class='tt-name'>" + itemData["data"][itemNumber.ToString()]["name"] + "</span><span class='tt-text'>" + itemData["data"][itemNumber.ToString()]["plaintext"] + "</span><span class='tt-desc'>" + itemData["data"][itemNumber.ToString()]["description"] + "</span>";
             }
-            return itemURL;
+            else
+            {
+                itemInfo = "";
+            }
+            return itemInfo;
         }
     }
 }
