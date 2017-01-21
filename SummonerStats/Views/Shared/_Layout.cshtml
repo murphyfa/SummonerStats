@@ -24,11 +24,6 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 @Html.ActionLink("Summoner Stats", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div style="text-align:right; padding: 10px 0;">
@@ -46,25 +41,12 @@
             </div>
         </div>
     </div>
-    <div>
+    <div id="body-wrapper">
         @RenderBody()
     </div>
 
     <script>
-        $("body").on('click', '.xpnd-a', function (event) {
-                var target = "#" + $(this).attr('data-toggle');
-                event.preventDefault();
-                $(target).toggle();
-            })
 
-        $(document).on('click', '.more-matches-link', function () {
-            $('#more-matches').hide();
-            $('#loading-img').show();
-        })
-
-        function removelink() {
-            $('#match-list .more-matches').first().remove();
-        }
 
 
     </script>

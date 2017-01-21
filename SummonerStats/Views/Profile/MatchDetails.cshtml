@@ -192,8 +192,8 @@
         <div class="match-expand"></div>
         <div class="mc1">
             <img class="img-rounded pl-icon" src="@Url.Content(pIcon)" height="80" width="80" data-toggle="tooltip" title="@playerChamp" />
-            <img class="img-rounded s1" src="@Url.Content(playerS1)" height="35" width="35" />
-            <img class="img-rounded s2" src="@Url.Content(playerS2)" height="35" width="35" />
+            <img class="img-rounded s1" src="@Url.Content(playerS1)" height="35" data-toggle="tooltip" title="@pc.SumSpellJSON(playerStats[2])" data-container="body" />
+            <img class="img-rounded s2" src="@Url.Content(playerS2)" height="35" data-toggle="tooltip" title="@pc.SumSpellJSON(playerStats[3])" data-container="body" />
         </div>
         <div class="mc2">
             <span class="kda-txt">@playerStats[4].ToString() / @playerStats[5].ToString() / @playerStats[6]</span>
@@ -331,18 +331,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p1Level</span>
-                    <img src="@Url.Content(p1Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p1s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p1s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p1Name</span>
+                    <img src="@Url.Content(p1Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p1Champ)" />
+                    <img class="md-s1" src="@Url.Content(p1s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p1Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p1s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p1Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p1Name })">@Model.matchDetails.First().p1Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p1i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item1)" data-container="body"/>
-                    <img src="@Url.Content(p1i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item2)" data-container="body"/>
-                    <img src="@Url.Content(p1i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item3)" data-container="body"/>
-                    <img src="@Url.Content(p1i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item4)" data-container="body"/>
-                    <img src="@Url.Content(p1i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item5)" data-container="body"/>
-                    <img src="@Url.Content(p1i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item6)" data-container="body"/>
+                    <img src="@Url.Content(p1i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item1)" data-container="body"/>
+                    <img src="@Url.Content(p1i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item2)" data-container="body"/>
+                    <img src="@Url.Content(p1i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item3)" data-container="body"/>
+                    <img src="@Url.Content(p1i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item4)" data-container="body"/>
+                    <img src="@Url.Content(p1i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item5)" data-container="body"/>
+                    <img src="@Url.Content(p1i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p1Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p1Kills / @Model.matchDetails.First().p1Deaths / @Model.matchDetails.First().p1Assists</span>
@@ -360,18 +360,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p2Level</span>
-                    <img src="@Url.Content(p2Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p2s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p2s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p2Name</span>
+                    <img src="@Url.Content(p2Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p2Champ)" />
+                    <img class="md-s1" src="@Url.Content(p2s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p2Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p2s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p2Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p2Name })">@Model.matchDetails.First().p2Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p2i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item1)" data-container="body"/>
-                    <img src="@Url.Content(p2i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item2)" data-container="body"/>
-                    <img src="@Url.Content(p2i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item3)" data-container="body"/>
-                    <img src="@Url.Content(p2i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item4)" data-container="body"/>
-                    <img src="@Url.Content(p2i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item5)" data-container="body"/>
-                    <img src="@Url.Content(p2i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item6)" data-container="body"/>
+                    <img src="@Url.Content(p2i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item1)" data-container="body"/>
+                    <img src="@Url.Content(p2i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item2)" data-container="body"/>
+                    <img src="@Url.Content(p2i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item3)" data-container="body"/>
+                    <img src="@Url.Content(p2i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item4)" data-container="body"/>
+                    <img src="@Url.Content(p2i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item5)" data-container="body"/>
+                    <img src="@Url.Content(p2i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p2Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p2Kills / @Model.matchDetails.First().p2Deaths / @Model.matchDetails.First().p2Assists</span>
@@ -389,18 +389,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p3Level</span>
-                    <img src="@Url.Content(p3Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p3s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p3s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p3Name</span>
+                    <img src="@Url.Content(p3Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p3Champ)" />
+                    <img class="md-s1" src="@Url.Content(p3s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p3Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p3s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p3Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p3Name })">@Model.matchDetails.First().p3Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p3i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item1)" data-container="body"/>
-                    <img src="@Url.Content(p3i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item2)" data-container="body"/>
-                    <img src="@Url.Content(p3i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item3)" data-container="body"/>
-                    <img src="@Url.Content(p3i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item4)" data-container="body"/>
-                    <img src="@Url.Content(p3i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item5)" data-container="body"/>
-                    <img src="@Url.Content(p3i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item6)" data-container="body"/>
+                    <img src="@Url.Content(p3i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item1)" data-container="body"/>
+                    <img src="@Url.Content(p3i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item2)" data-container="body"/>
+                    <img src="@Url.Content(p3i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item3)" data-container="body"/>
+                    <img src="@Url.Content(p3i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item4)" data-container="body"/>
+                    <img src="@Url.Content(p3i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item5)" data-container="body"/>
+                    <img src="@Url.Content(p3i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p3Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p3Kills / @Model.matchDetails.First().p3Deaths / @Model.matchDetails.First().p3Assists</span>
@@ -418,18 +418,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p4Level</span>
-                    <img src="@Url.Content(p4Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p4s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p4s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p4Name</span>
+                    <img src="@Url.Content(p4Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p4Champ)" />
+                    <img class="md-s1" src="@Url.Content(p4s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p4Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p4s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p4Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p4Name })">@Model.matchDetails.First().p4Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p4i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item1)" data-container="body"/>
-                    <img src="@Url.Content(p4i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item2)" data-container="body"/>
-                    <img src="@Url.Content(p4i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item3)" data-container="body"/>
-                    <img src="@Url.Content(p4i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item4)" data-container="body"/>
-                    <img src="@Url.Content(p4i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item5)" data-container="body"/>
-                    <img src="@Url.Content(p4i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item6)" data-container="body"/>
+                    <img src="@Url.Content(p4i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item1)" data-container="body"/>
+                    <img src="@Url.Content(p4i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item2)" data-container="body"/>
+                    <img src="@Url.Content(p4i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item3)" data-container="body"/>
+                    <img src="@Url.Content(p4i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item4)" data-container="body"/>
+                    <img src="@Url.Content(p4i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item5)" data-container="body"/>
+                    <img src="@Url.Content(p4i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p4Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p4Kills / @Model.matchDetails.First().p4Deaths / @Model.matchDetails.First().p4Assists</span>
@@ -447,18 +447,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p5Level</span>
-                    <img src="@Url.Content(p5Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p5s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p5s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p5Name</span>
+                    <img src="@Url.Content(p5Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p5Champ)" />
+                    <img class="md-s1" src="@Url.Content(p5s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p5Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p5s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p5Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p5Name })">@Model.matchDetails.First().p5Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p5i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item1)" data-container="body"/>
-                    <img src="@Url.Content(p5i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item2)" data-container="body"/>
-                    <img src="@Url.Content(p5i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item3)" data-container="body"/>
-                    <img src="@Url.Content(p5i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item4)" data-container="body"/>
-                    <img src="@Url.Content(p5i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item5)" data-container="body"/>
-                    <img src="@Url.Content(p5i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item6)" data-container="body"/>
+                    <img src="@Url.Content(p5i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item1)" data-container="body"/>
+                    <img src="@Url.Content(p5i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item2)" data-container="body"/>
+                    <img src="@Url.Content(p5i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item3)" data-container="body"/>
+                    <img src="@Url.Content(p5i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item4)" data-container="body"/>
+                    <img src="@Url.Content(p5i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item5)" data-container="body"/>
+                    <img src="@Url.Content(p5i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p5Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p5Kills / @Model.matchDetails.First().p5Deaths / @Model.matchDetails.First().p5Assists</span>
@@ -475,7 +475,7 @@
             </div>
         </div>
         <div class="w-l-details-hd @detT2HD">
-            <span class="mh-wl-span">Teams 2 - @detT2Title</span>
+            <span class="mh-wl-span">Team 2 - @detT2Title</span>
         </div>
         <div class="team2-details @detT2BG">
             <div class="details-header">
@@ -489,18 +489,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p6Level</span>
-                    <img src="@Url.Content(p6Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p6s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p6s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p6Name</span>
+                    <img src="@Url.Content(p6Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p6Champ)" />
+                    <img class="md-s1" src="@Url.Content(p6s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p6Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p6s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p6Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p6Name })">@Model.matchDetails.First().p6Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p6i1)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item1)" data-container="body"/>
-                    <img src="@Url.Content(p6i2)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item2)" data-container="body"/>
-                    <img src="@Url.Content(p6i3)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item3)" data-container="body"/>
-                    <img src="@Url.Content(p6i4)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item4)" data-container="body"/>
-                    <img src="@Url.Content(p6i5)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item5)" data-container="body"/>
-                    <img src="@Url.Content(p6i6)" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item6)" data-container="body"/>
+                    <img src="@Url.Content(p6i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item1)" data-container="body"/>
+                    <img src="@Url.Content(p6i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item2)" data-container="body"/>
+                    <img src="@Url.Content(p6i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item3)" data-container="body"/>
+                    <img src="@Url.Content(p6i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item4)" data-container="body"/>
+                    <img src="@Url.Content(p6i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item5)" data-container="body"/>
+                    <img src="@Url.Content(p6i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p6Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p6Kills / @Model.matchDetails.First().p6Deaths / @Model.matchDetails.First().p6Assists</span>
@@ -518,18 +518,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p7Level</span>
-                    <img src="@Url.Content(p7Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p7s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p7s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p7Name</span>
+                    <img src="@Url.Content(p7Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p7Champ)" />
+                    <img class="md-s1" src="@Url.Content(p7s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p7Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p7s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p7Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p7Name })">@Model.matchDetails.First().p7Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p7i1)" width="24" height="24" />
-                    <img src="@Url.Content(p7i2)" width="24" height="24" />
-                    <img src="@Url.Content(p7i3)" width="24" height="24" />
-                    <img src="@Url.Content(p7i4)" width="24" height="24" />
-                    <img src="@Url.Content(p7i5)" width="24" height="24" />
-                    <img src="@Url.Content(p7i6)" width="24" height="24" />
+                    <img src="@Url.Content(p7i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item1)" data-container="body"/>
+                    <img src="@Url.Content(p7i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item2)" data-container="body"/>
+                    <img src="@Url.Content(p7i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item3)" data-container="body"/>
+                    <img src="@Url.Content(p7i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item4)" data-container="body"/>
+                    <img src="@Url.Content(p7i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item5)" data-container="body"/>
+                    <img src="@Url.Content(p7i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p7Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p7Kills / @Model.matchDetails.First().p7Deaths / @Model.matchDetails.First().p7Assists</span>
@@ -547,18 +547,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p8Level</span>
-                    <img src="@Url.Content(p8Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p8s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p8s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p8Name</span>
+                    <img src="@Url.Content(p8Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p8Champ)" />
+                    <img class="md-s1" src="@Url.Content(p8s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p8Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p8s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p8Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p8Name })">@Model.matchDetails.First().p8Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p8i1)" width="24" height="24" />
-                    <img src="@Url.Content(p8i2)" width="24" height="24" />
-                    <img src="@Url.Content(p8i3)" width="24" height="24" />
-                    <img src="@Url.Content(p8i4)" width="24" height="24" />
-                    <img src="@Url.Content(p8i5)" width="24" height="24" />
-                    <img src="@Url.Content(p8i6)" width="24" height="24" />
+                    <img src="@Url.Content(p8i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item1)" data-container="body"/>
+                    <img src="@Url.Content(p8i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item2)" data-container="body"/>
+                    <img src="@Url.Content(p8i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item3)" data-container="body"/>
+                    <img src="@Url.Content(p8i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item4)" data-container="body"/>
+                    <img src="@Url.Content(p8i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item5)" data-container="body"/>
+                    <img src="@Url.Content(p8i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p8Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p8Kills / @Model.matchDetails.First().p8Deaths / @Model.matchDetails.First().p8Assists</span>
@@ -575,19 +575,19 @@
             </div>
             <div class="details-player">
                 <div class="md-c1">
-                    <span>@Model.matchDetails.First().p4Level</span>
-                    <img src="@Url.Content(p9Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p9s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p9s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p9Name</span>
+                    <span>@Model.matchDetails.First().p9Level</span>
+                    <img src="@Url.Content(p9Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p9Champ)" />
+                    <img class="md-s1" src="@Url.Content(p9s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p9Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p9s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p9Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p9Name })">@Model.matchDetails.First().p9Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p9i1)" width="24" height="24" />
-                    <img src="@Url.Content(p9i2)" width="24" height="24" />
-                    <img src="@Url.Content(p9i3)" width="24" height="24" />
-                    <img src="@Url.Content(p9i4)" width="24" height="24" />
-                    <img src="@Url.Content(p9i5)" width="24" height="24" />
-                    <img src="@Url.Content(p9i6)" width="24" height="24" />
+                    <img src="@Url.Content(p9i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item1)" data-container="body"/>
+                    <img src="@Url.Content(p9i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item2)" data-container="body"/>
+                    <img src="@Url.Content(p9i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item3)" data-container="body"/>
+                    <img src="@Url.Content(p9i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item4)" data-container="body"/>
+                    <img src="@Url.Content(p9i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item5)" data-container="body"/>
+                    <img src="@Url.Content(p9i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p9Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p9Kills / @Model.matchDetails.First().p9Deaths / @Model.matchDetails.First().p9Assists</span>
@@ -605,18 +605,18 @@
             <div class="details-player">
                 <div class="md-c1">
                     <span>@Model.matchDetails.First().p10Level</span>
-                    <img src="@Url.Content(p10Img)" width="40" height="40" />
-                    <img class="md-s1" src="@Url.Content(p10s1)" width="18" height="18" />
-                    <img class="md-s2" src="@Url.Content(p10s2)" width="18" height="18" />
-                    <span>@Model.matchDetails.First().p10Name</span>
+                    <img src="@Url.Content(p10Img)" width="40" height="40" data-toggle="tooltip" title="@pc.ChampById(Model.matchDetails.First().p10Champ)" />
+                    <img class="md-s1" src="@Url.Content(p10s1)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p10Spell1)" data-container="body" />
+                    <img class="md-s2" src="@Url.Content(p10s2)" width="18" height="18" data-toggle="tooltip" title="@pc.SumSpellJSON(Model.matchDetails.First().p10Spell2)" data-container="body" />
+                    <a class="md-pl-name" href="@Url.Action("Search", "Profile", new { searchName = Model.matchDetails.First().p10Name })">@Model.matchDetails.First().p10Name</a>
                 </div>
                 <div class="md-c2">
-                    <img src="@Url.Content(p10i1)" width="24" height="24" />
-                    <img src="@Url.Content(p10i2)" width="24" height="24" />
-                    <img src="@Url.Content(p10i3)" width="24" height="24" />
-                    <img src="@Url.Content(p10i4)" width="24" height="24" />
-                    <img src="@Url.Content(p10i5)" width="24" height="24" />
-                    <img src="@Url.Content(p10i6)" width="24" height="24" />
+                    <img src="@Url.Content(p10i1)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item1)" data-container="body"/>
+                    <img src="@Url.Content(p10i2)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item2)" data-container="body"/>
+                    <img src="@Url.Content(p10i3)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item3)" data-container="body"/>
+                    <img src="@Url.Content(p10i4)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item4)" data-container="body"/>
+                    <img src="@Url.Content(p10i5)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item5)" data-container="body"/>
+                    <img src="@Url.Content(p10i6)" class="md-i-img" width="24" height="24" data-toggle="tooltip" title="@pc.ItemJSON((int)Model.matchDetails.First().p10Item6)" data-container="body"/>
                 </div>
                 <div class="md-c3">
                     <span>@Model.matchDetails.First().p10Kills / @Model.matchDetails.First().p10Deaths / @Model.matchDetails.First().p10Assists</span>

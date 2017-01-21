@@ -11,29 +11,25 @@
     }
     <img id="sum-icon" src="@profileIcon" />
     <div class="name-div">
-        <div class="name-div">
-            <h1 id="player-name">@Model.playerProfile.name</h1>
-            <div class="s-lvl">Level @Model.playerProfile.summonerLevel</div>
-            <div id="update-player">
-                @Ajax.ActionLink("Refresh", "UpdatePlayer", new { searchName = Model.playerProfile.name }, new AjaxOptions()
-           {
-               HttpMethod = "GET",
-               AllowCache = false,
-               InsertionMode = InsertionMode.InsertAfter,
-               UpdateTargetId = "match-list",
-               OnSuccess = "window.location.reload(true)"
-           }, new { @class = "update-link", id = "update-link" })
-                <div id="update-img">
-                    <img src="~/img/loading.gif" height="27" width="27" />
-                </div>
+        <h1 id="player-name">@Model.playerProfile.name</h1>
+        <div class="s-lvl">Level @Model.playerProfile.summonerLevel</div>
+        <div id="update-player">
+            @Ajax.ActionLink("Refresh", "UpdatePlayer", new { searchName = Model.playerProfile.name }, new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            AllowCache = false,
+            OnSuccess = "window.location.reload(true)"
+        }, new { @class = "update-link", id = "update-link" })
+            <div id="update-img">
+                <img src="~/img/loading.gif" height="27" width="27" />
             </div>
-
         </div>
+
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 stats-col">
+        <div class="col-lg-4 stats-col">
             <div class="rank-stats">
                 <div class="rank-stats-bd">
                     @{
@@ -55,6 +51,8 @@
                     </div>
                 </div>
             </div>
+            @{ 
+                if (Model.mh.topChampOne != null) {
             <div class="top-champs">
                 <div class="top-champs-hd">
                     <span class="top-champs-title">Most Played Champions</span>
@@ -62,23 +60,19 @@
                 </div>
 
                 <table class="centered tc-table">
-                    @{ if (Model.mh.topChampOne != null)
-                        {
-                            string champOneImg = "~/img/champion/" + Model.mh.topChampOne.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
-                            <tr class="tc-tr">
-                                <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
-                                <td><span class="tc-name">@Model.mh.topChampOne</span></td>
-                                <td class="tc-td">
-                                    <span class="tc-kda">@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA</span>
-                                    <span class="tc-wl">W: @Model.mh.winsOne L: @Model.mh.lossesOne</span>
-                                </td>
-                                <td class="tc-td">
-                                    <span class="tc-winrate">@Model.mh.winrateOne</span>
-                                    <span>WIN RATE</span>
-                                </td>
-                            </tr>
-                        }
-                        }
+                        @{ string champOneImg = "~/img/champion/" + Model.mh.topChampOne.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png"; }
+                        <tr class="tc-tr">
+                            <td><img class="top-champ-icon" src="@Url.Content(champOneImg)" height="50" width="50" /></td>
+                            <td><span class="tc-name">@Model.mh.topChampOne</span></td>
+                            <td class="tc-td">
+                                <span class="tc-kda">@Model.mh.killsOne / @Model.mh.deathsOne / @Model.mh.assistsOne KDA</span>
+                                <span class="tc-wl">W: @Model.mh.winsOne L: @Model.mh.lossesOne</span>
+                            </td>
+                            <td class="tc-td">
+                                <span class="tc-winrate">@Model.mh.winrateOne</span>
+                                <span>WIN RATE</span>
+                            </td>
+                        </tr>
                     @{ if (Model.mh.topChampTwo != null)
                         {
                             string champTwoImg = "~/img/champion/" + Model.mh.topChampTwo.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
@@ -149,6 +143,8 @@
                         }
                 </table>
             </div>
+                        }
+            }
             @{
                 if (Model.matchHistory != null)
                 {
@@ -193,7 +189,7 @@
                             recentGroup.Add(new Tuple<string, int>(player, count));
                         }
                     }
-
+                        if (recentGroup.Count() > 0) { 
                 <div class="recent-played-with">
                     <div class="top-champs-hd">
                         <span class="top-champs-title">Recently Played With </span>
@@ -211,7 +207,8 @@
                         }
                     </table>
                 </div>
-                }
+                            }
+                    }
             }
 
 
@@ -277,7 +274,7 @@
 
         }
 
-        <div class="col-sm-8 matches">
+        <div class="col-lg-8 matches">
             <div class="recent-match-hd">
                 <span class="rct-title">Recent Matches</span>
                 <span class="rct-wl">@winString @lossString</span>
@@ -326,5 +323,20 @@
         selector: '[data-toggle="tooltip"]',
         html: true
     });
+
+    $('body').on('click', '.xpnd-a', function (event) {
+        var target = "#" + $(this).attr('data-toggle');
+        event.preventDefault();
+        $(target).toggle();
+    })
+
+    $(document).on('click', '.more-matches-link', function () {
+        $('#more-matches').hide();
+        $('#loading-img').show();
+    })
+
+    function removelink() {
+        $('#match-list .more-matches').first().remove();
+    }
 </script>
 

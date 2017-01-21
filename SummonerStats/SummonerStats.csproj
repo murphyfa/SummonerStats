@@ -2591,6 +2591,7 @@
     <Content Include="img\sprite\tiny_spell7.png" />
     <Content Include="img\sprite\tiny_spell8.png" />
     <Content Include="img\sprite\tiny_spell9.png" />
+    <Content Include="img\summoner\1.png" />
     <Content Include="img\summoner\11.png" />
     <Content Include="img\summoner\12.png" />
     <Content Include="img\summoner\13.png" />
@@ -2604,7 +2605,6 @@
     <Content Include="img\summoner\6.png" />
     <Content Include="img\summoner\7.png" />
     <Content Include="img\summoner\Clairvoyance.png" />
-    <Content Include="img\summoner\Cleanse.png" />
     <Content Include="img\summoner\Dash.png" />
     <Content Include="img\summoner\Enhanced_Recall.png" />
     <Content Include="img\summoner\Fortify.png" />

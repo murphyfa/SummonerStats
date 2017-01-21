@@ -18,7 +18,8 @@ namespace SummonerStats.Controllers
         tblMatchDetails mdm = new tblMatchDetails();
         private MatchHistoryDBContext db = new MatchHistoryDBContext();
 
-
+        JObject itemData = null;
+        JObject sumData = null;
         JObject champRecords = null;
 
         public ActionResult Index()
@@ -46,6 +47,7 @@ namespace SummonerStats.Controllers
         {
             int summonerID = profile.playerProfile.pullPlayer(searchName);
             profile.mh.UpdateMatchHistory(summonerID, searchName);
+            profile.mh.Top5Champs(summonerID);
             profile.matchHistory = db.MatchHistory.SqlQuery("SELECT TOP(10) * FROM dbo.tblMatchHistory WHERE id = '" + summonerID + "' ORDER BY timestamp DESC").ToList();
 
             return View("Profile", profile);
@@ -346,7 +348,11 @@ namespace SummonerStats.Controllers
         public string ItemJSON(int itemNumber)
         {
             string itemInfo;
-            JObject itemData = JObject.Parse(System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/JSON/item.json"));
+            if (itemData == null)
+            {
+                itemData = JObject.Parse(System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/JSON/item.json"));
+            }
+
             if (itemNumber != 0)
             {
                 itemInfo = "<span class='tt-name'>" + itemData["data"][itemNumber.ToString()]["name"] + "</span><span class='tt-text'>" + itemData["data"][itemNumber.ToString()]["plaintext"] + "</span><span class='tt-desc'>" + itemData["data"][itemNumber.ToString()]["description"] + "</span>";
@@ -356,6 +362,31 @@ namespace SummonerStats.Controllers
                 itemInfo = "";
             }
             return itemInfo;
+        }
+
+        public string SumSpellJSON(int ssID)
+        {
+            string ssInfo;
+            string ssURL = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell?dataById=true&api_key=RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
+            if (sumData == null)
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    string ssDL = wc.DownloadString(ssURL);
+                    sumData = JObject.Parse(ssDL);
+                }
+            }
+
+            if (ssID != 0)
+            {
+                ssInfo = "<span class='tt-name'>" + sumData["data"][ssID.ToString()]["name"] + "</span><span class='tt-desc'>" + sumData["data"][ssID.ToString()]["description"] + "</span>";
+            }
+            else
+            {
+                ssInfo = "";
+            }
+
+            return ssInfo;
         }
     }
 }

@@ -5,8 +5,6 @@
     height: 40px;
     text-align: center;
     border-radius: 2px;
-    position: relative;
-    top: 14px;
     border: 1px solid white;
     overflow: hidden;
 }
@@ -35,24 +33,6 @@
     display: none;
     line-height: 38px;
     opacity: 0.7;
-}
-
-#profile-header {
-    margin-top: 0;
-    padding-top: 93px;
-    margin-bottom: 25px;
-}
-
-.name-div {
-    float: left;
-}
-
-#sum-icon {
-    border-radius: 10px;
-    margin: 15px;
-    width: 128px;
-    height: 128px;
-    float: left;
 }
 
 #player-name {
@@ -151,7 +131,6 @@
 
 .tc-name {
     color: black;
-    width: 100px;
     font-size: 16px;
     overflow: hidden !important;
     text-overflow: ellipsis;
@@ -182,11 +161,7 @@
     border: 1px solid #8d8d8d;
     padding: 0;
     padding-bottom: 5px;
-    margin-bottom: 20px;
-}
-
-.rpw-name-td {
-    width: 250px;
+    margin-bottom: 10px;
 }
 
 .rpw-name {
@@ -194,14 +169,7 @@
     font-size: 18px;
 }
 
-.rpw-count-td {
-    width: 100px;
-    text-align: left;
-}
 
-.rpw-count {
-    font-size: 16px;
-}
 /*Recent Matches*/
 .recent-match-hd {
     background-color: #eaeaea;
@@ -215,8 +183,6 @@
     font-size: 20px;
     float: left;
     padding-left: 10px;
-    position: relative;
-    top: 2px;
 }
 
 .rct-wl {
@@ -238,178 +204,12 @@
 }
 
 /*Match History*/
-.mc1 {
-    float: left;
-    height: 80px;
-    position: relative;
-    margin-left: 10px;
-    top: 10px;
-}
-
-.mc2 {
-    width: 110px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    float: left;
-    justify-content: center;
-    text-align: center;
-    top: 10px;
-    position: relative;
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-.mc3 {
-    padding-top: 10px;
-    height: 80px;
-    width: 120px;
-    float: left;
-    position: relative;
-}
-
-.mc4 {
-    float: left;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 80px;
-    position: relative;
-    top: 10px;
-}
-
-.mc5 {
-    float: left;
-    height: 88px;
-    line-height: 16px;
-    width: 250px;
-    margin-left: 5px;
-}
-
-.mc6 {
-    float: right;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    left: 10px;
-    top: 70px;
-    text-align:center;
-    border-top: 1px solid #8d8d8d;
-    border-left: 1px solid #8d8d8d;
-    font-size: 20px;
-}
-
-.xpnd-a {
-    line-height: 40px;
-    width: 40px;
-}
 
 
 /*Match details*/
-.match-details {
-    background-color: gray;
-    display: none;
-    width: 100%;
-    margin: 0;
-    height: 550px;
-}
 
-.w-l-details-hd {
-    margin: 0;
-    height: 25px;
-    border-left: 1px solid #8d8d8d;
-    border-right: 1px solid #8d8d8d;
-}
-
-.team1-details {
-    margin: 0;
-    height: 250px;
-    border-left: 1px solid #8d8d8d;
-    border-right: 1px solid #8d8d8d;
-    border-bottom: 1px solid #8d8d8d;
-}
-
-.team2-details {
-    margin-bottom: 10px;
-    height: 250px;
-    border-left: 1px solid #8d8d8d;
-    border-right: 1px solid #8d8d8d;
-    border-bottom: 1px solid #8d8d8d;
-}
-
-.details-header {
-    height: 25px;
-    text-align: center;
-}
-
-.details-player {
-    margin-bottom: 4px;
-}
-
-.md-c1 {
-    width: 225px;
-    padding-left: 20px;
-    display: inline-block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.md-c2 {
-    width: 200px;
-    text-align: center;
-    display: inline-block;
-}
-
-.md-c3 {
-    width: 85px;
-    text-align: center;
-    display: inline-block;
-}
-
-.md-c4 {
-    width: 65px;
-    text-align: center;
-    display: inline-block;
-}
-
-.md-c5 {
-    width: 80px;
-    text-align: center;
-    display: inline-block;
-}
-
-.md-c6 {
-    width: 95px;
-    text-align: center;
-    display: inline-block;
-}
-
-.md-s1 {
-    position: absolute;
-}
-
-.md-s2 {
-    position: relative;
-    top: 10px;
-}
-
-
-
-
-.sm-pl-link {
+.md-pl-name {
     color: black;
-    width: 100px;
-    font-size: 16px;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-}
-
-.i-img1 {
-    margin-bottom: 4px;
 }
 
 .team1-players {
@@ -445,39 +245,9 @@
     margin-bottom: 0;
 }
 
-.s1 {
-    float: right;
-}
 
-.s2 {
-    float: right;
-    position: absolute;
-    bottom: 3px;
-    right: 0;
-    margin-top: 4px;
-}
 
-.win-lose {
-    margin-bottom: 0;
-    margin-top: 10px;
-    height: 25px;
-    border-top: 1px solid #8d8d8d;
-    border-left: 1px solid #8d8d8d;
-    border-right: 1px solid #8d8d8d;
-}
 
-.mh-wl-span {
-    padding-left: 5px;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.mh-date {
-    padding-right: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    float: right;
-}
 
 .defeat-hd {
     background-color: #e1a4a4;
@@ -564,10 +334,6 @@ h1 {
 }
 
 .champ-hd {
-    background-size: 100%;
-    background-position: 0 -200px;
-    width: 100%;
-    height: 300px;
     position: absolute;
     z-index: -1;
     border-bottom: 1px solid #8d8d8d;
@@ -620,4 +386,626 @@ textarea {
 
 .tooltip-inner {
     max-width: 300px;
+}
+
+@media (min-width: 1000px) {
+
+    /* Header */
+    
+    #profile-header {
+        margin-top: 0;
+        padding-top: 93px;
+        margin-bottom: 25px;
+    }
+
+    #update-player {
+        position: relative;
+        top: 14px;
+    }
+
+    .name-div {
+        float: left;
+    }
+
+    #sum-icon {
+        border-radius: 10px;
+        margin: 15px;
+        width: 128px;
+        height: 128px;
+        float: left;
+    }
+
+    .champ-hd {
+        background-size: 100%;
+        background-position: 0 -200px;
+        width: 100%;
+        height: 300px;
+    }
+
+    /* Top Champs */
+    .tc-name {
+        width: 100px;
+    }
+
+
+    /* Recently Played With */
+    
+    .rpw-count-td {
+        width: 100px;
+        text-align: left;
+    }
+
+    .rpw-name-td {
+        width: 250px;
+    }
+
+    .rpw-count {
+        font-size: 16px;
+    }
+
+    /* Recent Matches */
+    .rct-title {
+        position: relative;
+        top: 2px;
+    }
+
+    .win-lose {
+        margin-bottom: 0;
+        margin-top: 10px;
+        height: 25px;
+        border-top: 1px solid #8d8d8d;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+    }
+
+    .mh-wl-span {
+        padding-left: 5px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .mh-date {
+        padding-right: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        float: right;
+    }
+
+    .s1 {
+        float: right;
+    }
+
+    .s2 {
+        float: right;
+        position: absolute;
+        bottom: 3px;
+        right: 0;
+        margin-top: 4px;
+    }
+
+    .mc1 {
+        float: left;
+        height: 80px;
+        position: relative;
+        margin-left: 10px;
+        top: 10px;
+    }
+
+    .mc2 {
+        width: 110px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        float: left;
+        justify-content: center;
+        text-align: center;
+        top: 10px;
+        position: relative;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .mc3 {
+        padding-top: 10px;
+        height: 80px;
+        width: 120px;
+        float: left;
+        position: relative;
+    }
+
+    
+    .i-img1 {
+        margin-bottom: 4px;
+    }
+
+    .mc4 {
+        float: left;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 80px;
+        position: relative;
+        top: 10px;
+    }
+
+    .mc5 {
+        float: left;
+        height: 88px;
+        line-height: 16px;
+        width: 250px;
+        margin-left: 5px;
+    }
+
+    .mc6 {
+        float: right;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        left: 10px;
+        top: 69px;
+        text-align:center;
+        border-top: 1px solid #8d8d8d;
+        border-left: 1px solid #8d8d8d;
+        font-size: 20px;
+    }
+
+    .xpnd-a {
+        line-height: 40px;
+        width: 40px;
+    }
+
+
+    /* Match Details */
+    .match-details {
+        background-color: gray;
+        display: none;
+        width: 100%;
+        margin: 0;
+        height: 550px;
+    }
+
+    .w-l-details-hd {
+        margin: 0;
+        height: 25px;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+    }
+
+    .team1-details {
+        margin: 0;
+        height: 250px;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+        border-bottom: 1px solid #8d8d8d;
+    }
+
+    .team2-details {
+        margin-bottom: 10px;
+        height: 250px;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+        border-bottom: 1px solid #8d8d8d;
+    }
+
+    .details-header {
+        height: 25px;
+        text-align: center;
+    }
+
+    .details-player {
+        margin-bottom: 4px;
+    }
+
+    .md-c1 {
+        width: 225px;
+        padding-left: 20px;
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .md-c2 {
+        width: 200px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-c3 {
+        width: 85px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-c4 {
+        width: 65px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-c5 {
+        width: 80px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-c6 {
+        width: 95px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-s1 {
+        position: absolute;
+    }
+
+    .md-s2 {
+        position: relative;
+        top: 10px;
+    }
+
+    .sm-pl-link {
+        color: black;
+        width: 100px;
+        font-size: 16px;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
+
+}
+
+@media (max-width: 999px) {
+
+    .navbar-brand {
+        display: none;
+    }
+
+    /* Header */
+    #profile-header {
+        width: 100%;
+        text-align: center;
+    }
+
+    #sum-icon {
+        border-radius: 10px;
+        width: 100px;
+        height: 100px;
+        margin-top: 15px;
+    }
+
+    #player-name {
+        margin-top: 0;
+    }
+
+    #update-player {
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    .champ-hd {
+        width: 100%;
+        background-size: 100%;
+        height: 207px;
+    }
+
+
+    /* Ranked Stats */
+    .rank-stats {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    .rank-icon {
+        margin: 0;
+        float: none;
+        height: 100px;
+        width: 100px;
+    }
+
+    .league-div {
+        float: none;
+        display: inline-block;
+    }
+
+
+    /* Top Champs */
+    .top-champs {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .top-champ-icon {
+        height: 35px;
+        width: 35px;
+    }
+
+    .top-champs-title {
+        font-size: 16px;
+    }
+
+    .tc-winrate {
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .tc-name {
+        max-width: 80px;
+    }
+
+    .tc-td {
+        padding-right: 5px;
+    }
+
+    /* Recent Played With */
+    .recent-played-with {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .rpw-tr {
+        text-align: center;
+    }
+
+    .rpw-table {
+        width: 100%;
+    }
+
+    .rpw-name-td {
+        text-align: center;
+    }
+
+    .rpw-count-td {
+        padding-right: 5px;
+        float: left;
+    }
+
+    /* Recent Matches */
+    .recent-match-hd {
+        height: 33px;
+        padding: 5px;
+        text-align: center;
+        margin-right: 10px;
+    }
+
+    .rct-title {
+        display: none;
+    }
+
+    .rct-wl {
+        font-size: 16px;
+        float: left;
+        padding-left: 10px;
+    }
+
+    .rct-kda-lbl {
+        font-size: 16px;
+    }
+
+    .rct-kda {
+        font-size: 16px;
+    }
+
+
+    /* Match List */
+    #match-list {
+        margin-right: 10px;
+    }
+
+    .match-row {
+        padding: 0;
+        text-align: center;
+    }
+
+    .win-lose {
+        margin-bottom: 0;
+        margin-top: 10px;
+        height: 20px;
+        border-top: 1px solid #8d8d8d;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+    }
+
+    .mh-wl-span {
+        padding-left: 5px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .mh-date {
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        float: right;
+    }
+
+    .mc1 {
+        width: 60px;
+        float: left;
+        position: relative;
+        margin-left: 10px;
+        top: 10px;
+    }
+
+    .pl-icon {
+        height: 60px;
+        width: 60px;
+        float: left;
+        margin-bottom: 2px;
+    }
+
+    .s1 {
+        height: 28px;
+    }
+
+    .s2 {
+        height: 28px;
+        margin-left: 0;
+    }
+
+    .mc2 {
+        width: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        top: 30px;
+        position: relative;
+        margin-right: 5px;
+        margin-left: 5px;
+        float: left;
+    }
+
+    .mc3 {
+        width: 103px;
+        display: block;
+        float: left;
+        position: relative;
+        top: 25px;
+    }
+
+    .i-img1 {
+        height: 32px;
+        width: 32px;
+        margin: 1px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .i-img2 {
+        margin-top: 2px;
+        height: 32px;
+        width: 32px;
+    }
+
+    .mc4 {
+        display: none;
+    }
+
+    .mc5 {
+        display: none;
+    }
+
+    .mc6 {
+        float: right;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        top: 78px;
+        text-align:center;
+        border-top: 1px solid #8d8d8d;
+        border-left: 1px solid #8d8d8d;
+        font-size: 20px;
+    }
+
+    .xpnd-a {
+        line-height: 40px;
+        width: 40px;
+    }
+
+
+    /* Match Details */
+
+    .match-details {
+        background-color: gray;
+        display: none;
+        width: 100%;
+    }
+
+    .w-l-details-hd {
+        margin: 0;
+        height: 20px;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+    }
+
+    .team1-details {
+        margin: 0;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+        border-bottom: 1px solid #8d8d8d;
+    }
+
+    .team2-details {
+        margin-bottom: 10px;
+        border-left: 1px solid #8d8d8d;
+        border-right: 1px solid #8d8d8d;
+        border-bottom: 1px solid #8d8d8d;
+    }
+
+    .details-header {
+        display: none;
+    }
+
+    .details-player {
+        margin-bottom: 4px;
+    }
+
+    .md-c1 {
+        width: 150px;
+        padding-left: 5px;
+        display: inline-block;
+        margin-top: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .md-c2 {
+        width: 81px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .md-i-img {
+        margin-bottom: 2px;
+    }
+
+    .md-c3 {
+        width: 90px;
+        text-align: center;
+        display: inline-block;
+        font-size: 15px;
+        position: relative;
+        bottom: 15px;
+    }
+
+    .md-c4 {
+        display: none;
+    }
+
+    .md-c5 {
+        display: none;
+    }
+
+    .md-c6 {
+        display: none;
+    }
+
+    .md-s1 {
+        position: absolute;
+    }
+
+    .md-s2 {
+        position: relative;
+        top: 10px;
+    }
+
+    .sm-pl-link {
+        color: black;
+        width: 100px;
+        font-size: 16px;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
 }

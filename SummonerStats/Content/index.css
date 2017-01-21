@@ -11,11 +11,7 @@
 }
 
 .footer {
-    position: absolute;
     text-align: center;
-    bottom: 0;
-    left: 0;
-    right: 0;
     padding-bottom: 25px;
 }
 
@@ -66,12 +62,19 @@ h1 {
     h1 {
         font-size: 60px;
     }
+
+    .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 }
 
 @media (max-width: 549px){
 
     .home-search {
-        top: 200px;
+        top: 146px;
     }
 
     h1 {
@@ -79,10 +82,13 @@ h1 {
     }
 
     #search-fld {
-        width: 300px;
+        width: 240px;
     }
 
-
+    .footer {
+        position: relative;
+        top: 600px;
+    }
 }
 
 body {
