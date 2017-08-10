@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Data.Entity;
+using System.Text;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace SummonerStats.Models
 {
@@ -12,6 +14,7 @@ namespace SummonerStats.Models
     {
         //profile stats
         public int id { get; set; }
+        public long accountId { get; set; }
         public string name { get; set; }
         public int profileIconId { get; set; }
         public long revisionDate { get; set; }
@@ -34,37 +37,47 @@ namespace SummonerStats.Models
         public int pullPlayer(string searchName)
         {
             string playerToFind = searchName.Replace(" ", "").ToLower();
-            string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
+            string apiKey = "RGAPI-62b5d58e-b1bf-4667-be65-b901aa5e89cc";
 
-            string profileURL = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerToFind + "?api_key=" + apiKey;
+            string profileURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + playerToFind + "?api_key=" + apiKey;
 
             try
             {
-                using (var client = new WebClient())
+                using (var client = new WebClient() { Encoding = Encoding.UTF8 })
                 {
                     //basic profile info
                     string profileData = client.DownloadString(profileURL);
+                    JObject profileStats = JObject.Parse(profileData);
 
-                    var profileStats = JsonConvert.DeserializeObject<Dictionary<string, PlayerProfileModel>>(profileData);
-
-                    id = profileStats.First().Value.id;
-                    name = profileStats.First().Value.name;
-                    profileIconId = profileStats.First().Value.profileIconId;
-                    summonerLevel = profileStats.First().Value.summonerLevel;
+                    id = (Int32)profileStats["id"];
+                    accountId = (long)profileStats["accountId"];
+                    name = (string)profileStats["name"];
+                    profileIconId = (Int32)profileStats["profileIconId"];
+                    summonerLevel = (Int32)profileStats["summonerLevel"];
 
                     try
                     {
                         //info from leagues request
-                        string leagueURL = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + id + "/entry?api_key=" + apiKey;
+                        //string leagueURL = "https://na1.api.riotgames.com/lol/league/v3/leagues/by-summoner/" + id + "?api_key=" + apiKey;
+                        string leagueURL = "https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/" + id + "?api_key=" + apiKey;
+                        //league v3 doesn't seem to return anything for some players currently and v2.5 isn't marked for deprecation yet
                         string leagueData = client.DownloadString(leagueURL);
+                        leagueData = leagueData.TrimStart(new char[] { '[' }).TrimEnd(new char[] { ']' });
                         JObject leagueStats = JObject.Parse(leagueData);
 
-                        group = (string)leagueStats[id.ToString()][0]["name"];
-                        leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
-                        league = (string)leagueStats[id.ToString()][0]["tier"];
-                        division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];
-                        wins = (Int32)leagueStats[id.ToString()][0]["entries"][0]["wins"];
-                        losses = (Int32)leagueStats[id.ToString()][0]["entries"][0]["losses"];
+                        //group = (string)leagueStats[id.ToString()][0]["name"];
+                        //leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
+                        //league = (string)leagueStats[id.ToString()][0]["tier"];
+                        //division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];
+                        //wins = (Int32)leagueStats[id.ToString()][0]["entries"][0]["wins"];
+                        //losses = (Int32)leagueStats[id.ToString()][0]["entries"][0]["losses"];
+
+                        group = (string)leagueStats["leagueName"];
+                        leaguePoints = (int)leagueStats["leaguePoints"];
+                        league = (string)leagueStats["tier"];
+                        division = (string)leagueStats["rank"];
+                        wins = (int)leagueStats["wins"];
+                        losses = (int)leagueStats["losses"];
                     }
                     catch
                     {
@@ -77,7 +90,28 @@ namespace SummonerStats.Models
                     }
 
                 }
-        }
+
+                //check for player in database and add if necessary
+                tblPlayersDB db = new tblPlayersDB();
+
+                if (db.Players.Where(a => a.AccountID == accountId).Count() == 0)
+                {
+                    tblPlayers p = new tblPlayers();
+                    p.AccountID = accountId;
+                    p.SummonerID = id;
+                    p.Name = name;
+                    p.CreatedDate = DateTime.UtcNow;
+
+                    db.Players.Add(p);
+                    db.SaveChanges();
+                }
+                //else if (db.Players.Where(n => n.AccountID == accountId).Select(n => n.Name).ToList().ToString() != name)
+                //{
+                //    tblPlayers p = new tblPlayers();
+                //    var player = db.Players.Where(n => n.AccountID == accountId).Select(n => n.Name);
+                //    System.Diagnostics.Debug.WriteLine("PLAYER NEEDS TO BE UPDATED: " + player.ToList().ToString());
+                //}
+            }
             catch
             {
                 name = "The player was not found";
@@ -89,8 +123,20 @@ namespace SummonerStats.Models
 
     }
 
-    public class PlayerProfileDBContext : DbContext
+    public class tblPlayersDB : DbContext
     {
-        public DbSet<PlayerProfileModel> PlayerProfile { get; set; }
+        public tblPlayersDB()
+            : base("SummonerStatsDBEntities")
+        {
+
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public DbSet<tblPlayers> Players { get; set; }
     }
 }

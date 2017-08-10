@@ -7,6 +7,9 @@ namespace SummonerStats.Models
 {
     public class ProfileViewModel
     {
+        public bool firstLoad;
+        public int lastUpdate;
+
         public PlayerProfileModel playerProfile = new PlayerProfileModel();
         public tblMatchHistory mh = new tblMatchHistory();
         public List<tblMatchHistory> matchHistory { get; set; }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 
 namespace SummonerStats.Models
@@ -26,7 +27,7 @@ namespace SummonerStats.Models
                 //System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
                 UpdateMatch(matchID);
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
-                System.Threading.Thread.Sleep(5000);
+                //System.Threading.Thread.Sleep(5000);
             }
          
             return matchDetails;
@@ -34,10 +35,11 @@ namespace SummonerStats.Models
 
         public void UpdateMatch(long matchID)
         {
-            string apiKey = "RGAPI-ecaff961-7b62-4bd7-988f-33f0003e77e7";
-            string mdURL = "https://na.api.pvp.net/api/lol/na/v2.2/match/" + matchID + "?api_key=" + apiKey;
+            string apiKey = "RGAPI-62b5d58e-b1bf-4667-be65-b901aa5e89cc";
+            //string mdURL = "https://na.api.pvp.net/api/lol/na/v2.2/match/" + matchID + "?api_key=" + apiKey;
+            string mdURL = "https://na1.api.riotgames.com/lol/match/v3/matches/" + matchID + "?api_key=" + apiKey;
 
-            using (var client = new WebClient())
+            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 bool retry = true;
                 string mdData = null;
@@ -58,17 +60,17 @@ namespace SummonerStats.Models
 
                 tblMatchDetails mdm = new tblMatchDetails();
 
-                mdm.region = (string)mdRecords["region"];
-                mdm.matchType = (string)mdRecords["matchType"];
-                mdm.matchCreation = (Int64)mdRecords["matchCreation"];
+                mdm.region = (string)mdRecords["platformId"];
+                mdm.matchType = (string)mdRecords["gameType"];
+                mdm.matchCreation = (Int64)mdRecords["gameCreation"];
                 mdm.platformId = (string)mdRecords["platformId"];
-                mdm.matchMode = (string)mdRecords["matchMode"];
+                mdm.matchMode = (string)mdRecords["gameMode"];
                 mdm.mapId = (Int32)mdRecords["mapId"];
-                mdm.season = (string)mdRecords["season"];
+                mdm.season = (string)mdRecords["seasonId"];
                 mdm.queueType = (string)mdRecords["queueType"];
-                mdm.matchId = (Int64)mdRecords["matchId"];
-                mdm.matchDuration = (Int32)mdRecords["matchDuration"];
-                mdm.winner = (string)((bool)mdRecords["teams"][0]["winner"] == true ? "Team1" : "Team2");
+                mdm.matchId = (Int64)mdRecords["gameId"];
+                mdm.matchDuration = (Int32)mdRecords["gameDuration"];
+                mdm.winner = (string)((string)mdRecords["teams"][0]["win"] == "Win" ? "Team1" : "Team2");
 
                 //player names
                 mdm.p1Name = (string)mdRecords["participantIdentities"][0]["player"]["summonerName"];
@@ -81,6 +83,18 @@ namespace SummonerStats.Models
                 mdm.p8Name = (string)mdRecords["participantIdentities"][7]["player"]["summonerName"];
                 mdm.p9Name = (string)mdRecords["participantIdentities"][8]["player"]["summonerName"];
                 mdm.p10Name = (string)mdRecords["participantIdentities"][9]["player"]["summonerName"];
+
+                //player account ids
+                mdm.p1Id = (long)mdRecords["participantIdentities"][0]["player"]["accountId"];
+                mdm.p2Id = (long)mdRecords["participantIdentities"][1]["player"]["accountId"];
+                mdm.p3Id = (long)mdRecords["participantIdentities"][2]["player"]["accountId"];
+                mdm.p4Id = (long)mdRecords["participantIdentities"][3]["player"]["accountId"];
+                mdm.p5Id = (long)mdRecords["participantIdentities"][4]["player"]["accountId"];
+                mdm.p6Id = (long)mdRecords["participantIdentities"][5]["player"]["accountId"];
+                mdm.p7Id = (long)mdRecords["participantIdentities"][6]["player"]["accountId"];
+                mdm.p8Id = (long)mdRecords["participantIdentities"][7]["player"]["accountId"];
+                mdm.p9Id = (long)mdRecords["participantIdentities"][8]["player"]["accountId"];
+                mdm.p10Id = (long)mdRecords["participantIdentities"][9]["player"]["accountId"];
 
                 //player summoner skills
                 mdm.p1Spell1 = (Int32)mdRecords["participants"][0]["spell1Id"];
@@ -235,28 +249,28 @@ namespace SummonerStats.Models
                 mdm.p10Level = (Int32)mdRecords["participants"][9]["stats"]["champLevel"];
 
                 //minion kills - minionsKilled
-                mdm.p1CS = (Int32)mdRecords["participants"][0]["stats"]["minionsKilled"];
-                mdm.p2CS = (Int32)mdRecords["participants"][1]["stats"]["minionsKilled"];
-                mdm.p3CS = (Int32)mdRecords["participants"][2]["stats"]["minionsKilled"];
-                mdm.p4CS = (Int32)mdRecords["participants"][3]["stats"]["minionsKilled"];
-                mdm.p5CS = (Int32)mdRecords["participants"][4]["stats"]["minionsKilled"];
-                mdm.p6CS = (Int32)mdRecords["participants"][5]["stats"]["minionsKilled"];
-                mdm.p7CS = (Int32)mdRecords["participants"][6]["stats"]["minionsKilled"];
-                mdm.p8CS = (Int32)mdRecords["participants"][7]["stats"]["minionsKilled"];
-                mdm.p9CS = (Int32)mdRecords["participants"][8]["stats"]["minionsKilled"];
-                mdm.p10CS = (Int32)mdRecords["participants"][9]["stats"]["minionsKilled"];
+                mdm.p1CS = (Int32)mdRecords["participants"][0]["stats"]["totalMinionsKilled"];
+                mdm.p2CS = (Int32)mdRecords["participants"][1]["stats"]["totalMinionsKilled"];
+                mdm.p3CS = (Int32)mdRecords["participants"][2]["stats"]["totalMinionsKilled"];
+                mdm.p4CS = (Int32)mdRecords["participants"][3]["stats"]["totalMinionsKilled"];
+                mdm.p5CS = (Int32)mdRecords["participants"][4]["stats"]["totalMinionsKilled"];
+                mdm.p6CS = (Int32)mdRecords["participants"][5]["stats"]["totalMinionsKilled"];
+                mdm.p7CS = (Int32)mdRecords["participants"][6]["stats"]["totalMinionsKilled"];
+                mdm.p8CS = (Int32)mdRecords["participants"][7]["stats"]["totalMinionsKilled"];
+                mdm.p9CS = (Int32)mdRecords["participants"][8]["stats"]["totalMinionsKilled"];
+                mdm.p10CS = (Int32)mdRecords["participants"][9]["stats"]["totalMinionsKilled"];
 
                 //player damage - totalDamageDealt
-                mdm.p1Damage = (Int32)mdRecords["participants"][0]["stats"]["totalDamageDealt"];
-                mdm.p2Damage = (Int32)mdRecords["participants"][1]["stats"]["totalDamageDealt"];
-                mdm.p3Damage = (Int32)mdRecords["participants"][2]["stats"]["totalDamageDealt"];
-                mdm.p4Damage = (Int32)mdRecords["participants"][3]["stats"]["totalDamageDealt"];
-                mdm.p5Damage = (Int32)mdRecords["participants"][4]["stats"]["totalDamageDealt"];
-                mdm.p6Damage = (Int32)mdRecords["participants"][5]["stats"]["totalDamageDealt"];
-                mdm.p7Damage = (Int32)mdRecords["participants"][6]["stats"]["totalDamageDealt"];
-                mdm.p8Damage = (Int32)mdRecords["participants"][7]["stats"]["totalDamageDealt"];
-                mdm.p9Damage = (Int32)mdRecords["participants"][8]["stats"]["totalDamageDealt"];
-                mdm.p10Damage = (Int32)mdRecords["participants"][9]["stats"]["totalDamageDealt"];
+                mdm.p1Damage = (Int32)mdRecords["participants"][0]["stats"]["totalDamageDealtToChampions"];
+                mdm.p2Damage = (Int32)mdRecords["participants"][1]["stats"]["totalDamageDealtToChampions"];
+                mdm.p3Damage = (Int32)mdRecords["participants"][2]["stats"]["totalDamageDealtToChampions"];
+                mdm.p4Damage = (Int32)mdRecords["participants"][3]["stats"]["totalDamageDealtToChampions"];
+                mdm.p5Damage = (Int32)mdRecords["participants"][4]["stats"]["totalDamageDealtToChampions"];
+                mdm.p6Damage = (Int32)mdRecords["participants"][5]["stats"]["totalDamageDealtToChampions"];
+                mdm.p7Damage = (Int32)mdRecords["participants"][6]["stats"]["totalDamageDealtToChampions"];
+                mdm.p8Damage = (Int32)mdRecords["participants"][7]["stats"]["totalDamageDealtToChampions"];
+                mdm.p9Damage = (Int32)mdRecords["participants"][8]["stats"]["totalDamageDealtToChampions"];
+                mdm.p10Damage = (Int32)mdRecords["participants"][9]["stats"]["totalDamageDealtToChampions"];
 
                 mdm.p1Gold = (Int32)mdRecords["participants"][0]["stats"]["goldEarned"];
                 mdm.p2Gold = (Int32)mdRecords["participants"][1]["stats"]["goldEarned"];

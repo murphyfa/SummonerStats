@@ -27,15 +27,25 @@ namespace SummonerStats.Models
         public int matchDuration { get; set; }
         public string winner { get; set; }
         public string p1Name { get; set; }
+        public Nullable<long> p1Id { get; set; }
         public string p2Name { get; set; }
+        public Nullable<long> p2Id { get; set; }
         public string p3Name { get; set; }
+        public Nullable<long> p3Id { get; set; }
         public string p4Name { get; set; }
+        public Nullable<long> p4Id { get; set; }
         public string p5Name { get; set; }
+        public Nullable<long> p5Id { get; set; }
         public string p6Name { get; set; }
+        public Nullable<long> p6Id { get; set; }
         public string p7Name { get; set; }
+        public Nullable<long> p7Id { get; set; }
         public string p8Name { get; set; }
+        public Nullable<long> p8Id { get; set; }
         public string p9Name { get; set; }
+        public Nullable<long> p9Id { get; set; }
         public string p10Name { get; set; }
+        public Nullable<long> p10Id { get; set; }
         public int p1Spell1 { get; set; }
         public int p1Spell2 { get; set; }
         public int p2Spell1 { get; set; }

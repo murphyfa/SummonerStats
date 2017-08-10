@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SummonerStatsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SummonerStatsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblMatchDetails">
           <Key>
             <PropertyRef Name="matchIndex" />
@@ -22,15 +22,25 @@
           <Property Name="matchDuration" Type="int" Nullable="false" />
           <Property Name="winner" Type="nvarchar(max)" />
           <Property Name="p1Name" Type="nvarchar(max)" />
+          <Property Name="p1Id" Type="bigint" />
           <Property Name="p2Name" Type="nvarchar(max)" />
+          <Property Name="p2Id" Type="bigint" />
           <Property Name="p3Name" Type="nvarchar(max)" />
+          <Property Name="p3Id" Type="bigint" />
           <Property Name="p4Name" Type="nvarchar(max)" />
+          <Property Name="p4Id" Type="bigint" />
           <Property Name="p5Name" Type="nvarchar(max)" />
+          <Property Name="p5Id" Type="bigint" />
           <Property Name="p6Name" Type="nvarchar(max)" />
+          <Property Name="p6Id" Type="bigint" />
           <Property Name="p7Name" Type="nvarchar(max)" />
+          <Property Name="p7Id" Type="bigint" />
           <Property Name="p8Name" Type="nvarchar(max)" />
+          <Property Name="p8Id" Type="bigint" />
           <Property Name="p9Name" Type="nvarchar(max)" />
+          <Property Name="p9Id" Type="bigint" />
           <Property Name="p10Name" Type="nvarchar(max)" />
+          <Property Name="p10Id" Type="bigint" />
           <Property Name="p1Spell1" Type="int" Nullable="false" />
           <Property Name="p1Spell2" Type="int" Nullable="false" />
           <Property Name="p2Spell1" Type="int" Nullable="false" />
@@ -223,9 +233,20 @@
           <Property Name="assists" Type="int" />
           <Property Name="winner" Type="int" />
         </EntityType>
+        <EntityType Name="tblPlayers">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="bigint" Nullable="false" />
+          <Property Name="SummonerID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityContainer Name="SummonerStatsDBModelStoreContainer">
           <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMatchHistory" EntityType="Self.tblMatchHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPlayers" EntityType="Self.tblPlayers" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -249,15 +270,25 @@
           <Property Name="matchDuration" Type="Int32" Nullable="false" />
           <Property Name="winner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="p1Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p1Id" Type="Int64" />
           <Property Name="p2Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p2Id" Type="Int64" />
           <Property Name="p3Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p3Id" Type="Int64" />
           <Property Name="p4Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p4Id" Type="Int64" />
           <Property Name="p5Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p5Id" Type="Int64" />
           <Property Name="p6Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p6Id" Type="Int64" />
           <Property Name="p7Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p7Id" Type="Int64" />
           <Property Name="p8Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p8Id" Type="Int64" />
           <Property Name="p9Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p9Id" Type="Int64" />
           <Property Name="p10Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="p10Id" Type="Int64" />
           <Property Name="p1Spell1" Type="Int32" Nullable="false" />
           <Property Name="p1Spell2" Type="Int32" Nullable="false" />
           <Property Name="p2Spell1" Type="Int32" Nullable="false" />
@@ -450,16 +481,27 @@
           <Property Name="assists" Type="Int32" />
           <Property Name="winner" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="SummonerStatsDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="tblPlayers">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int64" Nullable="false" />
+          <Property Name="SummonerID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblMatchDetails" EntityType="Self.tblMatchDetails" />
           <EntitySet Name="tblMatchHistory" EntityType="Self.tblMatchHistory" />
+          <EntitySet Name="tblPlayers" EntityType="Self.tblPlayers" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SummonerStatsDBModelStoreContainer" CdmEntityContainer="SummonerStatsDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="SummonerStatsDBModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="tblMatchDetails">
             <EntityTypeMapping TypeName="SummonerStatsDBModel.tblMatchDetails">
               <MappingFragment StoreEntitySet="tblMatchDetails">
@@ -476,15 +518,25 @@
                 <ScalarProperty Name="matchDuration" ColumnName="matchDuration" />
                 <ScalarProperty Name="winner" ColumnName="winner" />
                 <ScalarProperty Name="p1Name" ColumnName="p1Name" />
+                <ScalarProperty Name="p1Id" ColumnName="p1Id" />
                 <ScalarProperty Name="p2Name" ColumnName="p2Name" />
+                <ScalarProperty Name="p2Id" ColumnName="p2Id" />
                 <ScalarProperty Name="p3Name" ColumnName="p3Name" />
+                <ScalarProperty Name="p3Id" ColumnName="p3Id" />
                 <ScalarProperty Name="p4Name" ColumnName="p4Name" />
+                <ScalarProperty Name="p4Id" ColumnName="p4Id" />
                 <ScalarProperty Name="p5Name" ColumnName="p5Name" />
+                <ScalarProperty Name="p5Id" ColumnName="p5Id" />
                 <ScalarProperty Name="p6Name" ColumnName="p6Name" />
+                <ScalarProperty Name="p6Id" ColumnName="p6Id" />
                 <ScalarProperty Name="p7Name" ColumnName="p7Name" />
+                <ScalarProperty Name="p7Id" ColumnName="p7Id" />
                 <ScalarProperty Name="p8Name" ColumnName="p8Name" />
+                <ScalarProperty Name="p8Id" ColumnName="p8Id" />
                 <ScalarProperty Name="p9Name" ColumnName="p9Name" />
+                <ScalarProperty Name="p9Id" ColumnName="p9Id" />
                 <ScalarProperty Name="p10Name" ColumnName="p10Name" />
+                <ScalarProperty Name="p10Id" ColumnName="p10Id" />
                 <ScalarProperty Name="p1Spell1" ColumnName="p1Spell1" />
                 <ScalarProperty Name="p1Spell2" ColumnName="p1Spell2" />
                 <ScalarProperty Name="p2Spell1" ColumnName="p2Spell1" />
@@ -677,6 +729,17 @@
                 <ScalarProperty Name="deaths" ColumnName="deaths" />
                 <ScalarProperty Name="assists" ColumnName="assists" />
                 <ScalarProperty Name="winner" ColumnName="winner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPlayers">
+            <EntityTypeMapping TypeName="SummonerStatsDBModel.tblPlayers">
+              <MappingFragment StoreEntitySet="tblPlayers">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="SummonerID" ColumnName="SummonerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

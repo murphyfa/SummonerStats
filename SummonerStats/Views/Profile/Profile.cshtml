@@ -5,16 +5,25 @@
 }
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <div class="champ-hd" style="background-image:url(@ViewBag.BG)"></div>
+<div id="refreshModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Refreshing the player's data</h3>
+        <p>If this is the first time the player has been updated or if it's been a while, this may take a minute. The page will refresh when finished.</p>
+        @{ string poroLoad = "~/img/poro_load.gif";}
+        <img id="poro-loading" src="@Url.Content(poroLoad)" />
+    </div>
+</div>
 <div class="container" id="profile-header">
     @{
-        string profileIcon = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/" + Model.playerProfile.profileIconId + ".png";
+        string profileIcon = "~/img/profileicon/" + Model.playerProfile.profileIconId + ".png";
     }
-    <img id="sum-icon" src="@profileIcon" />
+    <img id="sum-icon" src="@Url.Content(profileIcon)" />
     <div class="name-div">
         <h1 id="player-name">@Model.playerProfile.name</h1>
         <div class="s-lvl">Level @Model.playerProfile.summonerLevel</div>
         <div id="update-player">
-            @Ajax.ActionLink("Refresh", "UpdatePlayer", new { searchName = Model.playerProfile.name }, new AjaxOptions()
+            @Ajax.ActionLink("Refresh", "UpdatePlayer", new { searchName = Model.playerProfile.name, firstUpdate = Model.firstLoad, accountID = Model.playerProfile.accountId }, new AjaxOptions()
         {
             HttpMethod = "GET",
             AllowCache = false,
@@ -24,6 +33,21 @@
                 <img src="~/img/loading.gif" height="27" width="27" />
             </div>
         </div>
+        @{ 
+            string updateStamp = "Never";
+            if (Model.lastUpdate > 0 && Model.lastUpdate < 60)
+            {
+                updateStamp = Model.lastUpdate.ToString() + " seconds ago";
+            }
+            else if (Model.lastUpdate >= 60 && Model.lastUpdate < 3600) {
+                updateStamp = (Model.lastUpdate / 60).ToString() + " minutes ago";
+            }
+            else if (Model.lastUpdate >= 3600)
+            {
+                updateStamp = (Model.lastUpdate / 3600).ToString() + " hours ago";
+            }
+                }
+        <span class="update-time">Last Updated: @updateStamp</span>
 
     </div>
 </div>
@@ -55,8 +79,7 @@
                 if (Model.mh.topChampOne != null) {
             <div class="top-champs">
                 <div class="top-champs-hd">
-                    <span class="top-champs-title">Most Played Champions</span>
-                    <span> (Season 7)</span>
+                    <span class="top-champs-title">Recently Played Champions</span>
                 </div>
 
                 <table class="centered tc-table">
@@ -156,7 +179,7 @@
                         SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
                         SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
                         Model.matchDetails = mdm.PullMatch(match.matchId);
-                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+                        int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.accountId);
 
                         if (Model.matchDetails.First().winner == "Team1" && playerStats[15] == 1 || Model.matchDetails.First().winner == "Team2" && playerStats[15] == 0)
                         {
@@ -238,7 +261,7 @@
                     SummonerStats.Models.tblMatchDetails mdm = new SummonerStats.Models.tblMatchDetails();
                     SummonerStats.Controllers.ProfileController pc = new SummonerStats.Controllers.ProfileController();
                     Model.matchDetails = mdm.PullMatch(match.matchId);
-                    int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+                    int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.accountId);
 
                     if (playerStats[15] == 1)
                     {
@@ -308,6 +331,24 @@
         })
     })*@
 
+    // Get the modal
+    var modal = document.getElementById('refreshModal');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
     $(document).ready(function () {
         if ($('#player-name').text() == 'The player was not found') {
             $('#update-player').hide();
@@ -317,6 +358,7 @@
     $(document).on('click', '#update-link', function () {
         $('#update-link').hide();
         $('#update-img').show();
+        $('#refreshModal').show();
     })
 
     $("body").tooltip({

@@ -9,9 +9,10 @@
 
         foreach (var match in Model.matchHistory)
         {
+            //System.Diagnostics.Debug.WriteLine("ADDING MATCH " + match.matchId);
             Model.matchDetails = mdm.PullMatch(match.matchId);
 
-            int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.name);
+            int[] playerStats = pc.FindViewPlayer(Model.matchDetails, Model.playerProfile.accountId);
             string playerChamp = pc.ChampById(playerStats[1]);
             string pIcon = "~/img/champion/" + playerChamp.Replace(" ", "").Replace("'", "").Replace(".", "") + ".png";
             string kda;
@@ -182,7 +183,7 @@
     <div class="win-lose @winLoseHD">
         @{ 
             string duration = TimeSpan.FromSeconds(Model.matchDetails.First().matchDuration).ToString(@"mm\:ss");
-            DateTime matchDate = pc.ConvertTimeStamp(match.timestamp);
+            string matchDate = pc.ConvertTimeStamp(match.timestamp);
         }
         <span class="mh-wl-span">@winLose - @duration</span>
         <span class="mh-date">@matchDate</span>

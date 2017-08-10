@@ -8,26 +8,52 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summoner Stats</title>
+    <meta name="description" content="Summoner Stats provides detailed statistics for League of Legends ranked gameplay." />
+    <meta name="keywords" content="League of Legends Stats, LoL Guide, Summoner Stats, Statistics, LoL Spectate, Leaderboards, Chart, Champion Guide, Champion Build, LOLKing, Champion Counter, OP.GG" />
+    <title>Summoner Stats - League of Legends Ranked Stats</title>
     @Styles.Render("~/Content/home")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
     <div class="home-bg"></div>
-    <div class="container home-search">
-        <h1 class="title">Summoner Stats</h1>
-        @using (Html.BeginForm("Search", "Profile", new { id = "search-fld" }, FormMethod.Get))
-        {
-            <form>
-                <input type="text" placeholder="Summoner Name" id="search-fld" name="searchName" />
-                <input type="submit" value="Search" id="search-btn" />
-            </form>
-        }
+    <div class="container search-cont">
+        <div class="row" style="height:100%">
+            <div class="search-div">
+                <h1 class="title">Summoner Stats</h1>
+                @using (Html.BeginForm("Search", "Profile", new { id = "search-fld" }, FormMethod.Get))
+            {
+                    <form>
+                        <input type="text" placeholder="Summoner Name" id="search-fld" name="searchName" />
+                        <input type="submit" value="Search" id="search-btn" />
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container about-section">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-2" style="padding-top: 20px;">
+                @{ string exampleIMG = "~/img/about_stats.png";}
+                <h4>Detailed Player Stats</h4>
+                <a href="http://summonerstats.net/Profile/Search/search-fld?searchName=annie+and+bear"><img class="about-img" src="@Url.Content(exampleIMG)"/></a>
+                <p style="padding-top:10px">Details of a player's rank, most played champions and players they often play with. <a href="http://summonerstats.net/Profile/Search/search-fld?searchName=annie+and+bear">Check out an example profile!</a></p>
+            </div>
+            <div class="col-sm-4" style="padding-top: 20px;">
+                @{ string exampleIMGTwo = "~/img/about_matches.png";}
+                <h4>Match History</h4>
+                <a href="http://summonerstats.net/Profile/Search/search-fld?searchName=later+hater"><img class="about-img" src="@Url.Content(exampleIMGTwo)" /></a>
+                <p style="padding-top:10px">Detailed match history for every ranked game played. <a href="http://summonerstats.net/Profile/Search/search-fld?searchName=later+hater">Check out an example profile!</a></p>
+            </div>
+        </div>
     </div>
 
     <div class="container footer">
-        Summoner Stats isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+        <div class="row">
+            Summoner Stats isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+        </div>
     </div>
 
 

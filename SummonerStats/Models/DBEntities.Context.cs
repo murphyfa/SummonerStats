@@ -13,10 +13,10 @@ namespace SummonerStats.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SummonerStatsDBEntities1 : DbContext
+    public partial class Entities : DbContext
     {
-        public SummonerStatsDBEntities1()
-            : base("name=SummonerStatsDBEntities1")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -27,5 +27,6 @@ namespace SummonerStats.Models
     
         public virtual DbSet<tblMatchDetails> tblMatchDetails { get; set; }
         public virtual DbSet<tblMatchHistory> tblMatchHistory { get; set; }
+        public virtual DbSet<tblPlayers> tblPlayers { get; set; }
     }
 }
