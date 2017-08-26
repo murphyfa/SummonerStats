@@ -41,8 +41,8 @@ namespace SummonerStats.Models
 
             string profileURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + playerToFind + "?api_key=" + apiKey;
 
-            try
-            {
+            //try
+            //{
                 using (var client = new WebClient() { Encoding = Encoding.UTF8 })
                 {
                     //basic profile info
@@ -55,39 +55,52 @@ namespace SummonerStats.Models
                     profileIconId = (Int32)profileStats["profileIconId"];
                     summonerLevel = (Int32)profileStats["summonerLevel"];
 
-                    try
-                    {
+                    //try
+                    //{
                         //info from leagues request
-                        //string leagueURL = "https://na1.api.riotgames.com/lol/league/v3/leagues/by-summoner/" + id + "?api_key=" + apiKey;
                         string leagueURL = "https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/" + id + "?api_key=" + apiKey;
-                        //league v3 doesn't seem to return anything for some players currently and v2.5 isn't marked for deprecation yet
                         string leagueData = client.DownloadString(leagueURL);
-                        leagueData = leagueData.TrimStart(new char[] { '[' }).TrimEnd(new char[] { ']' });
+                        leagueData = "{\"ranks\":" + leagueData + "}";
                         JObject leagueStats = JObject.Parse(leagueData);
+                        
+                        if ((string)leagueStats["ranks"][0]["queueType"] == "RANKED_SOLO_5x5")
+                        {
+                            group = (string)leagueStats["ranks"][0]["leagueName"];
+                            leaguePoints = (int)leagueStats["ranks"][0]["leaguePoints"];
+                            league = (string)leagueStats["ranks"][0]["tier"];
+                            division = (string)leagueStats["ranks"][0]["rank"];
+                            wins = (int)leagueStats["ranks"][0]["wins"];
+                            losses = (int)leagueStats["ranks"][0]["losses"];
+                        }
+                        else if ((string)leagueStats["ranks"][1]["queueType"] == "RANKED_SOLO_5x5")
+                        {
+                            group = (string)leagueStats["ranks"][1]["leagueName"];
+                            leaguePoints = (int)leagueStats["ranks"][1]["leaguePoints"];
+                            league = (string)leagueStats["ranks"][1]["tier"];
+                            division = (string)leagueStats["ranks"][1]["rank"];
+                            wins = (int)leagueStats["ranks"][1]["wins"];
+                            losses = (int)leagueStats["ranks"][1]["losses"];
+                        }
+                        else
+                        {
+                            group = "";
+                            leaguePoints = 0;
+                            league = "UNRANKED";
+                            division = "";
+                            wins = 0;
+                            losses = 0;
+                        }
 
-                        //group = (string)leagueStats[id.ToString()][0]["name"];
-                        //leaguePoints = (Int32)leagueStats[id.ToString()][0]["entries"][0]["leaguePoints"];
-                        //league = (string)leagueStats[id.ToString()][0]["tier"];
-                        //division = (string)leagueStats[id.ToString()][0]["entries"][0]["division"];
-                        //wins = (Int32)leagueStats[id.ToString()][0]["entries"][0]["wins"];
-                        //losses = (Int32)leagueStats[id.ToString()][0]["entries"][0]["losses"];
-
-                        group = (string)leagueStats["leagueName"];
-                        leaguePoints = (int)leagueStats["leaguePoints"];
-                        league = (string)leagueStats["tier"];
-                        division = (string)leagueStats["rank"];
-                        wins = (int)leagueStats["wins"];
-                        losses = (int)leagueStats["losses"];
-                    }
-                    catch
-                    {
-                        group = "";
-                        leaguePoints = 0;
-                        league = "UNRANKED";
-                        division = "";
-                        wins = 0;
-                        losses = 0;
-                    }
+                    //}
+                    //catch
+                    //{
+                    //    group = "";
+                    //    leaguePoints = 0;
+                    //    league = "UNRANKED";
+                    //    division = "";
+                    //    wins = 0;
+                    //    losses = 0;
+                    //}
 
                 }
 
@@ -111,11 +124,11 @@ namespace SummonerStats.Models
                 //    var player = db.Players.Where(n => n.AccountID == accountId).Select(n => n.Name);
                 //    System.Diagnostics.Debug.WriteLine("PLAYER NEEDS TO BE UPDATED: " + player.ToList().ToString());
                 //}
-            }
-            catch
-            {
-                name = "The player was not found";
-            }
+            //}
+            //catch
+            //{
+            //    name = "The player was not found";
+            //}
 
             return id;
         }

@@ -77,7 +77,7 @@ namespace SummonerStats.Models
         {
             MatchHistoryDBContext db = new MatchHistoryDBContext();
 
-            string mhURL = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + "?season=8&api_key=RGAPI-62b5d58e-b1bf-4667-be65-b901aa5e89cc";
+            string mhURL = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + "?season=9&api_key=RGAPI-62b5d58e-b1bf-4667-be65-b901aa5e89cc";
 
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
@@ -166,7 +166,7 @@ namespace SummonerStats.Models
             //if we have no matches stored, start at beginning of season 7, otherwise only since most recent
             if (firstUpdate == true)
             {
-                mhURL = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + "?season=8&api_key=" + apiKey;
+                mhURL = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + "?season=9&api_key=" + apiKey;
             }
             else
             {

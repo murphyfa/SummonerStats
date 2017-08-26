@@ -392,6 +392,7 @@
     <Content Include="img\champion\Nunu.png" />
     <Content Include="img\champion\Olaf.png" />
     <Content Include="img\champion\Orianna.png" />
+    <Content Include="img\champion\Ornn.png" />
     <Content Include="img\champion\Pantheon.png" />
     <Content Include="img\champion\Poppy.png" />
     <Content Include="img\champion\Quinn.png" />
@@ -840,6 +841,7 @@
     <Content Include="img\passive\Fiddlesticks_Passive.png" />
     <Content Include="img\passive\Fiora_P.png" />
     <Content Include="img\passive\Fizz_P.png" />
+    <Content Include="img\passive\Galio_Passive.png" />
     <Content Include="img\passive\Galio_RunicSkin.png" />
     <Content Include="img\passive\Gangplank_Passive.png" />
     <Content Include="img\passive\Garen_Passive.png" />
@@ -864,6 +866,7 @@
     <Content Include="img\passive\Kassadin_Passive.png" />
     <Content Include="img\passive\Katarina_Passive.png" />
     <Content Include="img\passive\Kayle_Passive.png" />
+    <Content Include="img\passive\Kayn_Passive_Primary.png" />
     <Content Include="img\passive\Kennen_Passive.png" />
     <Content Include="img\passive\Khazix_P.png" />
     <Content Include="img\passive\Kindred_Passive.png" />
@@ -890,9 +893,11 @@
     <Content Include="img\passive\Nocturne_UmbraBlades.png" />
     <Content Include="img\passive\Olaf_Passive.png" />
     <Content Include="img\passive\OriannaPassive.png" />
+    <Content Include="img\passive\OrnnP.png" />
     <Content Include="img\passive\Pantheon_AOZ.png" />
     <Content Include="img\passive\Poppy_Passive.png" />
     <Content Include="img\passive\Quinn_Passive.png" />
+    <Content Include="img\passive\Rakan_P.png" />
     <Content Include="img\passive\RekSai_Passive.png" />
     <Content Include="img\passive\Renekton_Predator.png" />
     <Content Include="img\passive\Rengar_P.png" />
@@ -932,7 +937,9 @@
     <Content Include="img\passive\ViPassive.png" />
     <Content Include="img\passive\VladimirP.png" />
     <Content Include="img\passive\VolibearPassive.png" />
+    <Content Include="img\passive\WarwickP.png" />
     <Content Include="img\passive\Warwick_InnerHunger.png" />
+    <Content Include="img\passive\XayahPassive.png" />
     <Content Include="img\passive\Xerath_Passive1.png" />
     <Content Include="img\passive\XinZhao_TirelessWarrior.png" />
     <Content Include="img\passive\Yasuo_Passive.png" />
@@ -1588,6 +1595,7 @@
     <Content Include="img\profileicon\3002.png" />
     <Content Include="img\profileicon\3003.png" />
     <Content Include="img\profileicon\3004.png" />
+    <Content Include="img\profileicon\3147.png" />
     <Content Include="img\profileicon\4.png" />
     <Content Include="img\profileicon\5.png" />
     <Content Include="img\profileicon\501.png" />
