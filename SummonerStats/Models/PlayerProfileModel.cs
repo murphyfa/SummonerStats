@@ -41,8 +41,8 @@ namespace SummonerStats.Models
 
             string profileURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + playerToFind + "?api_key=" + apiKey;
 
-            //try
-            //{
+            try
+            {
                 using (var client = new WebClient() { Encoding = Encoding.UTF8 })
                 {
                     //basic profile info
@@ -55,14 +55,14 @@ namespace SummonerStats.Models
                     profileIconId = (Int32)profileStats["profileIconId"];
                     summonerLevel = (Int32)profileStats["summonerLevel"];
 
-                    //try
-                    //{
+                    try
+                    {
                         //info from leagues request
                         string leagueURL = "https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/" + id + "?api_key=" + apiKey;
                         string leagueData = client.DownloadString(leagueURL);
                         leagueData = "{\"ranks\":" + leagueData + "}";
                         JObject leagueStats = JObject.Parse(leagueData);
-                        
+
                         if ((string)leagueStats["ranks"][0]["queueType"] == "RANKED_SOLO_5x5")
                         {
                             group = (string)leagueStats["ranks"][0]["leagueName"];
@@ -91,16 +91,16 @@ namespace SummonerStats.Models
                             losses = 0;
                         }
 
-                    //}
-                    //catch
-                    //{
-                    //    group = "";
-                    //    leaguePoints = 0;
-                    //    league = "UNRANKED";
-                    //    division = "";
-                    //    wins = 0;
-                    //    losses = 0;
-                    //}
+                    }
+                    catch
+                    {
+                        group = "";
+                        leaguePoints = 0;
+                        league = "UNRANKED";
+                        division = "";
+                        wins = 0;
+                        losses = 0;
+                    }
 
                 }
 
@@ -124,11 +124,11 @@ namespace SummonerStats.Models
                 //    var player = db.Players.Where(n => n.AccountID == accountId).Select(n => n.Name);
                 //    System.Diagnostics.Debug.WriteLine("PLAYER NEEDS TO BE UPDATED: " + player.ToList().ToString());
                 //}
-            //}
-            //catch
-            //{
-            //    name = "The player was not found";
-            //}
+            }
+            catch
+            {
+                name = "The player was not found";
+            }
 
             return id;
         }

@@ -128,28 +128,31 @@ namespace SummonerStats.Models
                         long matchID = (Int64)mhRecords["matches"][i]["gameId"];
                         long lastTimestamp = (Int64)mhRecords["matches"][i]["timestamp"];
 
-                        if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
+                        if ((string)mhRecords["matches"][i]["queue"] == "420")
                         {
-                            IEnumerable<tblMatchDetails> matchDetails = mdm.PullMatch(matchID);
-                            int[] playerStats = pc.FindViewPlayer(matchDetails, accountId);
+                            if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
+                            {
+                                IEnumerable<tblMatchDetails> matchDetails = mdm.PullMatch(matchID);
+                                int[] playerStats = pc.FindViewPlayer(matchDetails, accountId);
 
-                            mhm.id = sumID;
-                            mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
-                            mhm.champion = (Int32)mhRecords["matches"][i]["champion"];
-                            mhm.region = (string)mhRecords["matches"][i]["platformId"];
-                            mhm.queue = (string)mhRecords["matches"][i]["queue"];
-                            mhm.season = (string)mhRecords["matches"][i]["season"];
-                            mhm.matchId = (Int64)mhRecords["matches"][i]["gameId"];
-                            mhm.role = (string)mhRecords["matches"][i]["role"];
-                            mhm.platformId = (string)mhRecords["matches"][i]["platformId"];
-                            mhm.lane = (string)mhRecords["matches"][i]["lane"];
-                            mhm.kills = playerStats[4];
-                            mhm.deaths = playerStats[5];
-                            mhm.assists = playerStats[6];
-                            mhm.winner = playerStats[15];
+                                mhm.id = sumID;
+                                mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
+                                mhm.champion = (Int32)mhRecords["matches"][i]["champion"];
+                                mhm.region = (string)mhRecords["matches"][i]["platformId"];
+                                mhm.queue = (string)mhRecords["matches"][i]["queue"];
+                                mhm.season = (string)mhRecords["matches"][i]["season"];
+                                mhm.matchId = (Int64)mhRecords["matches"][i]["gameId"];
+                                mhm.role = (string)mhRecords["matches"][i]["role"];
+                                mhm.platformId = (string)mhRecords["matches"][i]["platformId"];
+                                mhm.lane = (string)mhRecords["matches"][i]["lane"];
+                                mhm.kills = playerStats[4];
+                                mhm.deaths = playerStats[5];
+                                mhm.assists = playerStats[6];
+                                mhm.winner = playerStats[15];
 
-                            db.MatchHistory.Add(mhm);
-                            db.SaveChanges();
+                                db.MatchHistory.Add(mhm);
+                                db.SaveChanges();
+                            }
                         }
                     }
                 }
@@ -212,33 +215,35 @@ namespace SummonerStats.Models
                         long matchID = (Int64)mhRecords["matches"][i]["gameId"];
                         long lastTimestamp = (Int64)mhRecords["matches"][i]["timestamp"];
 
-                        if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
+                        if ((string)mhRecords["matches"][i]["queue"] == "420")
                         {
-                            IEnumerable<tblMatchDetails> matchDetails = mdm.PullMatch(matchID);
-                            int[] playerStats = pc.FindViewPlayer(matchDetails, accountId);
+                            if (db.MatchHistory.Where(u => u.id == sumID && u.timestamp == lastTimestamp).ToList().Count() == 0)
+                            {
+                                IEnumerable<tblMatchDetails> matchDetails = mdm.PullMatch(matchID);
+                                int[] playerStats = pc.FindViewPlayer(matchDetails, accountId);
 
-                            mhm.id = sumID;
-                            mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
-                            mhm.champion = (Int32)mhRecords["matches"][i]["champion"];
-                            mhm.region = (string)mhRecords["matches"][i]["platformId"];
-                            mhm.queue = (string)mhRecords["matches"][i]["queue"];
-                            mhm.season = (string)mhRecords["matches"][i]["season"];
-                            mhm.matchId = (Int64)mhRecords["matches"][i]["gameId"];
-                            mhm.role = (string)mhRecords["matches"][i]["role"];
-                            mhm.platformId = (string)mhRecords["matches"][i]["platformId"];
-                            mhm.lane = (string)mhRecords["matches"][i]["lane"];
-                            mhm.kills = playerStats[4];
-                            mhm.deaths = playerStats[5];
-                            mhm.assists = playerStats[6];
-                            mhm.winner = playerStats[15];
+                                mhm.id = sumID;
+                                mhm.timestamp = (Int64)mhRecords["matches"][i]["timestamp"];
+                                mhm.champion = (Int32)mhRecords["matches"][i]["champion"];
+                                mhm.region = (string)mhRecords["matches"][i]["platformId"];
+                                mhm.queue = (string)mhRecords["matches"][i]["queue"];
+                                mhm.season = (string)mhRecords["matches"][i]["season"];
+                                mhm.matchId = (Int64)mhRecords["matches"][i]["gameId"];
+                                mhm.role = (string)mhRecords["matches"][i]["role"];
+                                mhm.platformId = (string)mhRecords["matches"][i]["platformId"];
+                                mhm.lane = (string)mhRecords["matches"][i]["lane"];
+                                mhm.kills = playerStats[4];
+                                mhm.deaths = playerStats[5];
+                                mhm.assists = playerStats[6];
+                                mhm.winner = playerStats[15];
 
-                            db.MatchHistory.Add(mhm);
-                            db.SaveChanges();
+                                db.MatchHistory.Add(mhm);
+                                db.SaveChanges();
+                            }
                         }
                     }
                 }
             }
-
         }
 
         public void TopChamps(long summonerID)

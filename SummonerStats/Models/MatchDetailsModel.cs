@@ -22,14 +22,15 @@ namespace SummonerStats.Models
             {
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
                 //System.Diagnostics.Debug.WriteLine("Match " + matchID + " found in database!");
-            } else
+            }
+            else
             {
                 //System.Diagnostics.Debug.WriteLine("No match " + matchID + " found, retrieving data!");
                 UpdateMatch(matchID);
                 matchDetails = db.MatchDetails.Where(u => u.matchId == matchID).ToList();
                 //System.Threading.Thread.Sleep(5000);
             }
-         
+
             return matchDetails;
         }
 
@@ -287,8 +288,8 @@ namespace SummonerStats.Models
                 db.MatchDetails.Add(mdm);
                 db.SaveChanges();
                 System.Diagnostics.Debug.WriteLine("Match added to database");
-    }
-}
+            }
+        }
     }
 
     public class MatchDetailsDBContext : DbContext
