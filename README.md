@@ -1,5 +1,4 @@
 # SummonerStats
-# Work in Progress
 
 The Summoner Stats website allows you to search for a League of Legends player and it displays a profile page for them including information about previous games played, ranking, most played champions and more.
 
@@ -8,6 +7,6 @@ When a player is searched for, the player's basic info is retrieved from the API
 
 This project is built on the ASP.NET framework, following MVC design. Data is pulled from the Riot Games REST API (JSON). 
 
-A demo of current functionality is available here: http://summonerstats.azurewebsites.net/Profile/Search/search-fld?searchName=mount+swolemore
+Example: http://summonerstats.net/Profile/Search/search-fld?searchName=annie+and+bear
 
 Please note that I am still using a developer API key, so requests are very limited and navigating profiles may throw errors for too many requests. Once completed, a production API key will alleviate this, as well as functionality I plan to implement to minimize API requests.
